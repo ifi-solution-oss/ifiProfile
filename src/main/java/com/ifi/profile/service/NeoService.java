@@ -5,6 +5,7 @@ import static org.neo4j.driver.Values.parameters;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Stream;
 
 import org.neo4j.driver.AuthTokens;
 import org.neo4j.driver.Driver;
@@ -176,25 +177,26 @@ public class NeoService {
     		String tmpDestination = "(m :"+node.getTypeNode().substring(node.getTypeNode().indexOf(",")+1, node.getTypeNode().length());
     		tmpDestination += ")";
     		// create the condition 
-    		String tmpCondition = "WHERE "+node.getLabelNode()+".";
+    		String tmpCondition = "WHERE n.";
     		if((node.getListFields()!=null)&&(!"".equals(node.getListFields()))){
     			for(Field field : node.getListFields()){
-    				String tmpStr = field.getKey() + ": \'" + field.getValue() + "\',";
+    				String tmpStr = field.getKey() + "= \'" + field.getValue()+ "\'";
     				tmpCondition += tmpStr;
+    				if(field.getKey().equals("name")||field.getKey().equals("chargeid")||field.getKey().equals("id")){
+    					break;
+    				}
     			}
-    			if(",".equals(tmpCondition.substring(tmpCondition.length() - 1))){
-    				tmpCondition = tmpCondition.substring(0, tmpCondition.length() - 1);
-        		}
+    			
     		}
-    		tmpCondition += "AND "+node.getLabelNode()+".";
+    		tmpCondition += "AND m.";
     		if((node.getListFields()!=null)&&(!"".equals(node.getListFields()))){
     			for(Field field : node.getListFields()){
-    				String tmpStr = field.getKey() + ": \'" + field.getValue() + "\',";
+    				String tmpStr = field.getKey() + "= \'" + field.getValue() + "\'";
+    				
+    				System.out.println(tmpStr);
     				tmpCondition += tmpStr;
     			}
-    			if(",".equals(tmpCondition.substring(tmpCondition.length() - 1))){
-    				tmpCondition = tmpCondition.substring(0, tmpCondition.length() - 1);
-        		}
+    			
     		}
     		// create the relationship 
     		String tmpRelation = "CREATE (n)-[r:";
@@ -203,6 +205,7 @@ public class NeoService {
     			tmpRelation += tmpStr;
     		}
     		String tmpQuery = tmpSource + tmpDestination + tmpCondition + tmpRelation;
+    		System.out.println(tmpQuery);
     		try(Transaction tx = session.beginTransaction()){
     			tx.run(tmpQuery);
     			tx.success();
@@ -220,7 +223,7 @@ public class NeoService {
     	try(Session session = driver.session()){
     		String tmpSource = "MATCH (n :"+node.getTypeNode().substring(0, node.getTypeNode().indexOf(","));
     		tmpSource += ")-[r]->";
-    		String tmpDestination = "(m :"+node.getTypeNode().substring(node.getTypeNode().indexOf(",")+1, node.getTypeNode().length());
+    		String tmpDestination = "(t :"+node.getTypeNode().substring(node.getTypeNode().indexOf(",")+1, node.getTypeNode().length());
     		if((node.getListFields()!=null)&&(!"".equals(node.getListFields()))){
     			tmpDestination += " {";
     			for(Field field : node.getListFields()){
@@ -233,8 +236,11 @@ public class NeoService {
     			tmpDestination += "}";
         	}
     		tmpDestination += ")";
-    		String tmpCondition = " WHERE type(r) = \'" + node.getRelation() + "\' RETURN n AS obj" ;
+    		String tmpCondition = " WHERE type(r) = \'" + node.getRelation() + "\'" ;
     		String tmpQuery = tmpSource + tmpDestination + tmpCondition;
+    		String tmpDetail = "\n MATCH (t)-[]->(p:Project)";
+    		tmpDetail += "\n MATCH (n)-[]->(p) RETURN n AS obj, count(p) AS count";
+    		tmpQuery += tmpDetail;
     		System.out.println("tmpQuery: "+tmpQuery);
     		StatementResult result = session.run(tmpQuery);
     		while(result.hasNext()){
@@ -243,9 +249,10 @@ public class NeoService {
     			Record record = result.next();
     			// Values can be extracted from a record by index or name.
     			try {
-    				
+    				// add count - count number of project that the person joined
+    				tmpNode.setCount(record.get("count").asInt());
     				// add info taken from record to tmpMap
-					Map<String, Object> tmpMap = record.get("obj").asMap();
+    				Map<String, Object> tmpMap = record.get("obj").asMap();
 					if(tmpMap.get("name") != null){
 						tmpNode.setLabelNode(tmpMap.get("name").toString());
 					}
@@ -270,7 +277,7 @@ public class NeoService {
     }
     
     // get information of two relationship, advance search node by relationship
-    // Query
+    // Query:
 //    match (a:Person)-[]->(t:Technology{name:"Java"})
 //    match (t)-[]->(p:Project)
 //    match (a)-[]->(p)

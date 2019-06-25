@@ -11,6 +11,16 @@ public class Node {
 	
 	private String relation;
 	
+	private int count;
+	
+	public int getCount() {
+		return count;
+	}
+
+	public void setCount(int count) {
+		this.count = count;
+	}
+
 	public String getRelation() {
 		return relation;
 	}

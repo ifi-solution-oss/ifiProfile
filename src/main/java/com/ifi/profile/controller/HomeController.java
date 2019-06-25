@@ -92,7 +92,6 @@ public class HomeController {
 	@RequestMapping(value = "/deleteNode", method = RequestMethod.GET)
 	public ModelAndView deleteNode(@Validated Node node){
 		NeoService neoService = new NeoService(Constants.URL_IFI, Constants.USER_IFI, Constants.PASS_IFI);
-		//update data
 		if((!"".equals(node.getTypeNode()))&&(node.getTypeNode()!=null)&&(node.getLabelNode()!=null)&&(!"".equals(node.getLabelNode()))){
 			neoService.deleteNode(node);
 		} else {

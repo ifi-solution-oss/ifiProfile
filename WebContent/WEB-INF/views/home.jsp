@@ -126,8 +126,9 @@ body {
 				</form>
 				</div>
 				<div class="col-sm-6">
+				<button id="btn-relate">Create Relationship</button>
 				<form id="form" action="add" method="post">
-					<input type="submit" value="Create Node"><br>
+					<br><input type="submit" value="Create Node"><br>
 					<p>Type Node:</p>
 					<input type="text" name="typeNode"><br>
 					<p>Label Node:</p>
@@ -155,6 +156,7 @@ body {
 						  <td>${listValue.labelNode}</td>
 						  <td><button class="btn-remove"><i class="fas fa-trash-alt"></i></button></td>
 						  <td><button class="btn-update" ><i class="fas fa-pen"></i></button></td>
+						  <td><button class="btn-relation" ><i class="fas fa-plus"></i></button></td>
 				      </tr>
 				      </c:forEach>
 				    </tbody>
@@ -266,6 +268,35 @@ function addSearchField() {
 		i++;
 	}
 	
+	function addRelationField() {
+		
+		var x = document.createElement("INPUT");
+		tmpName = "listFields["+i+"].";
+		x.setAttribute("type", "text");
+		x.setAttribute("name", tmpName+"key");
+		x.setAttribute("id","property-key"+i);
+		console.log(x);
+		var y = document.createElement("INPUT");
+		tmpName = "listFields["+i+"].";
+		y.setAttribute("type", "text");
+		y.setAttribute("name", tmpName+"value");
+		y.setAttribute("id","property-value"+i);
+
+		var elem = document.createElement('br');
+		elem.setAttribute("id","property-br"+i); 
+ 
+		var form = document.getElementById("formRelate");
+		form.appendChild(x);
+		form.appendChild(y);
+		var newlabel = document.createElement("Label");
+	    newlabel.innerHTML = "Delete";
+	    newlabel.setAttribute("onclick","deleteField("+i+")");
+	    newlabel.setAttribute("id","property-label"+i);
+	    form.appendChild(newlabel);
+		form.appendChild(elem);
+		i++;
+	}
+	
 	function deleteField(i) {
 		
 		document.getElementById("property-label"+i).remove();
@@ -309,7 +340,7 @@ function addSearchField() {
         // update node
        
         $(document).on('click','.btn-update',function(event){
-        	
+        	$()
         	$("#updateModal").modal('show');
         })
         
@@ -320,7 +351,12 @@ function addSearchField() {
         		tr.remove();
         	}
         })
-    });
+        
+        // create relationship
+        $(document).on('click','#btn-relate',function(event){
+        	$('#relateModal').modal('show');
+        })
+	})
 	
 
 	</script>
@@ -379,6 +415,69 @@ function addSearchField() {
 	  </div>
 	</div>
 
+	<!-- Modal delete -->
+	<div class="modal fade" id="deleteModal">
+	  <div class="modal-dialog modal-dialog-centered">
+	    <div class="modal-content">
+	      <!-- Modal Header -->
+	      <div class="modal-header">
+	        <h4 id="name-node" class="modal-title">Node Detail</h4>
+	        <button type="button" class="close" data-dismiss="modal">&times;</button>
+	      </div>
+	      <!-- Modal body -->
+	      <div id="delete-body" class="modal-body">
+	        <form id="formDelete" action="deleteNode" method="get">
+	        	<p>Do you want to delete?</p>
+				<input class="btn-save" type="submit" value="Delete"><br>
+			</form>
+	      </div>
+	      <!-- Modal footer -->
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	
+	<!-- Modal create relationship -->
+	<div class="modal fade" id="relateModal">
+	  <div class="modal-dialog modal-lg modal-dialog-centered">
+	    <div class="modal-content">
+	      <!-- Modal Header -->
+	      <div class="modal-header">
+	        <h4 id="name-node" class="modal-title">Add Relationship</h4>
+	        <button type="button" class="close" data-dismiss="modal">&times;</button>
+	      </div>
+	      <!-- Modal body -->
+	      <div id="relate-body" class="modal-body">
+	      	<form id="formRelate" action="relation" method="get">
+				<input class="btn-save" type="submit" value="Create Relationship"><br><br>
+				<select name="typeNode">
+					<option >----Node Source----</option>
+					<option value="Person">Person</option>
+					<option value="Project">Project</option>
+					<option value="Department">Department</option>
+					<option value="Technology">Technology</option>
+				</select>
+				<input type="text" name="relation" placeholder="Enter Relationship">
+				<select name="typeNode">
+					<option value="">----Destination----</option>
+					<option value="Person">Person</option>
+					<option value="Project">Project</option>
+					<option value="Department">Department</option>
+					<option value="Technology">Technology</option>
+				</select>
+			</form>
+				<button id="addBtn" onclick="addRelationField()">Add Source node</button><br>
+				<br><button id="addBtn" onclick="addRelationField()">Add Destination node</button>
+	      </div>
+	      <!-- Modal footer -->
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
 	
 	<script>
 		function openTab(evt, tabName){

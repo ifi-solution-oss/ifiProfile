@@ -4,11 +4,10 @@
 <%@ page session="false"%>
 <html>
 <head>
-<title>Search Node By Name</title>
+<title>Update</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
@@ -17,46 +16,90 @@
 </head>
 <body>
 	<div class="container">
+	<h2>Update form</h2>
 		<div class="row">
 			<div class="col-sm-6">
-				<c:if test="${not empty lists}">
-					<h4>List Nodes:</h4>
-					<table class="table table-hover table-bordered table-striped">
+				<form id="form" action="update" method="post">
+					<input type="submit" value="Save"><br>
+					<p>Type Node:</p>
+					<input type="text" name="typeNode" id="type-node"><br>
+					<p>Label Node:</p>
+					<input type="text" name="labelNode" id="label-node"><br>
+					<p>Properties:</p>
+				</form>
+				<button id="addBtn" onclick="addField()">Add Field</button><br>
+			</div>
+			<div class="col-sm-6">
+				<table class="table table-hover table-bordered table-striped">
 					<thead>
 				      <tr>
 				        <th>No</th>
 				        <th class="col-md-1">Name</th>
-				        <th>${node.relation}</th>
-				        <th>Project</th>
 				      </tr>
 				    </thead>
 				    <tbody>
 				    <!-- use two-dimensional array to get value of node and field -->
-				      <c:forEach var="listValue" items="${lists}" varStatus="count">
+				      <c:forEach var="listValue" items="${listUpdate}" varStatus="count">
 				      <tr data-toggle="modal" data-target="#ifiModal" class="idClass" data-id="${listValue.labelNode}" 
 	      					data-list="<c:forEach var="field" items="${listValue.listFields}">${field.key}:${field.value}*+*+</c:forEach>">
 						  <td>${count.index+1}</td>
-						  <td>${listValue.labelNode}</td>
-						  <td><i class="fas fa-check"></i></td>
-						  <td>${listValue.count}</td>
+						  <td>${field.key}</td>
+						  <td>${field.value}</td>
 				      </tr>
 				      </c:forEach>
 				    </tbody>
-					</table>
-				</c:if>
-				</div>
+					
+				</table>
+			</div>
 		</div>
 	</div>
 	
+	
 	<script type="text/javascript">
+	var i = 0;
+	function addField() {
+		
+		var x = document.createElement("INPUT");
+		tmpName = "listFields["+i+"].";
+		x.setAttribute("type", "text");
+		x.setAttribute("name", tmpName+"key");
+		x.setAttribute("id","property-key"+i);
+		
+		var y = document.createElement("INPUT");
+		tmpName = "listFields["+i+"].";
+		y.setAttribute("type", "text");
+		y.setAttribute("name", tmpName+"value");
+		y.setAttribute("id","property-value"+i);
+
+		var elem = document.createElement('br');
+		elem.setAttribute("id","property-br"+i); 
+
+		var form = document.getElementById("form");
+		form.appendChild(x);
+		form.appendChild(y);
+		var newlabel = document.createElement("Label");
+	    newlabel.innerHTML = "Delete";
+	    newlabel.setAttribute("onclick","deleteField("+i+")");
+	    newlabel.setAttribute("id","property-label"+i);
+	    form.appendChild(newlabel);
+		form.appendChild(elem);
+		i++;
+	}
+	function deleteField(i) {
+		
+		document.getElementById("property-label"+i).remove();
+		document.getElementById("property-key"+i).remove();
+		document.getElementById("property-value"+i).remove();
+		document.getElementById("property-br"+i).remove();
+	}
 	$(function () {
         $(".idClass").click(function () {
         	var my_id_value = $(this).data('id');
             var list = $(this).data('list');
-            $("#name-node").text(my_id_value + ' detail');
+            console.log(list);
+            console.log(my_id_value);
+            $("#name-node").text(my_id_value);
 
-            var body = document.getElementById("modal-body");    	    
-    	    body.innerHTML = '';
             
     	    var tbl  = document.createElement('table');
     	    tbl.style.border = '1px solid gray';
@@ -79,33 +122,8 @@
 				list = list.substring(n+4, list.length);
             }
             body.appendChild(tbl);
-        })
-    });
+        }) 
+	 });
 	</script>
-
-	<!-- The Modal -->
-	<div class="modal fade" id="ifiModal">
-	  <div class="modal-dialog modal-dialog-centered">
-	    <div class="modal-content">
-	
-	      <!-- Modal Header -->
-	      <div class="modal-header">
-	        <h4 id="name-node" class="modal-title">Node Detail</h4>
-	        <button type="button" class="close" data-dismiss="modal">&times;</button>
-	      </div>
-	
-	      <!-- Modal body -->
-	      <div id="modal-body" class="modal-body">
-	        <label id="labelNode"></label>
-	      </div>
-	
-	      <!-- Modal footer -->
-	      <div class="modal-footer">
-	        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-	      </div>
-	
-	    </div>
-	  </div>
-	</div>
 </body>
 </html>
