@@ -190,10 +190,9 @@ public class NeoService {
     		}
     		tmpCondition += "AND m.";
     		if((node.getListFields()!=null)&&(!"".equals(node.getListFields()))){
-    			for(Field field : node.getListFields()){
+    			for(Field field : node.getListFields().subList(1, node.getListFields().size())){
     				String tmpStr = field.getKey() + "= \'" + field.getValue() + "\'";
     				
-    				System.out.println(tmpStr);
     				tmpCondition += tmpStr;
     			}
     			

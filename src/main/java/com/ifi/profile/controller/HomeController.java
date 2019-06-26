@@ -112,7 +112,7 @@ public class HomeController {
 		neoService.addRelationship(node);
 		neoService.close();
 		
-		ModelAndView modelRet = new ModelAndView();
+		ModelAndView modelRet = new ModelAndView("home");
 		
 		return modelRet;
 	}
