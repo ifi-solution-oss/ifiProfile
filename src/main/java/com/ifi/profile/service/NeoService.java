@@ -85,19 +85,16 @@ public class NeoService {
         				}
         				tmpQuery += tmpStr;
         				// condition for selecting a key to break the loop 
-        				if(field.getKey().equals("name")||field.getKey().equals("chargeid")){
+        				if(field.getKey().equals("name")||field.getKey().equals("chargeid")||field.getKey().equals("id")){
         					break;
         				}
         			}
-            		
     			}
         		if(",".equals(tmpQuery.substring(tmpQuery.length() - 1))){
         			tmpQuery = tmpQuery.substring(0, tmpQuery.length() - 1);
-        		}
-        		
+        		}	
         		tmpQuery += "}";
-        	}
-        	
+        	} 	
         	tmpQuery += ")";
         	String tmpDelete = " DETACH DELETE ("+node.getLabelNode()+")";
         	tmpQuery += tmpDelete;
@@ -185,17 +182,14 @@ public class NeoService {
     				if(field.getKey().equals("name")||field.getKey().equals("chargeid")||field.getKey().equals("id")){
     					break;
     				}
-    			}
-    			
+    			}	
     		}
     		tmpCondition += "AND m.";
     		if((node.getListFields()!=null)&&(!"".equals(node.getListFields()))){
     			for(Field field : node.getListFields().subList(1, node.getListFields().size())){
-    				String tmpStr = field.getKey() + "= \'" + field.getValue() + "\'";
-    				
+    				String tmpStr = field.getKey() + "= \'" + field.getValue() + "\'";	
     				tmpCondition += tmpStr;
-    			}
-    			
+    			}		
     		}
     		// create the relationship 
     		String tmpRelation = "CREATE (n)-[r:";
@@ -217,6 +211,10 @@ public class NeoService {
 //  "MATCH (t:Technology)-[r]->(p:Project{chargeid :$chargeid}) " +
 //	"WHERE type(r) = $r " +
 //	"RETURN t.name AS name, t.description AS description, t.category AS category, t.domain AS domain",
+    // query:
+//    MATCH (n :Person)-[r]->(t :Technology {name: 'Java'}) WHERE type(r) = 'HAS_EXPERIENCE'
+//    		 MATCH (t)-[]->(p:Project)
+//    		 MATCH (n)-[]->(p) RETURN n AS obj, count(p) AS count
     public List<Node> searchByRelationship(Node node){
     	List<Node> list = new ArrayList<Node>();
     	try(Session session = driver.session()){
@@ -331,6 +329,28 @@ public class NeoService {
         }
         
         return ret;
+    }
+    
+    // get list labels
+    public List<Node> getLabels(){
+    	List<Node> labels = new ArrayList<Node>();
+    	try(Session session = driver.session()){
+    		StatementResult result = session.run("MATCH (n) RETURN distinct labels(n) as typeNode");
+    		while(result.hasNext()){
+    			Node tmpLabels = new Node();
+    			Record record = result.next();
+    			String test = record.get("typeNode").toString();
+    			// replace all special character in string because it existed in the label when call from database 
+ 				test = test.replace("[\"","");	
+    			test = test.replace("\"]","");
+    			test = test.replace("[","");
+    			test = test.replace("]","");
+    			tmpLabels.setTypeNode(test);
+    			System.out.println(test);
+    			labels.add(tmpLabels);
+    		}
+    	}
+    	return labels;
     }
     
     // search node

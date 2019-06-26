@@ -101,26 +101,16 @@ body {
 				<form action="searchByRelation" method="post" id="searchRelation">
 					<select name="typeNode">
 						<option value="">----Node Source----</option>
-						<option value="Person">Person</option>
-						<option value="Project">Project</option>
-						<option value="Department">Department</option>
-						<option value="Technology">Technology</option>
+						<c:forEach var="list" items="${listLabels}">
+							<option value="${list.typeNode }" >${list.typeNode }</option>
+						</c:forEach>
 					</select>
-					<select name="relation">
-						<option value="">---Relationship---</option>
-						<option value="BELONG_TO">BELONG_TO</option>
-						<option value="WORK_IN">WORK_IN</option>
-						<option value="HAS_EXPERIENCE">HAS_EXPERIENCE</option>
-						<option value="USED_IN">USED_IN</option>
-						<option value="LEAD">LEAD</option>
-						<option value="ACCOUNT">ACCOUNT</option>
-					</select>
+					<input type="text" name="relation" placeholder="Enter Relationship" style="width: 30%">
 					<select name="typeNode" id="show-input" onclick="addSearchField()">
 						<option value="">----Destination----</option>
-						<option value="Person">Person</option>
-						<option value="Project">Project</option>
-						<option value="Department">Department</option>
-						<option value="Technology">Technology</option>
+						<c:forEach var="list" items="${listLabels}">
+							<option value="${list.typeNode }" >${list.typeNode }</option>
+						</c:forEach>
 					</select>
 					<br><input type="submit" value="Search">
 				</form>
@@ -441,7 +431,7 @@ function addSearchField() {
 	
 	<!-- Modal create relationship -->
 	<div class="modal fade" id="relateModal">
-	  <div class="modal-dialog modal-lg modal-dialog-centered">
+	  <div class="modal-dialog modal-md modal-dialog-centered">
 	    <div class="modal-content">
 	      <!-- Modal Header -->
 	      <div class="modal-header">
@@ -453,19 +443,17 @@ function addSearchField() {
 	      	<form id="formRelate" action="relation" method="get">
 				<input class="btn-save" type="submit" value="Create Relationship"><br><br>
 				<select name="typeNode">
-					<option >----Node Source----</option>
-					<option value="Person">Person</option>
-					<option value="Project">Project</option>
-					<option value="Department">Department</option>
-					<option value="Technology">Technology</option>
+					<option value="">Source</option>
+						<c:forEach var="list" items="${listLabels}">
+							<option value="${list.typeNode }" >${list.typeNode }</option>
+						</c:forEach>
 				</select>
 				<input type="text" name="relation" placeholder="Enter Relationship">
 				<select name="typeNode">
-					<option value="">----Destination----</option>
-					<option value="Person">Person</option>
-					<option value="Project">Project</option>
-					<option value="Department">Department</option>
-					<option value="Technology">Technology</option>
+					<option value="">Destination</option>
+						<c:forEach var="list" items="${listLabels}">
+							<option value="${list.typeNode }" >${list.typeNode }</option>
+						</c:forEach>
 				</select>
 			</form>
 				<button id="addBtn" onclick="addRelationField()">Add Source node</button><br>
