@@ -140,12 +140,14 @@ body {
 				    <tbody>
 				    <!-- use two-dimensional array to get value of node and field -->
 				      <c:forEach var="listValue" items="${lists}" varStatus="count">
-				      <tr data-toggle="modal" data-target="#ifiModal" class="idClass" data-id="${listValue.labelNode}" 
-	      					data-list="<c:forEach var="field" items="${listValue.listFields}">${field.key}:${field.value}*+*+</c:forEach>">
-						  <td>${count.index+1}</td>
-						  <td>${listValue.labelNode}</td>
+				      <tr>
+						  <td data-toggle="modal" data-target="#ifiModal" class="idClass" data-id="${listValue.labelNode}" 
+	      					data-list="<c:forEach var="field" items="${listValue.listFields}">${field.key}:${field.value}*+*+</c:forEach>">${count.index+1}</td>
+						  <td data-toggle="modal" data-target="#ifiModal" class="idClass" data-id="${listValue.labelNode}" 
+	      					data-list="<c:forEach var="field" items="${listValue.listFields}">${field.key}:${field.value}*+*+</c:forEach>">${listValue.labelNode}</td>
 						  <td><button class="btn-remove"><i class="fas fa-trash-alt"></i></button></td>
-						  <td><button class="btn-update" ><i class="fas fa-pen"></i></button></td>
+						  <td data-toggle="modal" data-target="#updateModal" class="updateClass" data-id="${listValue.labelNode}" 
+	      					data-list="<c:forEach var="field" items="${listValue.listFields}">${field.key}:${field.value}*+*+</c:forEach>"><button class="btn-update" ><i class="fas fa-pen"></i></button></td>
 						  <td><button class="btn-relation" ><i class="fas fa-plus"></i></button></td>
 				      </tr>
 				      </c:forEach>
@@ -306,7 +308,7 @@ function addSearchField() {
             
     	    var tbl  = document.createElement('table');
     	    tbl.style.border = '1px solid gray';
-    	    
+    	    var i=0;
             while (list.length > 0){
             	var n = list.indexOf("*+*+");
 				var rowText = list.substring(0, n);
@@ -328,11 +330,57 @@ function addSearchField() {
         }) 
           
         // update node
-       
-        $(document).on('click','.btn-update',function(event){
-        	$()
-        	$("#updateModal").modal('show');
+       $(".updateClass").click(function () {
+        	var my_id_value = $(this).data('id');
+            var list = $(this).data('list');
+           
+            $("#name-update-node").text(my_id_value + ' detail');
+
+            var form = document.getElementById("formUpdate");    	    
+            form.innerHTML = '';
+
+            while (list.length > 0){
+            	var n = list.indexOf("*+*+");
+				var rowText = list.substring(0, n);
+            	
+                var m = list.indexOf(":");
+				var x = document.createElement("INPUT");
+				tmpName = "listFields["+i+"].";
+				x.setAttribute("type", "text");
+				x.setAttribute("name", tmpName+"key");
+				x.setAttribute("id","property-key"+i);
+				x.setAttribute("value",rowText.substring(0, m));
+				x.setAttribute("readonly","readonly");
+				
+                rowText = rowText.substring(m+1, rowText.length);
+
+				var y = document.createElement("INPUT");
+				tmpName = "listFields["+i+"].";
+				y.setAttribute("type", "text");
+				y.setAttribute("name", tmpName+"value");
+				y.setAttribute("id","property-value"+i);
+				y.setAttribute("value",rowText);
+		
+				var elem = document.createElement('br');
+				elem.setAttribute("id","property-br"+i); 
+		
+				form.appendChild(x);
+				form.appendChild(y);
+				var newlabel = document.createElement("Label");
+			    newlabel.innerHTML = "Delete";
+			    newlabel.setAttribute("onclick","deleteField("+i+")");
+			    newlabel.setAttribute("id","property-label"+i);
+			    form.appendChild(newlabel);
+				form.appendChild(elem);
+
+				list = list.substring(n+4, list.length);
+            }
         })
+        
+//         $(document).on('click','.btn-update',function(event){
+
+//         	$("#updateModal").modal('show');
+//         })
         
         $(document).on('click','.btn-remove',function(event){
         	var tr = $(this).parents("tr");
@@ -382,7 +430,7 @@ function addSearchField() {
 	    <div class="modal-content">
 	      <!-- Modal Header -->
 	      <div class="modal-header">
-	        <h4 id="name-node" class="modal-title">Node Detail</h4>
+	        <h4 id="name-update-node" class="modal-title">Node Detail</h4>
 	        <button type="button" class="close" data-dismiss="modal">&times;</button>
 	      </div>
 	      <!-- Modal body -->
@@ -399,7 +447,7 @@ function addSearchField() {
 	      </div>
 	      <!-- Modal footer -->
 	      <div class="modal-footer">
-	        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+	        <button type="button" class="btn btn-danger" data-dismiss="modal">Save</button>
 	      </div>
 	    </div>
 	  </div>
