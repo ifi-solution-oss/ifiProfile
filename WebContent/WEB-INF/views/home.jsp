@@ -146,9 +146,9 @@ body {
 						  <td data-toggle="modal" data-target="#ifiModal" class="idClass" data-id="${listValue.labelNode}" 
 	      					data-list="<c:forEach var="field" items="${listValue.listFields}">${field.key}:${field.value}*+*+</c:forEach>">${listValue.labelNode}</td>
 						  <td><button class="btn-remove"><i class="fas fa-trash-alt"></i></button></td>
-						  <td data-toggle="modal" data-target="#updateModal" class="updateClass" data-id="${listValue.labelNode}" 
-	      					data-list="<c:forEach var="field" items="${listValue.listFields}">${field.key}:${field.value}*+*+</c:forEach>"><button class="btn-update" ><i class="fas fa-pen"></i></button></td>
-						  <td><button class="btn-relation" ><i class="fas fa-plus"></i></button></td>
+						  <!-- update function -->
+						  <td data-toggle="modal" data-target="#updateModal" class="updateClass" data-id="${listValue.labelNode}" data-labels="${listValue.typeNode }" 
+	      					data-list="<c:forEach var="field" items="${listValue.listFields}">${field.key}:${field.value}*+*+</c:forEach>"><button class="btn-update" ><i class="fas fa-pen"></i></button></td>		
 				      </tr>
 				      </c:forEach>
 				    </tbody>
@@ -180,7 +180,7 @@ body {
 		x.setAttribute("type", "text");
 		x.setAttribute("name", tmpName+"key");
 		x.setAttribute("id","property-key"+i);
-		console.log(x);
+		
 		var y = document.createElement("INPUT");
 		tmpName = "listFields["+i+"].";
 		y.setAttribute("type", "text");
@@ -331,18 +331,27 @@ function addSearchField() {
           
         // update node
        $(".updateClass").click(function () {
+    	 
         	var my_id_value = $(this).data('id');
             var list = $(this).data('list');
-           
+       //     var label = $(this).data('label');
+         //   console.log(label);
+           console.log(my_id_value);
+           console.log(list);
             $("#name-update-node").text(my_id_value + ' detail');
 
             var form = document.getElementById("formUpdate");    	    
-            form.innerHTML = '';
-
+          	
+ //           var typeNode = document.createElement("input");
+	//		typeNode.setAttribute("type", "text");
+	//		typeNode.setAttribute("name", "typeNode");
+	//		typeNode.setAttribute("id", "typeNode");
+			
+			
             while (list.length > 0){
             	var n = list.indexOf("*+*+");
 				var rowText = list.substring(0, n);
-            	
+				
                 var m = list.indexOf(":");
 				var x = document.createElement("INPUT");
 				tmpName = "listFields["+i+"].";
@@ -351,7 +360,7 @@ function addSearchField() {
 				x.setAttribute("id","property-key"+i);
 				x.setAttribute("value",rowText.substring(0, m));
 				x.setAttribute("readonly","readonly");
-				
+				console.log(x);
                 rowText = rowText.substring(m+1, rowText.length);
 
 				var y = document.createElement("INPUT");
@@ -360,27 +369,27 @@ function addSearchField() {
 				y.setAttribute("name", tmpName+"value");
 				y.setAttribute("id","property-value"+i);
 				y.setAttribute("value",rowText);
-		
+				
+				// <input type="text" name="typeNode" id="typeNode" value="${listValue.typeNode}"><br><br>
+				
 				var elem = document.createElement('br');
 				elem.setAttribute("id","property-br"+i); 
-		
+				
+				
 				form.appendChild(x);
 				form.appendChild(y);
+				
 				var newlabel = document.createElement("Label");
 			    newlabel.innerHTML = "Delete";
 			    newlabel.setAttribute("onclick","deleteField("+i+")");
 			    newlabel.setAttribute("id","property-label"+i);
 			    form.appendChild(newlabel);
 				form.appendChild(elem);
-
+				
 				list = list.substring(n+4, list.length);
+				i++;
             }
         })
-        
-//         $(document).on('click','.btn-update',function(event){
-
-//         	$("#updateModal").modal('show');
-//         })
         
         $(document).on('click','.btn-remove',function(event){
         	var tr = $(this).parents("tr");
@@ -435,19 +444,16 @@ function addSearchField() {
 	      </div>
 	      <!-- Modal body -->
 	      <div id="update-body" class="modal-body">
-	        <form id="formUpdate" action="updateNode" method="post">
-					<input class="btn-save" type="submit" value="Save"><br>
+	        	<form id="formUpdate" action="updateNode" method="post">
+					<input type="submit" value="Save"><br>
 					<p>Type Node:</p>
-					<input type="text" name="typeNode" id="typeNode"><br>
-					<p>Label Node:</p>
-					<input type="text" name="labelNode" id="labelNode"><br>
-					<p>Properties:</p>
+					<input type="text" name="typeNode" id="typeNode" value="${listValue.typeNode}"><br><br>
 				</form>
 				<button id="addBtn" onclick="addUpdateField()">Add Field</button><br>
 	      </div>
 	      <!-- Modal footer -->
 	      <div class="modal-footer">
-	        <button type="button" class="btn btn-danger" data-dismiss="modal">Save</button>
+	        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
 	      </div>
 	    </div>
 	  </div>

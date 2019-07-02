@@ -72,7 +72,7 @@ public class NeoService {
     // delete node
     public void deleteNode(Node node){
     	try(Session session = driver.session()){
-    		String tmpQuery = "MATCH ("+node.getLabelNode()+" :"+node.getTypeNode();
+    		String tmpQuery = "MATCH (n :"+node.getTypeNode();
         	if((node.getListFields()!=null)&&(!"".equals(node.getListFields()))){
         		tmpQuery += " {";
         		for (Field field : node.getListFields()) {
@@ -96,7 +96,7 @@ public class NeoService {
         		tmpQuery += "}";
         	} 	
         	tmpQuery += ")";
-        	String tmpDelete = " DETACH DELETE ("+node.getLabelNode()+")";
+        	String tmpDelete = " DETACH DELETE n";
         	tmpQuery += tmpDelete;
         	System.out.println("tmpQuery: "+tmpQuery);
     		try(Transaction tx = session.beginTransaction()){
@@ -111,7 +111,7 @@ public class NeoService {
     // set n.tuoi = 35, n.email = 'abc@gmail.com'
     public void updateNode(Node node){
     	try(Session session = driver.session()){
-    		String tmpQuery = "MATCH ("+node.getLabelNode()+" :"+node.getTypeNode();
+    		String tmpQuery = "MATCH (n :"+node.getTypeNode();
         	if((node.getListFields()!=null)&&(!"".equals(node.getListFields()))){
         		tmpQuery += " {";
         		for (Field field : node.getListFields()) {
@@ -124,7 +124,7 @@ public class NeoService {
         				}
         				tmpQuery += tmpStr;
         				// condition for selecting a key to break the loop 
-        				if(field.getKey().equals("name")||field.getKey().equals("chargeid")){
+        				if(field.getKey().equals("name")||field.getKey().equals("chargeid")||field.getKey().equals("id")){
         					break;
         				}
         			}
@@ -132,18 +132,17 @@ public class NeoService {
         		if(",".equals(tmpQuery.substring(tmpQuery.length() - 1))){
         			tmpQuery = tmpQuery.substring(0, tmpQuery.length() - 1);
         		}
-        		
         		tmpQuery += "}";
         	}
         	tmpQuery += ")";
         	String tmpUpdate = "SET ";
         	for (Field field : node.getListFields()){
         		if((field.getKey()!=null)&&(!"".equals(field.getKey()))&&(field.getValue()!=null)){
-        			String str = node.getLabelNode() + "." + field.getKey() + "=" + field.getValue() + ",";
+        			String str = "n." + field.getKey() + "=" + field.getValue() + ",";
         			try {  
     				    Double.parseDouble(field.getValue());      				    
     				} catch(NumberFormatException e){  
-    					str = node.getLabelNode() + "." + field.getKey() + "=\'" + field.getValue() + "\',";
+    					str = "n." + field.getKey() + "=\'" + field.getValue() + "\',";
     				}
         			tmpUpdate += str;
         		}
@@ -165,6 +164,8 @@ public class NeoService {
     // match (n:label),(m:label)
     // where n.key = value and m.key = value
     // create (n)-[:relation]->(m)
+    // create properties of relationship
+//    SET r.P = "bar", r.since= 2010
     public void addRelationship(Node node){
     	try(Session session = driver.session()){
     		// select the node that we want to create relationship
@@ -189,6 +190,9 @@ public class NeoService {
     			for(Field field : node.getListFields().subList(1, node.getListFields().size())){
     				String tmpStr = field.getKey() + "= \'" + field.getValue() + "\'";	
     				tmpCondition += tmpStr;
+    				if(field.getKey().equals("name")||field.getKey().equals("chargeid")||field.getKey().equals("id")){
+    					break;
+    				}
     			}		
     		}
     		// create the relationship 
@@ -199,6 +203,71 @@ public class NeoService {
     		}
     		String tmpQuery = tmpSource + tmpDestination + tmpCondition + tmpRelation;
     		System.out.println(tmpQuery);
+    		try(Transaction tx = session.beginTransaction()){
+    			tx.run(tmpQuery);
+    			tx.success();
+    		}
+    	}
+    }
+    
+    // create properties of relationship
+    // query: 
+   // match (n:label),(m:label)
+    // where n.key = value and m.key = value
+    // create (n)-[:relation]->(m)
+//    SET r.key = "value", r.key= value
+    public void createProperties(Node node){
+    	try(Session session = driver.session()){
+    		// select the node that we want to create relationship
+    		String tmpSource = "MATCH (n :"+node.getTypeNode().substring(0, node.getTypeNode().indexOf(","));
+    		tmpSource += "),";
+    		// select the destination node
+    		String tmpDestination = "(m :"+node.getTypeNode().substring(node.getTypeNode().indexOf(",")+1, node.getTypeNode().length());
+    		tmpDestination += ")";
+    		// create the condition 
+    		String tmpCondition = "WHERE n.";
+    		if((node.getListFields()!=null)&&(!"".equals(node.getListFields()))){
+    			for(Field field : node.getListFields()){
+    				String tmpStr = field.getKey() + "= \'" + field.getValue()+ "\'";
+    				tmpCondition += tmpStr;
+    				if(field.getKey().equals("name")||field.getKey().equals("chargeid")||field.getKey().equals("id")){
+    					break;
+    				}
+    			}	
+    		}
+    		tmpCondition += "AND m.";
+    		if((node.getListFields()!=null)&&(!"".equals(node.getListFields()))){
+    			for(Field field : node.getListFields().subList(1, node.getListFields().size())){
+    				String tmpStr = field.getKey() + "= \'" + field.getValue() + "\'";	
+    				tmpCondition += tmpStr;
+    				if(field.getKey().equals("name")||field.getKey().equals("chargeid")||field.getKey().equals("id")){
+    					break;
+    				}
+    			}		
+    		}
+    		// match relationship
+    		String tmpRelation = "MATCH (n)-[r:";
+    		if((node.getRelation()!=null)&&(!"".equals(node.getRelation()))){
+    			String tmpStr = ""+node.getRelation()+"]->(m)";
+    			tmpRelation += tmpStr;
+    		}
+    		// create properties
+    		String tmpProperties = "SET ";
+    		for(Field field: node.getListFields()){
+    			tmpProperties += "r." + field.getKey() + "=" + field.getValue() + ",";
+    			try {  
+				    Double.parseDouble(field.getValue());      				    
+				} catch(NumberFormatException e){  
+					tmpProperties += "r." + field.getKey() + "=\'" + field.getValue() + "\',";
+				}
+    			if(field.getKey().equals("name")||field.getKey().equals("chargeid")||field.getKey().equals("id")){
+					continue;
+				}
+		    }
+	    	if(",".equals(tmpProperties.substring(tmpProperties.length() - 1))){
+	    		tmpProperties = tmpProperties.substring(0, tmpProperties.length() - 1);
+			} 
+	    	String tmpQuery = tmpSource + tmpDestination + tmpCondition + tmpRelation + tmpProperties;
     		try(Transaction tx = session.beginTransaction()){
     			tx.run(tmpQuery);
     			tx.success();
@@ -291,6 +360,14 @@ public class NeoService {
     	return list;
     }
     
+    // ADVANCE search by relationship: get project info and show the person who worked with the staff in project
+    // query:
+    public List<Node> advanceSearch(Node node){
+    	List<Node> list = new ArrayList<Node>();
+    	
+    	return list;
+    }
+    
     // get list nodes
     public List<Node> getListNodes()
     {
@@ -346,7 +423,7 @@ public class NeoService {
     			test = test.replace("[","");
     			test = test.replace("]","");
     			tmpLabels.setTypeNode(test);
-    			System.out.println(test);
+    			
     			labels.add(tmpLabels);
     		}
     	}

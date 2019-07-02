@@ -78,7 +78,7 @@ public class HomeController {
 	public ModelAndView updateNode(@Validated Node node){
 		NeoService neoService = new NeoService(Constants.URL_IFI, Constants.USER_IFI, Constants.PASS_IFI);
 		//update data
-		if((!"".equals(node.getTypeNode()))&&(node.getTypeNode()!=null)&&(node.getLabelNode()!=null)&&(!"".equals(node.getLabelNode()))){
+		if((!"".equals(node.getTypeNode()))&&(node.getTypeNode()!=null)){
 			neoService.updateNode(node);
 		} else {
 			System.out.println("error: node empty");
