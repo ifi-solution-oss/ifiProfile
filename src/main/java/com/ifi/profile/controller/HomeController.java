@@ -91,10 +91,10 @@ public class HomeController {
 		return modelRet;
 	}
 	
-	@RequestMapping(value = "/deleteNode", method = RequestMethod.GET)
+	@RequestMapping(value = "/deleteNode", method = RequestMethod.POST)
 	public ModelAndView deleteNode(@Validated Node node){
 		NeoService neoService = new NeoService(Constants.URL_IFI, Constants.USER_IFI, Constants.PASS_IFI);
-		if((!"".equals(node.getTypeNode()))&&(node.getTypeNode()!=null)&&(node.getLabelNode()!=null)&&(!"".equals(node.getLabelNode()))){
+		if((!"".equals(node.getTypeNode()))&&(node.getTypeNode()!=null)){
 			neoService.deleteNode(node);
 		} else {
 			System.out.println("error: node empty");

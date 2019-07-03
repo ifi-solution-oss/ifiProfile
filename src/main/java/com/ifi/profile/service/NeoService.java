@@ -164,8 +164,7 @@ public class NeoService {
     // match (n:label),(m:label)
     // where n.key = value and m.key = value
     // create (n)-[:relation]->(m)
-    // create properties of relationship
-//    SET r.P = "bar", r.since= 2010
+    
     public void addRelationship(Node node){
     	try(Session session = driver.session()){
     		// select the node that we want to create relationship
@@ -214,7 +213,7 @@ public class NeoService {
     // query: 
    // match (n:label),(m:label)
     // where n.key = value and m.key = value
-    // create (n)-[:relation]->(m)
+    // match (n)-[:relation]->(m)
 //    SET r.key = "value", r.key= value
     public void createProperties(Node node){
     	try(Session session = driver.session()){
@@ -472,6 +471,7 @@ public class NeoService {
     	
     	return list;
     }
+   
    
     public void close()
     {

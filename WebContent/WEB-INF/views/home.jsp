@@ -92,7 +92,7 @@ body {
 			<div class="row">
 				<div class="col-sm-6">
 				<form action="search" id="search" method="post">
-					<input type="text" name="labelNode">
+					<input id="autocomplete" type="text" name="labelNode">
 					<input type="submit" value="Search">
 				</form>
 				</div>
@@ -145,7 +145,9 @@ body {
 	      					data-list="<c:forEach var="field" items="${listValue.listFields}">${field.key}:${field.value}*+*+</c:forEach>">${count.index+1}</td>
 						  <td data-toggle="modal" data-target="#ifiModal" class="idClass" data-id="${listValue.labelNode}" 
 	      					data-list="<c:forEach var="field" items="${listValue.listFields}">${field.key}:${field.value}*+*+</c:forEach>">${listValue.labelNode}</td>
-						  <td><button class="btn-remove"><i class="fas fa-trash-alt"></i></button></td>
+						 <!-- delete function -->
+						  <td data-toggle="modal" data-target="#deleteModal" class="deleteClass" data-id="${listValue.labelNode}"
+						  data-list="<c:forEach var="field" items="${listValue.listFields}">${field.key}:${field.value}*+*+</c:forEach>"><button class="btn-remove"><i class="fas fa-trash-alt"></i></button></td>
 						  <!-- update function -->
 						  <td data-toggle="modal" data-target="#updateModal" class="updateClass" data-id="${listValue.labelNode}" data-labels="${listValue.typeNode }" 
 	      					data-list="<c:forEach var="field" items="${listValue.listFields}">${field.key}:${field.value}*+*+</c:forEach>"><button class="btn-update" ><i class="fas fa-pen"></i></button></td>		
@@ -392,12 +394,54 @@ function addSearchField() {
             }
         })
         
-        $(document).on('click','.btn-remove',function(event){
-        	var tr = $(this).parents("tr");
-        	var result = confirm("Do you want to delete?");
-        	if(result){
-        		tr.remove();
-        	}
+        $(".deleteClass").click(function(){
+        	var my_id_value = $(this).data('id');
+            var list = $(this).data('list');
+     
+            $("#name-delete-node").text(my_id_value + ' detail');
+
+            var form = document.getElementById("formDelete");    	    
+			
+            while (list.length > 0){
+            	var n = list.indexOf("*+*+");
+				var rowText = list.substring(0, n);
+				
+                var m = list.indexOf(":");
+				var x = document.createElement("INPUT");
+				x.setAttribute("value", "");
+				
+				tmpName = "listFields["+i+"].";
+				x.setAttribute("type", "text");
+				x.setAttribute("name", tmpName+"key");
+				x.setAttribute("id","property-key"+i);
+				x.setAttribute("value",rowText.substring(0, m));
+				x.setAttribute("readonly","readonly");
+				console.log(x);
+                rowText = rowText.substring(m+1, rowText.length);
+
+				var y = document.createElement("INPUT");
+				y.setAttribute("value", "");
+				tmpName = "listFields["+i+"].";
+				y.setAttribute("type", "text");
+				y.setAttribute("name", tmpName+"value");
+				y.setAttribute("id","property-value"+i);
+				y.setAttribute("value",rowText);
+				y.setAttribute("readonly","readonly");
+				
+				var elem = document.createElement('br');
+				elem.setAttribute("id","property-br"+i); 
+				
+				form.appendChild(x);
+				form.appendChild(y);
+				form.appendChild(elem);
+				
+				list = list.substring(n+4, list.length);
+				i++;
+            }
+            var del = document.createElement("INPUT");
+            del.setAttribute("type", "submit");
+            del.setAttribute("value", "Delete");
+            form.appendChild(del);
         })
         
         // create relationship
@@ -509,8 +553,12 @@ function autocomplete(inp, arr){
 	      <div id="update-body" class="modal-body">
 	        	<form id="formUpdate" action="updateNode" method="post">
 					<input type="submit" value="Save"><br>
-					<p>Type Node:</p>
-					<input type="text" name="typeNode" id="typeNode" value="${listValue.typeNode}"><br><br>
+					<p>Label</p>
+					<select name="typeNode">
+						<c:forEach var="list" items="${listLabels}">
+							<option value="${list.typeNode }" >${list.typeNode }</option>
+						</c:forEach>
+					</select><br><br>
 				</form>
 				<button id="addBtn" onclick="addUpdateField()">Add Field</button><br>
 	      </div>
@@ -528,14 +576,20 @@ function autocomplete(inp, arr){
 	    <div class="modal-content">
 	      <!-- Modal Header -->
 	      <div class="modal-header">
-	        <h4 id="name-node" class="modal-title">Node Detail</h4>
+	        <h4 id="name-delete-node" class="modal-title">Node Detail</h4>
 	        <button type="button" class="close" data-dismiss="modal">&times;</button>
 	      </div>
 	      <!-- Modal body -->
 	      <div id="delete-body" class="modal-body">
-	        <form id="formDelete" action="deleteNode" method="get">
+	        <form id="formDelete" action="deleteNode" method="post">
 	        	<p>Do you want to delete?</p>
-				<input class="btn-save" type="submit" value="Delete"><br>
+				<p>Label</p>
+					<select name="typeNode">
+						<c:forEach var="list" items="${listLabels}">
+							<option value="${list.typeNode }" >${list.typeNode }</option>
+						</c:forEach>
+					</select><br><br>
+				
 			</form>
 	      </div>
 	      <!-- Modal footer -->
