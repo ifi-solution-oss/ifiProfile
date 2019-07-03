@@ -269,13 +269,16 @@ function addSearchField() {
 		x.setAttribute("type", "text");
 		x.setAttribute("name", tmpName+"key");
 		x.setAttribute("id","property-key"+i);
-		console.log(x);
+		x.setAttribute("placeholder", "Choose name/id/chargeid");
+		
+		
 		var y = document.createElement("INPUT");
 		tmpName = "listFields["+i+"].";
 		y.setAttribute("type", "text");
 		y.setAttribute("name", tmpName+"value");
 		y.setAttribute("id","property-value"+i);
-
+		y.setAttribute("placeholder", "Enter name/id/chargeid of node")
+		
 		var elem = document.createElement('br');
 		elem.setAttribute("id","property-br"+i); 
  
@@ -628,7 +631,8 @@ function autocomplete(inp, arr){
 				</select>
 			</form>
 				<button id="addBtn" onclick="addRelationField()">Add Source node</button><br>
-				<br><button id="addBtn" onclick="addRelationField()">Add Destination node</button>
+				<br><button id="addBtn" onclick="addRelationField()">Add Destination node</button><br>
+				<br><button id="addBtn" onclick="addRelationField()">Add properties</button>
 	      </div>
 	      <!-- Modal footer -->
 	      <div class="modal-footer">

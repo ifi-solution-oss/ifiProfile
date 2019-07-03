@@ -174,7 +174,7 @@ public class NeoService {
     		String tmpDestination = "(m :"+node.getTypeNode().substring(node.getTypeNode().indexOf(",")+1, node.getTypeNode().length());
     		tmpDestination += ")";
     		// create the condition 
-    		String tmpCondition = "WHERE n.";
+    		String tmpCondition = " WHERE n.";
     		if((node.getListFields()!=null)&&(!"".equals(node.getListFields()))){
     			for(Field field : node.getListFields()){
     				String tmpStr = field.getKey() + "= \'" + field.getValue()+ "\'";
@@ -184,7 +184,7 @@ public class NeoService {
     				}
     			}	
     		}
-    		tmpCondition += "AND m.";
+    		tmpCondition += " AND m.";
     		if((node.getListFields()!=null)&&(!"".equals(node.getListFields()))){
     			for(Field field : node.getListFields().subList(1, node.getListFields().size())){
     				String tmpStr = field.getKey() + "= \'" + field.getValue() + "\'";	
@@ -195,12 +195,37 @@ public class NeoService {
     			}		
     		}
     		// create the relationship 
-    		String tmpRelation = "CREATE (n)-[r:";
+    		String tmpRelation = " CREATE (n)-[r:";
     		if((node.getRelation()!=null)&&(!"".equals(node.getRelation()))){
     			String tmpStr = ""+node.getRelation()+"]->(m)";
     			tmpRelation += tmpStr;
     		}
-    		String tmpQuery = tmpSource + tmpDestination + tmpCondition + tmpRelation;
+    		// create properties for relationship
+    		String tmpProperties = "SET ";
+    		if((node.getListFields()!=null)&&(!"".equals(node.getListFields()))){
+    			for(Field field: node.getListFields()){
+        			if((field.getKey()!=null)&&(!"".equals(field.getKey()))&&(field.getValue()!=null)){
+        				String str = "r." + field.getKey() + "=" + field.getValue() + ",";
+            			try {  
+        				    Double.parseDouble(field.getValue());      				    
+        				} catch(NumberFormatException e){  
+        					str = "r." + field.getKey() + "=\'" + field.getValue() + "\',";
+        				}
+            			if(field.getKey().equals("name")||field.getKey().equals("chargeid")||field.getKey().equals("id")){
+        					continue;
+        				}
+            			tmpProperties += str;
+          			}
+    		    }
+    		}
+    		
+	    	if(",".equals(tmpProperties.substring(tmpProperties.length() - 1))){
+	    		tmpProperties = tmpProperties.substring(0, tmpProperties.length() - 1);
+			} 
+    		String tmpQuery = tmpSource + tmpDestination + tmpCondition + tmpRelation + tmpProperties;
+    		if("SET ".equals(tmpQuery.substring(tmpQuery.length()-4))){
+    			tmpQuery = tmpSource + tmpDestination + tmpCondition + tmpRelation;
+    		}
     		System.out.println(tmpQuery);
     		try(Transaction tx = session.beginTransaction()){
     			tx.run(tmpQuery);
@@ -209,70 +234,7 @@ public class NeoService {
     	}
     }
     
-    // create properties of relationship
-    // query: 
-   // match (n:label),(m:label)
-    // where n.key = value and m.key = value
-    // match (n)-[:relation]->(m)
-//    SET r.key = "value", r.key= value
-    public void createProperties(Node node){
-    	try(Session session = driver.session()){
-    		// select the node that we want to create relationship
-    		String tmpSource = "MATCH (n :"+node.getTypeNode().substring(0, node.getTypeNode().indexOf(","));
-    		tmpSource += "),";
-    		// select the destination node
-    		String tmpDestination = "(m :"+node.getTypeNode().substring(node.getTypeNode().indexOf(",")+1, node.getTypeNode().length());
-    		tmpDestination += ")";
-    		// create the condition 
-    		String tmpCondition = "WHERE n.";
-    		if((node.getListFields()!=null)&&(!"".equals(node.getListFields()))){
-    			for(Field field : node.getListFields()){
-    				String tmpStr = field.getKey() + "= \'" + field.getValue()+ "\'";
-    				tmpCondition += tmpStr;
-    				if(field.getKey().equals("name")||field.getKey().equals("chargeid")||field.getKey().equals("id")){
-    					break;
-    				}
-    			}	
-    		}
-    		tmpCondition += "AND m.";
-    		if((node.getListFields()!=null)&&(!"".equals(node.getListFields()))){
-    			for(Field field : node.getListFields().subList(1, node.getListFields().size())){
-    				String tmpStr = field.getKey() + "= \'" + field.getValue() + "\'";	
-    				tmpCondition += tmpStr;
-    				if(field.getKey().equals("name")||field.getKey().equals("chargeid")||field.getKey().equals("id")){
-    					break;
-    				}
-    			}		
-    		}
-    		// match relationship
-    		String tmpRelation = "MATCH (n)-[r:";
-    		if((node.getRelation()!=null)&&(!"".equals(node.getRelation()))){
-    			String tmpStr = ""+node.getRelation()+"]->(m)";
-    			tmpRelation += tmpStr;
-    		}
-    		// create properties
-    		String tmpProperties = "SET ";
-    		for(Field field: node.getListFields()){
-    			tmpProperties += "r." + field.getKey() + "=" + field.getValue() + ",";
-    			try {  
-				    Double.parseDouble(field.getValue());      				    
-				} catch(NumberFormatException e){  
-					tmpProperties += "r." + field.getKey() + "=\'" + field.getValue() + "\',";
-				}
-    			if(field.getKey().equals("name")||field.getKey().equals("chargeid")||field.getKey().equals("id")){
-					continue;
-				}
-		    }
-	    	if(",".equals(tmpProperties.substring(tmpProperties.length() - 1))){
-	    		tmpProperties = tmpProperties.substring(0, tmpProperties.length() - 1);
-			} 
-	    	String tmpQuery = tmpSource + tmpDestination + tmpCondition + tmpRelation + tmpProperties;
-    		try(Transaction tx = session.beginTransaction()){
-    			tx.run(tmpQuery);
-    			tx.success();
-    		}
-    	}
-    }
+    
     
     // search by relationship
     // search query:
