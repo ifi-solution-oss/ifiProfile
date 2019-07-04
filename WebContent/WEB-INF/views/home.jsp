@@ -263,13 +263,13 @@ function addSearchField() {
 	}
 	
 	function addRelationField() {
-		
+		var i = 2;
 		var x = document.createElement("INPUT");
 		tmpName = "listFields["+i+"].";
 		x.setAttribute("type", "text");
 		x.setAttribute("name", tmpName+"key");
 		x.setAttribute("id","property-key"+i);
-		x.setAttribute("placeholder", "Choose name/id/chargeid");
+		//x.setAttribute("placeholder", "Choose name/id/chargeid");
 		
 		
 		var y = document.createElement("INPUT");
@@ -277,7 +277,7 @@ function addSearchField() {
 		y.setAttribute("type", "text");
 		y.setAttribute("name", tmpName+"value");
 		y.setAttribute("id","property-value"+i);
-		y.setAttribute("placeholder", "Enter name/id/chargeid of node")
+		//y.setAttribute("placeholder", "Enter name/id/chargeid of node")
 		
 		var elem = document.createElement('br');
 		elem.setAttribute("id","property-br"+i); 
@@ -411,8 +411,6 @@ function addSearchField() {
 				
                 var m = list.indexOf(":");
 				var x = document.createElement("INPUT");
-				x.setAttribute("value", "");
-				
 				tmpName = "listFields["+i+"].";
 				x.setAttribute("type", "text");
 				x.setAttribute("name", tmpName+"key");
@@ -423,7 +421,6 @@ function addSearchField() {
                 rowText = rowText.substring(m+1, rowText.length);
 
 				var y = document.createElement("INPUT");
-				y.setAttribute("value", "");
 				tmpName = "listFields["+i+"].";
 				y.setAttribute("type", "text");
 				y.setAttribute("name", tmpName+"value");
@@ -449,6 +446,51 @@ function addSearchField() {
         
         // create relationship
         $(document).on('click','#btn-relate',function(event){
+        	var j=1;
+        	var form = document.getElementById("formRelate");
+        	
+        	var x = document.createElement("INPUT");
+    		tmpName = "listFields["+j+"].";
+    		x.setAttribute("type", "text");
+    		x.setAttribute("name", tmpName+"key");
+    		x.setAttribute("id","property-key"+j);
+    		x.setAttribute("placeholder", "Choose name/id/chargeid")
+    		
+    		var y = document.createElement("INPUT");
+    		tmpName = "listFields["+j+"].";
+    		y.setAttribute("type", "text");
+    		y.setAttribute("name", tmpName+"value");
+    		y.setAttribute("id","property-value"+j);
+        	y.setAttribute("placeholder", "Enter name/id/chargeid")
+    		
+    		var a = document.createElement("INPUT");
+    		tmpName = "listFields["+i+"].";
+    		a.setAttribute("type", "text");
+    		a.setAttribute("name", tmpName+"key");
+    		a.setAttribute("id","property-key"+i);
+    		a.setAttribute("placeholder", "Choose name/id/chargeid")
+    		
+    		var b = document.createElement("INPUT");
+    		tmpName = "listFields["+i+"].";
+    		b.setAttribute("type", "text");
+    		b.setAttribute("name", tmpName+"value");
+    		b.setAttribute("id","property-value"+i);
+    		b.setAttribute("placeholder", "Enter name/id/chargeid")
+    		
+    		var elem = document.createElement('br');
+			elem.setAttribute("id","property-br"+i); 
+    		
+    		var source = document.getElementById("source");
+    		source.appendChild(elem);
+    		source.appendChild(a);
+    		source.appendChild(b);
+    		
+    		var destination = document.getElementById("destination");
+    		source.appendChild(elem);
+    		destination.appendChild(x);
+    		destination.appendChild(y);
+    		j++;
+    		i++;
         	$('#relateModal').modal('show');
         })
 	})
@@ -629,9 +671,11 @@ function autocomplete(inp, arr){
 							<option value="${list.typeNode }" >${list.typeNode }</option>
 						</c:forEach>
 				</select>
+				
+				<p id="source">Source node: <br></p>
+				<p id="destination">Destination node: <br></p>
+				<p>Relationship properties</p>
 			</form>
-				<button id="addBtn" onclick="addRelationField()">Add Source node</button><br>
-				<br><button id="addBtn" onclick="addRelationField()">Add Destination node</button><br>
 				<br><button id="addBtn" onclick="addRelationField()">Add properties</button>
 	      </div>
 	      <!-- Modal footer -->

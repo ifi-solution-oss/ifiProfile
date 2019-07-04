@@ -182,7 +182,7 @@ public class NeoService {
     				if(field.getKey().equals("name")||field.getKey().equals("chargeid")||field.getKey().equals("id")){
     					break;
     				}
-    			}	
+    			}		
     		}
     		tmpCondition += " AND m.";
     		if((node.getListFields()!=null)&&(!"".equals(node.getListFields()))){

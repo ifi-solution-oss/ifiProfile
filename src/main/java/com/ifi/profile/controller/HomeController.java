@@ -52,12 +52,14 @@ public class HomeController {
 		
 		// get list nodes
 		List<Node> listNodes = neoService.getListNodes();
-		
+		// list label
+		List<Node> listLabels = neoService.getLabels();
         neoService.close();
         
         // render view
         ModelAndView modelRet = new ModelAndView("home");
         modelRet.addObject("lists", listNodes);
+        modelRet.addObject("listLabels", listLabels);
 		return modelRet;
 	}
 	
@@ -85,9 +87,12 @@ public class HomeController {
 		}
 		
 		List<Node> listNodes = neoService.getListNodes();
+		// list label
+		List<Node> listLabels = neoService.getLabels();
 		neoService.close();
 		ModelAndView modelRet = new ModelAndView("home");
 		modelRet.addObject("lists", listNodes);
+		modelRet.addObject("listLabels", listLabels);
 		return modelRet;
 	}
 	
@@ -101,9 +106,12 @@ public class HomeController {
 		}
 		
 		List<Node> listNodes = neoService.getListNodes();
+		// list label
+		List<Node> listLabels = neoService.getLabels();
 		neoService.close();
 		ModelAndView modelRet = new ModelAndView("home");
 		modelRet.addObject("lists", listNodes);
+		modelRet.addObject("listLabels", listLabels);
 		return modelRet;
 	}
 	
