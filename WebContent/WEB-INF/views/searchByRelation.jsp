@@ -27,19 +27,49 @@
 				        <th>No</th>
 				        <th class="col-md-1">Name</th>
 				        <th>${node.relation}</th>
-				        <th>Project</th>
 				      </tr>
 				    </thead>
 				    <tbody>
 				    <!-- use two-dimensional array to get value of node and field -->
 				      <c:forEach var="listValue" items="${lists}" varStatus="count">
-				      <tr data-toggle="modal" data-target="#ifiModal" class="idClass" data-id="${listValue.labelNode}" 
-	      					data-list="<c:forEach var="field" items="${listValue.listFields}">${field.key}:${field.value}*+*+</c:forEach>">
-						  <td>${count.index+1}</td>
-						  <td>${listValue.labelNode}</td>
-						  <td><i class="fas fa-check"></i></td>
-						  <td>${listValue.count}</td>
+				     		 <tr data-toggle="modal" data-target="#ifiModal" class="idClass" data-id="${listValue.labelNode}" 
+	      						data-list="<c:forEach var="field" items="${listValue.listFields}">${field.key}:${field.value}*+*+</c:forEach>">
+							  <td>${count.index+1}</td>
+						 	 <td>${listValue.labelNode}</td>
+						 	 <td><i class="fas fa-check"></i></td>
+				    		  </tr>
+				      </c:forEach>
+				    </tbody>
+					</table>
+				</c:if>
+				</div>
+				
+				<div class="col-sm-6">
+				<c:if test="${not empty lists}">
+					<h4>List Person work in project:</h4>
+					<table class="table table-hover table-bordered table-striped">
+					<thead>
+				      <tr>
+				        <th>No</th>
+				        <th class="col-md-1">Name</th>
+				        <th>${node.relation}</th>
+				        <th>Project</th>
 				      </tr>
+				    </thead>
+				    <tbody>
+				    <!-- use two-dimensional array to get value of node and field -->
+				      <c:forEach var="listNodes" items="${listNodes}" varStatus="count">
+				     		<tr>
+								<td data-toggle="modal" data-target="#ifiModal" class="idClass" data-id="${listNodes.labelNode}" 
+	      							data-list="<c:forEach var="field" items="${listNodes.listFields}">${field.key}:${field.value}*+*+</c:forEach>">${count.index+1}</td>
+						  		<td data-toggle="modal" data-target="#ifiModal" class="idClass" data-id="${listNodes.labelNode}" 
+	      							data-list="<c:forEach var="field" items="${listNodes.listFields}">${field.key}:${field.value}*+*+</c:forEach>">${listNodes.labelNode}</td>
+								<td><i class="fas fa-check"></i></td>
+							<c:forEach var="listProject" items="${listProject}">
+								<td data-toggle="modal" data-target="#ifiModal" class="project" data-id="${listNodes.labelNode}"
+	      							data-list="<c:forEach var="field" items="${listNodes.listFields}">${field.key}:${field.value}*+*+</c:forEach>">${listNodes.count}</td>
+	      							</c:forEach>
+				    		</tr>
 				      </c:forEach>
 				    </tbody>
 					</table>
@@ -47,12 +77,14 @@
 				</div>
 		</div>
 	</div>
-	
+
 	<script type="text/javascript">
 	$(function () {
         $(".idClass").click(function () {
         	var my_id_value = $(this).data('id');
             var list = $(this).data('list');
+            console.log(my_id_value);
+            console.log(list);
             $("#name-node").text(my_id_value + ' detail');
 
             var body = document.getElementById("modal-body");    	    
