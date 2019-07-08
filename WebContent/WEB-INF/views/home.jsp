@@ -94,6 +94,12 @@ body {
 				<form action="search" id="search" method="post">
 					<input id="autocomplete" type="text" name="labelNode">
 					<input type="submit" value="Search">
+				</form><br>
+				
+				<!-- View profile -->
+				<form action="viewProfile" method="get" id="profile">
+					<input type="text" name="labelNode">
+					<input type="submit" value="View Profile">
 				</form>
 				</div>
 				

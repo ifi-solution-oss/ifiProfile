@@ -149,4 +149,18 @@ public class HomeController {
 		return modelRet;
 	}
 	
+	@RequestMapping(value = "/viewProfile", method = RequestMethod.GET)
+	public ModelAndView viewProfile(@Validated Node node){
+		NeoService neoService = new NeoService(Constants.URL_IFI, Constants.USER_IFI, Constants.PASS_IFI);
+		
+		List<Node> nodeInfo = neoService.searchNode(node.getLabelNode());
+		List<Node> listTech = neoService.getInfo(node.getLabelNode());
+		neoService.close();
+		
+		ModelAndView modelRet = new ModelAndView("viewProfile");
+		modelRet.addObject("nodeInfo", nodeInfo);
+		modelRet.addObject("listTech", listTech);
+		
+		return modelRet;
+	}
 }

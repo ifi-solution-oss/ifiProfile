@@ -27,6 +27,7 @@
 				        <th>No</th>
 				        <th class="col-md-1">Name</th>
 				        <th>${node.relation}</th>
+				        
 				      </tr>
 				    </thead>
 				    <tbody>
@@ -37,6 +38,7 @@
 							  <td>${count.index+1}</td>
 						 	 <td>${listValue.labelNode}</td>
 						 	 <td><i class="fas fa-check"></i></td>
+						 	 
 				    		  </tr>
 				      </c:forEach>
 				    </tbody>
@@ -65,10 +67,10 @@
 						  		<td data-toggle="modal" data-target="#ifiModal" class="idClass" data-id="${listNodes.labelNode}" 
 	      							data-list="<c:forEach var="field" items="${listNodes.listFields}">${field.key}:${field.value}*+*+</c:forEach>">${listNodes.labelNode}</td>
 								<td><i class="fas fa-check"></i></td>
-							<c:forEach var="listProject" items="${listProject}">
-								<td data-toggle="modal" data-target="#ifiModal" class="project" data-id="${listNodes.labelNode}"
+								
+								<td data-toggle="modal" data-target="#ifiModal" class="project" data-id="${listNodes.labelNode}" 
 	      							data-list="<c:forEach var="field" items="${listNodes.listFields}">${field.key}:${field.value}*+*+</c:forEach>">${listNodes.count}</td>
-	      							</c:forEach>
+	      						
 				    		</tr>
 				      </c:forEach>
 				    </tbody>
@@ -111,6 +113,10 @@
 				list = list.substring(n+4, list.length);
             }
             body.appendChild(tbl);
+        })
+        
+        $(".project").click(function(){
+        	
         })
     });
 	</script>
