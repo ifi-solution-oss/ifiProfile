@@ -13,6 +13,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
+
+
 </head>
 <body>
 	<div class="container">
@@ -29,19 +31,21 @@
 	      					${field.value}<br>
 				    		</c:forEach>
 				      </c:forEach>
-				    
-				    <h4>Technologies that ${node.labelNode} has experience </h4>
-				    <c:forEach var="listTech" items="listTech">
-				    	
-				    </c:forEach>
-				   
+				      <h4>Technologies</h4>
+    				  	<c:forEach var="listTech" items="${listTech}">
+    				  		<c:forEach var="field" items="${listTech.listFields}">
+    				  			<li>${field.key}</li>			
+    				  		</c:forEach>
+     				 	</c:forEach>				
 				</c:if>
-				</div>
+			</div>
 		</div>
 	</div>
 	
+	
+	 
 	<script type="text/javascript">
-		
+
 	</script>
 
 	

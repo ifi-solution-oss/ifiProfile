@@ -5,7 +5,7 @@ import static org.neo4j.driver.Values.parameters;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Stream;
+
 
 import org.neo4j.driver.AuthTokens;
 import org.neo4j.driver.Driver;
@@ -14,8 +14,8 @@ import org.neo4j.driver.Record;
 import org.neo4j.driver.Session;
 import org.neo4j.driver.StatementResult;
 import org.neo4j.driver.Transaction;
-import org.neo4j.driver.Value;
-import org.neo4j.driver.types.MapAccessor;
+
+
 
 import com.ifi.profile.model.Field;
 import com.ifi.profile.model.Node;
@@ -490,10 +490,9 @@ public class NeoService {
     	return labels;
     }
     
+    // view profile
     // search person: show profile of the person searched 
     // match (n:Person{name:"Nguyen Hoang Hiep"})-[]->(t:Technology)
-//    match (t)-[]->(p:Project)
-//    return  p.project as project, collect(t.name) as technologies
     public List<Node> getInfo(String initial){
     	List<Node> nodeInfo = new ArrayList<Node>();
     	try(Session session = driver.session()){
@@ -501,19 +500,18 @@ public class NeoService {
     		tmpStr += "\n MATCH (n)-[]->(t)";
     		tmpStr += "\n RETURN t.name AS technologies";
     		String tmpQuery = tmpStr;
-    		System.out.println(tmpQuery);
+    		
     		StatementResult result = session.run(tmpQuery, parameters("x",initial));
     		while(result.hasNext()){
     			Node tmNode = new Node();
     			Record record = result.next();
     			try {
-					Map<String, Object> tmpMap = record.get("technologies").asMap();
-					List<Field> listFields = new ArrayList<Field>();
-					for(Map.Entry entry : tmpMap.entrySet()){
-						Field tmpField = new Field();
-						tmpField.setKey(entry.getValue().toString());
-						listFields.add(tmpField);
-					}
+    		//		tmpNode.setCount(record.get("count").asInt());
+					List<Field> listFields = new ArrayList<Field>();	
+					Field tmpField = new Field();
+					tmpField.setKey(record.get("technologies").asString());
+					listFields.add(tmpField);
+					
 					tmNode.setListFields(listFields);
 					
 				} catch (Exception e) {
@@ -524,6 +522,108 @@ public class NeoService {
     	return nodeInfo;
     }
     
+    // show project and technologies used
+    // query:
+//    match (n:Person{name:"Nguyen Huu Huong"})-[]->(p:Project)
+//    match (t:Technology)-[]->(p)
+//    return p.project as project, collect(t.name) as technologies
+    public List<Node> getProject(String initial){
+    	List<Node> nodeInfor = new ArrayList<Node>();
+    	try(Session session = driver.session()){
+    		String tmpStr = "MATCH (n: Person),(p: Project) WHERE n.name = $x ";
+    		tmpStr += "\n MATCH (t: Technology)-[]->(p)";
+    		tmpStr += "\n RETURN p.project AS project, collect(t.name) AS technologies";
+    		String tmpQuery = tmpStr;
+    		StatementResult rs = session.run(tmpQuery);
+    		while(rs.hasNext()){
+    			Node tmpNode = new Node();
+    			Record record = rs.next();
+    			try {
+					Map<String, Object> tmpProject = record.get("project").asMap();
+					Map<String, Object> tmpTech = record.get("technologies").asMap();
+					
+					List<Field> listFields = new ArrayList<Field>();
+					for(Map.Entry entry : tmpProject.entrySet()){
+						Field tmpField = new Field();
+						tmpField.setValue(entry.getValue().toString());
+						listFields.add(tmpField);
+					}
+					List<Field> listTech = new ArrayList<Field>();
+					for(Map.Entry entry: tmpTech.entrySet()){
+						Field tmField = new Field();
+						String test = entry.getKey().toString();
+						test = test.replace("[\"","");	
+		    			test = test.replace("\"]","");
+		    			test = test.replace("[","");
+		    			test = test.replace("]","");
+		    			tmField.setKey(test);
+		    			listTech.add(tmField);
+					}
+					listFields.addAll(listTech);
+					tmpNode.setListFields(listFields);
+					
+				} catch (Exception e) {
+					
+					System.out.println("Error: "+e.getMessage());
+				}
+    		}
+    	}
+    	
+    	return nodeInfor;
+    }
+    
+    // show project and persons take part in project
+    // query:
+//    match (n:Person{name:"Nguyen Huu Huong"})-[]->(p:Project)
+//    match (m:Person)-[]->(p)
+//    return p.project as project, collect(m.name) as person
+    public List<Node> getPersons(String initial){
+    	List<Node> nodeInfo = new ArrayList<Node>();
+    	try(Session session = driver.session()){
+    		String tmpStr = "MATCH (n: Person),(p: Project) WHERE n.name = $x ";
+    		tmpStr += "\n MATCH (m:Person)-[]->(p)";
+    		tmpStr += "\n RETURN p.project as project, collect(m.name) as person";
+    		String tmpQuery = tmpStr;
+    		StatementResult rs = session.run(tmpQuery);
+    		while(rs.hasNext()){
+    			Node tmpNode = new Node();
+    			Record record = rs.next();
+    			
+    			try {
+					Map<String, Object> tmpProject = record.get("project").asMap();
+					Map<String, Object>	tmpPerson = record.get("person").asMap();
+					
+					List<Field> listProject = new ArrayList<Field>();
+					for(Map.Entry entry: tmpProject.entrySet()){
+						Field tmpField = new Field();
+						tmpField.setKey(entry.getKey().toString());
+						listProject.add(tmpField);
+					}
+					
+					List<Field> listPerson = new ArrayList<Field>();
+					for(Map.Entry entry: tmpPerson.entrySet()){
+						Field tmField = new Field();
+						String test = entry.getValue().toString();
+						test = test.replace("[\"","");	
+		    			test = test.replace("\"]","");
+		    			test = test.replace("[","");
+		    			test = test.replace("]","");
+		    			tmField.setValue(test);
+		    			listPerson.add(tmField);
+					}
+					
+					listProject.addAll(listPerson);
+					tmpNode.setListFields(listProject);
+				} catch (Exception e) {
+				
+					System.out.println("Error: "+e.getMessage());
+				}
+    		}
+    	}
+    	
+    	return nodeInfo;
+    }
+    
     // search query:"MATCH (n) WHERE n.name contains $x RETURN n"
     public List<Node> searchNode(String initial){
     	List<Node> list = new ArrayList<Node>();
@@ -531,11 +631,9 @@ public class NeoService {
     	try(Session session = driver.session()){
     		
        		StatementResult result = session.run(
-       				"MATCH (n) WHERE n.name contains $x RETURN n AS obj", parameters("x",initial));
+       				"MATCH (n) WHERE n.name = $x RETURN n AS obj", parameters("x",initial));
        		
-       		String str = "MATCH (n) WHERE n.name contains $x RETURN n AS obj";
-       		System.out.println(str);
-    		// Each Cypher execution returns a stream of records.
+      		// Each Cypher execution returns a stream of records.
     		while(result.hasNext()){
     			Node tmpNode = new Node();
     			

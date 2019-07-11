@@ -112,7 +112,7 @@ body {
 						</c:forEach>
 					</select>
 					<input type="text" name="relation" placeholder="Enter Relationship" style="width: 30%">
-					<select name="typeNode" id="show-input" onclick="addSearchField()">
+					<select name="typeNode" id="show-input" >
 						<option value="">----Destination----</option>
 						<c:forEach var="list" items="${listLabels}">
 							<option value="${list.typeNode }" >${list.typeNode }</option>
@@ -199,35 +199,6 @@ body {
 		elem.setAttribute("id","property-br"+i); 
 
 		var form = document.getElementById("form");
-		form.appendChild(x);
-		form.appendChild(y);
-		var newlabel = document.createElement("Label");
-	    newlabel.innerHTML = "Delete";
-	    newlabel.setAttribute("onclick","deleteField("+i+")");
-	    newlabel.setAttribute("id","property-label"+i);
-	    form.appendChild(newlabel);
-		form.appendChild(elem);
-		i++;
-	}
-	
-function addSearchField() {
-		
-		var x = document.createElement("INPUT");
-		tmpName = "listFields["+i+"].";
-		x.setAttribute("type", "text");
-		x.setAttribute("name", tmpName+"key");
-		x.setAttribute("id","property-key"+i);
-		console.log(x);
-		var y = document.createElement("INPUT");
-		tmpName = "listFields["+i+"].";
-		y.setAttribute("type", "text");
-		y.setAttribute("name", tmpName+"value");
-		y.setAttribute("id","property-value"+i);
-
-		var elem = document.createElement('br');
-		elem.setAttribute("id","property-br"+i); 
-
-		var form = document.getElementById("searchRelation");
 		form.appendChild(x);
 		form.appendChild(y);
 		var newlabel = document.createElement("Label");
