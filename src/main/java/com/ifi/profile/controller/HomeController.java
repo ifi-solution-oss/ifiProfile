@@ -68,7 +68,7 @@ public class HomeController {
 	public ModelAndView search(@Validated Node node){
 		NeoService neoService = new NeoService(Constants.URL_IFI, Constants.USER_IFI, Constants.PASS_IFI);
 		
-		List<Node> lists = neoService.searchNode(node.getLabelNode());
+		List<Node> lists = neoService.searchNode(node);
 		
 		neoService.close();
 		ModelAndView modelRet = new ModelAndView("search");
@@ -135,7 +135,6 @@ public class HomeController {
 		List<Node> lists = neoService.searchByRelationship(node);
 		List<Node> listNodes = neoService.getNode(node);
 		List<Node> listNode = neoService.getListNodes();
-		List<Node> listLabels = neoService.getLabels();
 		List<Node> listProject = neoService.advanceSearch(node);
 		neoService.close();
 		
@@ -144,7 +143,6 @@ public class HomeController {
 		modelRet.addObject("lists", lists);
 		modelRet.addObject("listNodes", listNodes);
 		modelRet.addObject("listNode", listNode);
-		modelRet.addObject("listLabels", listLabels);
 		modelRet.addObject("listProject", listProject);
 		return modelRet;
 	}
@@ -153,8 +151,8 @@ public class HomeController {
 	public ModelAndView viewProfile(@Validated Node node){
 		NeoService neoService = new NeoService(Constants.URL_IFI, Constants.USER_IFI, Constants.PASS_IFI);
 		
-		List<Node> nodeInfo = neoService.searchNode(node.getLabelNode());
-		List<Node> listTech = neoService.getInfo(node.getLabelNode());
+		List<Node> nodeInfo = neoService.searchNode(node);
+		List<Node> listTech = neoService.getInfo(node);
 		neoService.close();
 		
 		ModelAndView modelRet = new ModelAndView("viewProfile");

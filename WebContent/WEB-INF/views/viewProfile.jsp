@@ -21,7 +21,7 @@
 		<div class="row">
 			<div class="col-sm-10">
 				<c:if test="${not empty nodeInfo}">
-					<h2>${node.labelNode} profile</h2> 
+					<h2> Profile</h2> 
 				    <!-- use two-dimensional array to get value of node and field -->
 				    <h4>Individual Information</h4>
 				      <c:forEach var="nodeInfo" items="${nodeInfo}" >
@@ -33,8 +33,8 @@
 				      </c:forEach>
 				      <h4>Technologies</h4>
     				  	<c:forEach var="listTech" items="${listTech}">
-    				  		<c:forEach var="field" items="${listTech.listFields}">
-    				  			<li>${field.key}</li>			
+    				  		<c:forEach var="tech" items="${listTech.listFields}">
+    				  			<li>${tech.value}</li>			
     				  		</c:forEach>
      				 	</c:forEach>				
 				</c:if>

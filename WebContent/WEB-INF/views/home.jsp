@@ -92,13 +92,13 @@ body {
 			<div class="row">
 				<div class="col-sm-6">
 				<form action="search" id="search" method="post">
-					<input id="autocomplete" type="text" name="labelNode">
+					<div id="element"></div>
 					<input type="submit" value="Search">
 				</form><br>
 				
 				<!-- View profile -->
 				<form action="viewProfile" method="get" id="profile">
-					<input type="text" name="labelNode">
+					<div id="getPerson"></div>
 					<input type="submit" value="View Profile">
 				</form>
 				</div>
@@ -112,7 +112,7 @@ body {
 						</c:forEach>
 					</select>
 					<input type="text" name="relation" placeholder="Enter Relationship" style="width: 30%">
-					<select name="typeNode" id="show-input" >
+					<select name="typeNode" id="show-input" onchange="searchRelationship()">
 						<option value="">----Destination----</option>
 						<c:forEach var="list" items="${listLabels}">
 							<option value="${list.typeNode }" >${list.typeNode }</option>
@@ -180,6 +180,35 @@ body {
 	</div>
 	
 	<script type="text/javascript">
+		var i = 0;
+		var form = document.getElementById("profile");
+		var tmpValue = document.getElementById("getPerson");
+		
+		var b = document.createElement("INPUT");
+		tmpName = "listFields["+i+"].";
+		b.setAttribute("type", "text");
+		b.setAttribute("name", tmpName+"value");
+		b.setAttribute("id","property-value"+i);
+		
+		tmpValue.appendChild(b);
+	</script>
+	
+	<script type="text/javascript">
+		var i = 0;
+		var form = document.getElementById("search");
+		var search = document.getElementById("element");
+	
+		var b = document.createElement("INPUT");
+		tmpName = "listFields["+i+"].";
+		b.setAttribute("type", "text");
+		b.setAttribute("name", tmpName+"value");
+		b.setAttribute("id","property-value"+i);
+	
+		search.appendChild(b);
+
+	</script>
+	
+	<script type="text/javascript">
 	var i = 0;
 	function addField() {
 		
@@ -237,6 +266,35 @@ body {
 	    form.appendChild(newlabel);
 		form.appendChild(elem);
 		i++;
+	}
+	
+	function searchRelationship() {
+		
+		var x = document.createElement("INPUT");
+		tmpName = "listFields["+i+"].";
+		x.setAttribute("type", "text");
+		x.setAttribute("name", tmpName+"key");
+		x.setAttribute("id","property-key"+i);
+		console.log(x);
+		var y = document.createElement("INPUT");
+		tmpName = "listFields["+i+"].";
+		y.setAttribute("type", "text");
+		y.setAttribute("name", tmpName+"value");
+		y.setAttribute("id","property-value"+i);
+
+		var elem = document.createElement('br');
+		elem.setAttribute("id","property-br"+i); 
+
+		var form = document.getElementById("searchRelation");
+		form.appendChild(x);
+		form.appendChild(y);
+		var newlabel = document.createElement("Label");
+	    newlabel.innerHTML = "Delete";
+	    newlabel.setAttribute("onclick","deleteField("+i+")");
+	    newlabel.setAttribute("id","property-label"+i);
+	    form.appendChild(newlabel);
+		form.appendChild(elem);
+		
 	}
 	
 	function addRelationField() {
@@ -471,72 +529,12 @@ body {
         	$('#relateModal').modal('show');
         })
 	})
-
-// suggestion for search function
-function autocomplete(inp, arr){
-	var currentFocus;
-	inp.addEventListener("input",function(e){
-		var a, val = this.value;
-		closeAllLists();
-		if(!val){return false;}
-		currentFocus = -1;
-		a = document.createElement("DIV");
-		a.setAttribute("id", this.id + "autocomplete-list");
-		a.setAttribute("class", "autocomplete-items");
-		this.parentNode.appendChild(a);
-		for(var i = 0; i < arr.length; i++){
-			if(arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()){
-				var b = document.createElement("DIV");
-				b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
-				b.innerHTML += arr[i].substr(0, val.length);
-				b.innerHTML += "<input type='hiden' value='" + arr[i] + "'>";
-				b.addEventListener("click", function(e){
-					inp.value = this.getElementsByTagName("input")[0].value;
-					closeAllLists();
-				});
-				a.appendChild(b);
-			}
-		}
-	});
-	
-	inp.addEventListener("keydown", function(e){
-		var x = document.getElementById(this.id + "autocomplete-list");
-		if(x) x = x.getElementsByTagName("div");
-		if(e.keyCode == 40){
-			currentFocus++;
-			addActive(x);
-		} else if(e.keyCode == 38){
-			currentFocus--;
-			addActive(x);
-		} else if(e.keyCode == 13){
-			e.preventDefault();
-			if(currentFocus>-1){
-				if(x) x[currentFocus].click();
-			}
-		}
-	});
-	
-	function removeActive(x){
-		for(var i = 0; i < x.length; i++){
-			x[i].classList.remove("autocomplete-active");
-		}
-	}
-	
-	function closeAllLists(element){
-		var x = document.getElementsByClassName("autocomplete-items");
-		for(var i = 0; i< x.length; i++){
-			if(element != x[i] && element != inp){
-				x[i].parentNode.removeChild(x[i]);
-			}
-		}
-	}
-	document.addEventListener("click", function (e) {
-	      closeAllLists(e.target);
-	  });	
 }
 
 	</script>
-
+	
+	
+	
 	<!-- The Modal -->
 	<div class="modal fade" id="ifiModal">
 	  <div class="modal-dialog modal-dialog-centered">
