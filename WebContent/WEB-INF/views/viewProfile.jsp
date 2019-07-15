@@ -30,14 +30,12 @@
 	      					${field.key} :
 	      					${field.value}<br>
 				    		</c:forEach>
-				      </c:forEach>
-				      <h4>Technologies</h4>
-    				  	<c:forEach var="listTech" items="${listTech}">
-    				  		<c:forEach var="tech" items="${listTech.listFields}">
-    				  			<li>${tech.value}</li>			
-    				  		</c:forEach>
-     				 	</c:forEach>				
+				      </c:forEach>			
 				</c:if>
+				  <h4>Technologies</h4>
+    				 <c:forEach var="listTech" items="${listTech}">
+    				  	<li>${listTech.technologies}</li>
+     				 </c:forEach>	
 			</div>
 		</div>
 	</div>
@@ -45,7 +43,7 @@
 	
 	 
 	<script type="text/javascript">
-
+		
 	</script>
 
 	

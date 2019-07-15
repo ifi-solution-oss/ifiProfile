@@ -506,33 +506,29 @@ public class NeoService {
     			}
 			}
     		tmpStr += "\n MATCH (n)-[]->(t)";
-    		tmpStr += "\n RETURN t.name AS technologies";
+    		tmpStr += "\n RETURN t AS technologies";
     		String tmpQuery = tmpStr;
     		System.out.println(tmpQuery);
     		StatementResult result = session.run(tmpQuery);
     		while(result.hasNext()){
-    			Node tmNode = new Node();
+    			Node tmpNode = new Node();
+    			
     			Record record = result.next();
     			try {
     		//		tmpNode.setCount(record.get("count").asInt());
-					List<Field> listFields = new ArrayList<Field>();	
-					Field tmpField = new Field();
-					tmpField.setValue(record.get("technologies").asString());
-					listFields.add(tmpField);
+//					List<Field> listFields = new ArrayList<Field>();	
+//					Field tmpField = new Field();
+//					tmpField.setValue(record.get("technologies").asString());
+//					listFields.add(tmpField);
+//					
+//					tmNode.setListFields(listFields);	
 					
-					tmNode.setListFields(listFields);	
-					
-//					Map<String, Object> tmpMap = record.get("obj").asMap();
-//					List<Field> listFields = new ArrayList<Field>();
-//					//Converting to Map.Entry so that we can get key and value separately so Elements can traverse in any order  
-//					for(Map.Entry entry:tmpMap.entrySet()){
-//						// create object field and set value for field
-//						Field tmpField = new Field();
-//						tmpField.setKey(entry.getKey().toString());
-//						tmpField.setValue(entry.getValue().toString());
-//						listFields.add(tmpField);
-//					}
-//					tmpNode.setListFields(listFields);
+					Map<String, Object> tmpMap = record.get("technologies").asMap();
+					if(tmpMap.get("name") != null){
+						String str = tmpMap.get("name").toString();
+						System.out.println(str);
+						tmpNode.setTechnologies(str);
+					}
 				} catch (Exception e) {
 					System.out.println("Error: "+e.getMessage());
 				}
@@ -670,7 +666,7 @@ public class NeoService {
     				
     				// add info taken from record to tmpMap
 					Map<String, Object> tmpMap = record.get("obj").asMap();
-					if(tmpMap.get("name") != null){
+					if(tmpMap.get("name") != null){	
 						tmpNode.setLabelNode(tmpMap.get("name").toString());
 					}
 					List<Field> listFields = new ArrayList<Field>();

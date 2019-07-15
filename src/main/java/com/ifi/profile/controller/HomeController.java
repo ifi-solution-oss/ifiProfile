@@ -121,10 +121,12 @@ public class HomeController {
 		
 		neoService.addRelationship(node);
 		List<Node> listLabels = neoService.getLabels();
+		List<Node> listNode = neoService.getListNodes();
 		neoService.close();
 		
 		ModelAndView modelRet = new ModelAndView("home");
 		modelRet.addObject("listLabels", listLabels);
+		modelRet.addObject("listNode", listNode);
 		return modelRet;
 	}
 	
@@ -150,14 +152,16 @@ public class HomeController {
 	@RequestMapping(value = "/viewProfile", method = RequestMethod.GET)
 	public ModelAndView viewProfile(@Validated Node node){
 		NeoService neoService = new NeoService(Constants.URL_IFI, Constants.USER_IFI, Constants.PASS_IFI);
-		
-		List<Node> nodeInfo = neoService.searchNode(node);
 		List<Node> listTech = neoService.getInfo(node);
+		List<Node> nodeInfo = neoService.searchNode(node);
+		System.out.println(listTech);
+		System.out.println(nodeInfo);
 		neoService.close();
 		
 		ModelAndView modelRet = new ModelAndView("viewProfile");
-		modelRet.addObject("nodeInfo", nodeInfo);
 		modelRet.addObject("listTech", listTech);
+		modelRet.addObject("nodeInfo", nodeInfo);
+		
 		
 		return modelRet;
 	}

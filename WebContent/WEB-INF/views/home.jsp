@@ -180,35 +180,6 @@ body {
 	</div>
 	
 	<script type="text/javascript">
-		var i = 0;
-		var form = document.getElementById("profile");
-		var tmpValue = document.getElementById("getPerson");
-		
-		var b = document.createElement("INPUT");
-		tmpName = "listFields["+i+"].";
-		b.setAttribute("type", "text");
-		b.setAttribute("name", tmpName+"value");
-		b.setAttribute("id","property-value"+i);
-		
-		tmpValue.appendChild(b);
-	</script>
-	
-	<script type="text/javascript">
-		var i = 0;
-		var form = document.getElementById("search");
-		var search = document.getElementById("element");
-	
-		var b = document.createElement("INPUT");
-		tmpName = "listFields["+i+"].";
-		b.setAttribute("type", "text");
-		b.setAttribute("name", tmpName+"value");
-		b.setAttribute("id","property-value"+i);
-	
-		search.appendChild(b);
-
-	</script>
-	
-	<script type="text/javascript">
 	var i = 0;
 	function addField() {
 		
@@ -294,7 +265,7 @@ body {
 	    newlabel.setAttribute("id","property-label"+i);
 	    form.appendChild(newlabel);
 		form.appendChild(elem);
-		
+		i++;
 	}
 	
 	function addRelationField() {
@@ -529,11 +500,38 @@ body {
         	$('#relateModal').modal('show');
         })
 	})
-}
+
 
 	</script>
 	
+	<script type="text/javascript">
+		var i = 0;
+		var form = document.getElementById("search");
+		var search = document.getElementById("element");
 	
+		var b = document.createElement("INPUT");
+		tmpName = "listFields["+i+"].";
+		b.setAttribute("type", "text");
+		b.setAttribute("name", tmpName+"value");
+		b.setAttribute("id","property-value"+i);
+	
+		search.appendChild(b);
+
+	</script>
+	
+	<script type="text/javascript">
+		var i = 0;
+		var form = document.getElementById("profile");
+		var tmpValue = document.getElementById("getPerson");
+		
+		var b = document.createElement("INPUT");
+		tmpName = "listFields["+i+"].";
+		b.setAttribute("type", "text");
+		b.setAttribute("name", tmpName+"value");
+		b.setAttribute("id","property-value"+i);
+		
+		tmpValue.appendChild(b);
+	</script>
 	
 	<!-- The Modal -->
 	<div class="modal fade" id="ifiModal">
