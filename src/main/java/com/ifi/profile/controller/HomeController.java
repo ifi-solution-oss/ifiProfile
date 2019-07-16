@@ -155,12 +155,14 @@ public class HomeController {
 		List<Node> listTech = neoService.getInfo(node);
 		List<Node> nodeInfo = neoService.searchNode(node);
 		List<Node> listProject = neoService.getProject(node);
+		List<Node> listPerson = neoService.getPersons(node);
 		neoService.close();
 		
 		ModelAndView modelRet = new ModelAndView("viewProfile");
 		modelRet.addObject("listTech", listTech);
 		modelRet.addObject("nodeInfo", nodeInfo);
 		modelRet.addObject("listProject", listProject);
+		modelRet.addObject("listPerson", listPerson);
 		
 		return modelRet;
 	}

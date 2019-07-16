@@ -555,37 +555,31 @@ public class NeoService {
     		tmpStr += "\n MATCH (t: Technology)-[]->(p)";
     		tmpStr += "\n RETURN p.project AS project, collect(t.name) AS technologies";
     		String tmpQuery = tmpStr;
-    		System.out.println(tmpQuery);
     		StatementResult rs = session.run(tmpQuery);
     		while(rs.hasNext()){
     			Node tmpNode = new Node();
     			Record record = rs.next();
     			try {
-					Map<String, Object> tmpProject = record.get("project").asMap();
-					Map<String, Object> tmpTech = record.get("technologies").asMap();
-					
+    				// get list project
 					List<Field> listFields = new ArrayList<Field>();
-					for(Map.Entry entry : tmpProject.entrySet()){
-						Field tmpField = new Field();
-						tmpField.setKey(entry.getKey().toString());
-						listFields.add(tmpField);
-						
-					}
+					Field tmField = new Field();
+					tmField.setValue(record.get("project").asString());
+					listFields.add(tmField);
+					
+					// get list technologies
 					List<Field> listTech = new ArrayList<Field>();
-					for(Map.Entry entry: tmpTech.entrySet()){
-						Field tmField = new Field();
-						String test = entry.getValue().toString();
-						test = test.replace("[\"","");	
-		    			test = test.replace("\"]","");
-		    			test = test.replace("\"","");
-		    			tmField.setValue(test);
-		    			listTech.add(tmField);
-					}
+					Field tmTech = new Field();
+					String test = record.get("technologies").toString();
+					test = test.replace("[\"","");	
+	    			test = test.replace("\"]","");
+	    			test = test.replace("\"","");
+					tmTech.setKey(test);
+					listTech.add(tmTech);
+					
+					// merge two lists 
 					listFields.addAll(listTech);
 					tmpNode.setListFields(listFields);
-					
 				} catch (Exception e) {
-					
 					System.out.println("Error: "+e.getMessage());
 				}
     			nodeInfor.add(tmpNode);
@@ -600,10 +594,17 @@ public class NeoService {
 //    match (n:Person{name:"Nguyen Huu Huong"})-[]->(p:Project)
 //    match (m:Person)-[]->(p)
 //    return p.project as project, collect(m.name) as person
-    public List<Node> getPersons(String initial){
+    public List<Node> getPersons(Node node){
     	List<Node> nodeInfo = new ArrayList<Node>();
     	try(Session session = driver.session()){
-    		String tmpStr = "MATCH (n: Person),(p: Project) WHERE n.name = $x ";
+    		String tmpStr = "MATCH (n: Person),(p:Project) WHERE ";
+    		if((node.getListFields()!=null)&&(!"".equals(node.getListFields()))){
+    			for(Field field : node.getListFields()){
+    				String str =  "n.name =" + "\'" + field.getValue() + "\'";
+    				tmpStr += str;
+    			}
+			}
+    		tmpStr += "\n MATCH (n)-[]->(p)";
     		tmpStr += "\n MATCH (m:Person)-[]->(p)";
     		tmpStr += "\n RETURN p.project as project, collect(m.name) as person";
     		String tmpQuery = tmpStr;
@@ -613,36 +614,32 @@ public class NeoService {
     			Record record = rs.next();
     			
     			try {
-					Map<String, Object> tmpProject = record.get("project").asMap();
-					Map<String, Object>	tmpPerson = record.get("person").asMap();
-					
+					// get list project
 					List<Field> listProject = new ArrayList<Field>();
-					for(Map.Entry entry: tmpProject.entrySet()){
-						Field tmpField = new Field();
-						tmpField.setKey(entry.getKey().toString());
-						listProject.add(tmpField);
-					}
+					Field tmpProject = new Field();
+					tmpProject.setKey(record.get("project").asString());
+					listProject.add(tmpProject);
 					
+					// get list person takes part in project
 					List<Field> listPerson = new ArrayList<Field>();
-					for(Map.Entry entry: tmpPerson.entrySet()){
-						Field tmField = new Field();
-						String test = entry.getValue().toString();
-						test = test.replace("[\"","");	
-		    			test = test.replace("\"]","");
-		    			test = test.replace("\"","");
-		    			tmField.setValue(test);
-		    			listPerson.add(tmField);
-					}
-					
+					Field tmpPerson = new Field();
+					String test = record.get("person").toString();
+					test = test.replace("[\"","");	
+	    			test = test.replace("\"]","");
+	    			test = test.replace("\"","");
+	    			tmpPerson.setValue(test);
+	    			listPerson.add(tmpPerson);
+	    			
+					// merge two list
 					listProject.addAll(listPerson);
 					tmpNode.setListFields(listProject);
+					
 				} catch (Exception e) {
-				
 					System.out.println("Error: "+e.getMessage());
 				}
+    			nodeInfo.add(tmpNode);
     		}
     	}
-    	
     	return nodeInfo;
     }
     

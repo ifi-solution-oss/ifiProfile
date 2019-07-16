@@ -41,22 +41,46 @@
      			 </c:forEach>
      			 <!-- List project that person joined and technologies used in project -->
      			 <h4>Project</h4>
-     			 <c:forEach var="listProject" items="${listProject}">
-     			 	<c:forEach var="pro" items="${listProject.listFields}">
-     			 		${pro.key} :
-     			 		${pro.value} <br>
-     			 	</c:forEach>
-     			 </c:forEach>
+     			 <table class="table">
+     			 <thead>
+     			 	<tr>
+     			 		<th>Project</th>
+     			 		<th>Technologies used</th>
+     			 	</tr>
+     			 </thead>
+     			 <tbody>
+     			 	<c:forEach var="listProject" items="${listProject}">
+     			 		<c:forEach var="pro" items="${listProject.listFields}">
+     			 			<tr>
+     			 				<td>${pro.value}</td> <!-- value is project -->
+     			 				<td>${pro.key}</td>	  <!-- key is technology -->
+     			 			</tr>
+     			 		</c:forEach>
+     				 </c:forEach>
+     			 </tbody>
+     			 </table>
+     			 <br>
+     			  <table class="table">
+     			 <thead>
+     			 	<tr>
+     			 		<th>Project</th>
+     			 		<th>Person takes part in</th>
+     			 	</tr>
+     			 </thead>
+     			 <tbody>
+     			 	<c:forEach var="listPerson" items="${listPerson}">
+     			 		<c:forEach var="person" items="${listPerson.listFields}">
+     			 			<tr>
+     			 				<td>${person.key}</td> 
+     			 				<td>${person.value}</td>	
+     			 			</tr>
+     			 		</c:forEach>
+     				 </c:forEach>
+     			 </tbody>
+     			 </table>
 			</div>
 		</div>
 	</div>
-	
-	
-	 
-	<script type="text/javascript">
-		
-	</script>
-
 	
 </body>
 </html>

@@ -67,10 +67,8 @@
 						  		<td data-toggle="modal" data-target="#ifiModal" class="idClass" data-id="${listNodes.labelNode}" 
 	      							data-list="<c:forEach var="field" items="${listNodes.listFields}">${field.key}:${field.value}*+*+</c:forEach>">${listNodes.labelNode}</td>
 								<td><i class="fas fa-check"></i></td>
-								
 								<td data-toggle="modal" data-target="#ifiModal" class="project" data-id="${listNodes.labelNode}" 
 	      							data-list="<c:forEach var="field" items="${listNodes.listFields}">${field.key}:${field.value}*+*+</c:forEach>">${listNodes.count}</td>
-	      						
 				    		</tr>
 				      </c:forEach>
 				    </tbody>
