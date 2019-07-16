@@ -60,24 +60,6 @@
      			 </tbody>
      			 </table>
      			 <br>
-     			  <table class="table">
-     			 <thead>
-     			 	<tr>
-     			 		<th>Project</th>
-     			 		<th>Person takes part in</th>
-     			 	</tr>
-     			 </thead>
-     			 <tbody>
-     			 	<c:forEach var="listPerson" items="${listPerson}">
-     			 		<c:forEach var="person" items="${listPerson.listFields}">
-     			 			<tr>
-     			 				<td>${person.key}</td> 
-     			 				<td>${person.value}</td>	
-     			 			</tr>
-     			 		</c:forEach>
-     				 </c:forEach>
-     			 </tbody>
-     			 </table>
 			</div>
 		</div>
 	</div>

@@ -70,6 +70,7 @@ public class NeoService {
     }
     
     // delete node
+    // query: match (n: Person{name: 'Nguyen Van A'}) detach delete n
     public void deleteNode(Node node){
     	try(Session session = driver.session()){
     		String tmpQuery = "MATCH (n :"+node.getTypeNode();
@@ -163,7 +164,8 @@ public class NeoService {
     // Cypher code :
     // match (n:label),(m:label)
     // where n.key = value and m.key = value
-    // create (n)-[:relation]->(m)
+    // create (n)-[r:relation]->(m)
+    // set r.key = value (create properties for relationship)
     
     public void addRelationship(Node node){
     	try(Session session = driver.session()){
@@ -570,6 +572,7 @@ public class NeoService {
 					List<Field> listTech = new ArrayList<Field>();
 					Field tmTech = new Field();
 					String test = record.get("technologies").toString();
+					// remove special character
 					test = test.replace("[\"","");	
 	    			test = test.replace("\"]","");
 	    			test = test.replace("\"","");
@@ -624,6 +627,7 @@ public class NeoService {
 					List<Field> listPerson = new ArrayList<Field>();
 					Field tmpPerson = new Field();
 					String test = record.get("person").toString();
+					// remove special character
 					test = test.replace("[\"","");	
 	    			test = test.replace("\"]","");
 	    			test = test.replace("\"","");
