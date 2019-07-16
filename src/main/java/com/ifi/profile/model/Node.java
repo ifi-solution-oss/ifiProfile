@@ -13,16 +13,16 @@ public class Node {
 	
 	private int count;
 	
-	private String technologies;
-	
-	
-	public String getTechnologies() {
-		return technologies;
-	}
-
-	public void setTechnologies(String technologies) {
-		this.technologies = technologies;
-	}
+//	private String technologies;
+//	
+//	
+//	public String getTechnologies() {
+//		return technologies;
+//	}
+//
+//	public void setTechnologies(String technologies) {
+//		this.technologies = technologies;
+//	}
 
 	public int getCount() {
 		return count;

@@ -401,8 +401,6 @@ public class NeoService {
     			Record record = result.next();
     			// Values can be extracted from a record by index or name.
     			try {
-    				// add info to map
-    				//Map<String, Object> getInfo = 
     				// add info taken from record to tmpMap
     				Map<String, Object> tmpMap = record.get("obj").asMap();
 					if(tmpMap.get("name") != null){
@@ -508,30 +506,30 @@ public class NeoService {
     		tmpStr += "\n MATCH (n)-[]->(t)";
     		tmpStr += "\n RETURN t AS technologies";
     		String tmpQuery = tmpStr;
-    		System.out.println(tmpQuery);
+    	
     		StatementResult result = session.run(tmpQuery);
     		while(result.hasNext()){
     			Node tmpNode = new Node();
     			
     			Record record = result.next();
     			try {
-    		//		tmpNode.setCount(record.get("count").asInt());
-//					List<Field> listFields = new ArrayList<Field>();	
-//					Field tmpField = new Field();
-//					tmpField.setValue(record.get("technologies").asString());
-//					listFields.add(tmpField);
-//					
-//					tmNode.setListFields(listFields);	
-					
 					Map<String, Object> tmpMap = record.get("technologies").asMap();
-					if(tmpMap.get("name") != null){
-						String str = tmpMap.get("name").toString();
-						System.out.println(str);
-						tmpNode.setTechnologies(str);
+					List<Field> listFields = new ArrayList<Field>();
+					for(Map.Entry entry:tmpMap.entrySet()){
+						Field tmpField = new Field();
+						tmpField.setKey(entry.getKey().toString());
+						tmpField.setValue(entry.getValue().toString());
+						listFields.add(tmpField);
+						if(entry.getKey().equals("name")){
+							break;
+						}
 					}
+					tmpNode.setListFields(listFields);
+
 				} catch (Exception e) {
 					System.out.println("Error: "+e.getMessage());
 				}
+    			nodeInfo.add(tmpNode);
     		}
     	}
     	return nodeInfo;
@@ -539,16 +537,25 @@ public class NeoService {
     
     // show project and technologies used
     // query:
-//    match (n:Person{name:"Nguyen Huu Huong"})-[]->(p:Project)
-//    match (t:Technology)-[]->(p)
-//    return p.project as project, collect(t.name) as technologies
-    public List<Node> getProject(String initial){
+//    MATCH (n: Person),(p:Project) WHERE n.name ='Nguyen Huu Huong'
+//    MATCH (n)-[]->(p)
+//    MATCH (t: Technology)-[]->(p)
+//    RETURN p.project AS project, collect(t.name) AS technologies
+    public List<Node> getProject(Node node){
     	List<Node> nodeInfor = new ArrayList<Node>();
     	try(Session session = driver.session()){
-    		String tmpStr = "MATCH (n: Person),(p: Project) WHERE n.name = $x ";
+    		String tmpStr = "MATCH (n: Person),(p:Project) WHERE ";
+    		if((node.getListFields()!=null)&&(!"".equals(node.getListFields()))){
+    			for(Field field : node.getListFields()){
+    				String str =  "n.name =" + "\'" + field.getValue() + "\'";
+    				tmpStr += str;
+    			}
+			}
+    		tmpStr += "\n MATCH (n)-[]->(p)";
     		tmpStr += "\n MATCH (t: Technology)-[]->(p)";
     		tmpStr += "\n RETURN p.project AS project, collect(t.name) AS technologies";
     		String tmpQuery = tmpStr;
+    		System.out.println(tmpQuery);
     		StatementResult rs = session.run(tmpQuery);
     		while(rs.hasNext()){
     			Node tmpNode = new Node();
@@ -560,18 +567,18 @@ public class NeoService {
 					List<Field> listFields = new ArrayList<Field>();
 					for(Map.Entry entry : tmpProject.entrySet()){
 						Field tmpField = new Field();
-						tmpField.setValue(entry.getValue().toString());
+						tmpField.setKey(entry.getKey().toString());
 						listFields.add(tmpField);
+						
 					}
 					List<Field> listTech = new ArrayList<Field>();
 					for(Map.Entry entry: tmpTech.entrySet()){
 						Field tmField = new Field();
-						String test = entry.getKey().toString();
+						String test = entry.getValue().toString();
 						test = test.replace("[\"","");	
 		    			test = test.replace("\"]","");
-		    			test = test.replace("[","");
-		    			test = test.replace("]","");
-		    			tmField.setKey(test);
+		    			test = test.replace("\"","");
+		    			tmField.setValue(test);
 		    			listTech.add(tmField);
 					}
 					listFields.addAll(listTech);
@@ -581,6 +588,7 @@ public class NeoService {
 					
 					System.out.println("Error: "+e.getMessage());
 				}
+    			nodeInfor.add(tmpNode);
     		}
     	}
     	
@@ -621,8 +629,7 @@ public class NeoService {
 						String test = entry.getValue().toString();
 						test = test.replace("[\"","");	
 		    			test = test.replace("\"]","");
-		    			test = test.replace("[","");
-		    			test = test.replace("]","");
+		    			test = test.replace("\"","");
 		    			tmField.setValue(test);
 		    			listPerson.add(tmField);
 					}
@@ -652,7 +659,7 @@ public class NeoService {
     			}
 			}
     		tmpQuery += "RETURN n AS obj";
-    		System.out.println(tmpQuery);
+
        		StatementResult result = session.run(
        				tmpQuery);
        		

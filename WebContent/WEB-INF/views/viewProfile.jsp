@@ -32,10 +32,21 @@
 				    		</c:forEach>
 				      </c:forEach>			
 				</c:if>
-				  <h4>Technologies</h4>
-    				 <c:forEach var="listTech" items="${listTech}">
-    				  	<li>${listTech.technologies}</li>
-     				 </c:forEach>	
+				<!-- List technologies that person has experience -->
+				 <h4>Technologies</h4>
+    			 <c:forEach var="listTech" items="${listTech}">
+    				 <c:forEach var="tech" items="${listTech.listFields}">
+    				  <li>${tech.value}</li>
+    				 </c:forEach>
+     			 </c:forEach>
+     			 <!-- List project that person joined and technologies used in project -->
+     			 <h4>Project</h4>
+     			 <c:forEach var="listProject" items="${listProject}">
+     			 	<c:forEach var="pro" items="${listProject.listFields}">
+     			 		${pro.key} :
+     			 		${pro.value} <br>
+     			 	</c:forEach>
+     			 </c:forEach>
 			</div>
 		</div>
 	</div>

@@ -154,14 +154,13 @@ public class HomeController {
 		NeoService neoService = new NeoService(Constants.URL_IFI, Constants.USER_IFI, Constants.PASS_IFI);
 		List<Node> listTech = neoService.getInfo(node);
 		List<Node> nodeInfo = neoService.searchNode(node);
-		System.out.println(listTech);
-		System.out.println(nodeInfo);
+		List<Node> listProject = neoService.getProject(node);
 		neoService.close();
 		
 		ModelAndView modelRet = new ModelAndView("viewProfile");
 		modelRet.addObject("listTech", listTech);
 		modelRet.addObject("nodeInfo", nodeInfo);
-		
+		modelRet.addObject("listProject", listProject);
 		
 		return modelRet;
 	}
