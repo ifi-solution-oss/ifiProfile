@@ -34,11 +34,25 @@
 				</c:if>
 				<!-- List technologies that person has experience -->
 				 <h4>Technologies</h4>
-    			 <c:forEach var="listTech" items="${listTech}">
-    				 <c:forEach var="tech" items="${listTech.listFields}">
-    				  <li>${tech.value}</li>
-    				 </c:forEach>
+				 <table class="table">
+     			 <thead>
+     			 	<tr>
+     			 		<th>Technologies</th>
+     			 		<th>Experience(year)</th>
+     			 	</tr>
+     			 </thead>
+     			 <tbody>
+     			 	 <c:forEach var="listTech" items="${listTech}">
+    					 <c:forEach var="tech" items="${listTech.listFields}">
+    					 	<tr>
+    				 		 <td>${tech.key}</td>
+    				 		 <td>${tech.value}</td>
+    				 		</tr>
+    					 </c:forEach>
      			 </c:forEach>
+     			 </tbody>
+     			 </table>
+    			
      			 <!-- List project that person joined and technologies used in project -->
      			 <h4>Project</h4>
      			 <table class="table">

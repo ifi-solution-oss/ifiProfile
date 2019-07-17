@@ -505,8 +505,8 @@ public class NeoService {
     				tmpStr += str;
     			}
 			}
-    		tmpStr += "\n MATCH (n)-[]->(t)";
-    		tmpStr += "\n RETURN t AS technologies";
+    		tmpStr += "\n MATCH (n)-[r]->(t)";
+    		tmpStr += "\n RETURN t.name AS technologies, r.exp AS experience";
     		String tmpQuery = tmpStr;
     	
     		StatementResult result = session.run(tmpQuery);
@@ -515,18 +515,26 @@ public class NeoService {
     			
     			Record record = result.next();
     			try {
-					Map<String, Object> tmpMap = record.get("technologies").asMap();
-					List<Field> listFields = new ArrayList<Field>();
-					for(Map.Entry entry:tmpMap.entrySet()){
-						Field tmpField = new Field();
-						tmpField.setKey(entry.getKey().toString());
-						tmpField.setValue(entry.getValue().toString());
-						listFields.add(tmpField);
-						if(entry.getKey().equals("name")){
-							break;
-						}
+    				List<Field> listTechs = new ArrayList<Field>();
+					Field tmField = new Field();
+					tmField.setKey(record.get("technologies").asString());
+					listTechs.add(tmField);
+					
+					// get list technologies
+					List<Field> listExp = new ArrayList<Field>();
+					Field tmpExp = new Field();
+					String test = record.get("experience").toString();
+					if(test == null){
+						test = "";
 					}
-					tmpNode.setListFields(listFields);
+					System.out.println(test);
+					tmpExp.setValue(test);
+					listExp.add(tmpExp);
+					
+					// merge two lists 
+					listTechs.addAll(listExp);
+					tmpNode.setListFields(listTechs);
+					
 
 				} catch (Exception e) {
 					System.out.println("Error: "+e.getMessage());
@@ -645,6 +653,15 @@ public class NeoService {
     		}
     	}
     	return nodeInfo;
+    }
+    
+    // Advance view profile: calculate the experience of person bases on project
+    
+    // Advance view profile: show how many year the person has experience with technology
+    public List<Node> expTech (Node node){
+    	List<Node> listExperience = new ArrayList<Node>();
+    	
+    	return listExperience;
     }
     
     // search query:"MATCH (n) WHERE n.name contains $x RETURN n"
