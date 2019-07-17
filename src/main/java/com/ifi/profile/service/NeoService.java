@@ -524,8 +524,9 @@ public class NeoService {
 					List<Field> listExp = new ArrayList<Field>();
 					Field tmpExp = new Field();
 					String test = record.get("experience").toString();
-					if(test == null){
-						test = "";
+					if("NULL".equals(test)){
+						test = test.replace("NULL","");
+						test += "0";
 					}
 					System.out.println(test);
 					tmpExp.setValue(test);
