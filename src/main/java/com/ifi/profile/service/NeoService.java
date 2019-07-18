@@ -1,8 +1,8 @@
 package com.ifi.profile.service;
 
-import static org.neo4j.driver.Values.parameters;
-
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -494,7 +494,7 @@ public class NeoService {
     // search person: show profile of the person searched (show list technologies)
     // match (n:Person{name:"Nguyen Hoang Hiep"})-[]->(t:Technology)
     // MATCH (n)-[]->(t)
-    // RETURN t.name AS technologies
+    // RETURN t.name AS technologies, r.exp AS experience
     public List<Node> getInfo(Node node){
     	List<Node> nodeInfo = new ArrayList<Node>();
     	try(Session session = driver.session()){
@@ -657,14 +657,73 @@ public class NeoService {
     }
     
     // Advance view profile: calculate the experience of person bases on project
-    
-    // Advance view profile: show how many year the person has experience with technology
-    public List<Node> expTech (Node node){
-    	List<Node> listExperience = new ArrayList<Node>();
+    public List<Node> expTech(Node node){
+    	List<Node> listExp = new ArrayList<Node>();
     	
-    	return listExperience;
+    	try(Session session = driver.session()){
+    		String tmpQuery = "(n: Person),(p:Project) WHERE ";
+    		if((node.getListFields()!=null)&&(!"".equals(node.getListFields()))){
+    			for(Field field : node.getListFields()){
+    				String tmpStr =  "n.name contains" + "\'" + field.getValue() + "\'";
+    				tmpQuery += tmpStr;
+    			}
+			}
+    		tmpQuery += "\n MATCH (n)-[r]->(p)";
+    		tmpQuery += "\n MATCH (t: Technology)-[]->(p)";
+    		tmpQuery += "RETURN t.name AS technologies, p.project as project, p.startdate as start, p.finishdate as finish, r.from as from, r.to as to";
+    		StatementResult rs = session.run(tmpQuery);
+    		while(rs.hasNext()){
+    			Node tmNode = new Node();
+    			Record record = rs.next();
+    			try {
+    				// get date from database
+					String startDate = record.get("start").asString();
+					String finishDate = record.get("finish").toString();
+					finishDate = finishDate.replaceAll("\"", "");
+					String workFrom = record.get("from").asString();
+					String workTo = record.get("to").asString();
+					String format = "yyyy-MM-dd";
+					Date currentDate = new Date();
+					// format date and add date get from database to object date
+					SimpleDateFormat sdf = new SimpleDateFormat(format);
+					Date start = sdf.parse(startDate);
+					Date finish = sdf.parse(finishDate);
+					Date from = sdf.parse(workFrom);
+					Date to = sdf.parse(workTo);
+				//	Date current = sdf.format(currentDate);
+					
+					// formula calculating month between to date
+					long date, month;
+					if(start.before(from) && to.before(finish)){
+						date = from.getTime() - to.getTime();
+						month = date / (30*24*60*60*1000);
+					}else if(start.before(from)&&finish.equals(to)){
+						date = from.getTime() - finish.getTime();
+						month = date / (30*24*60*60*1000);
+					}else if(start.equals(from)&& to.before(finish)){
+						date = start.getTime() - to.getTime();
+						month = date / (30*24*60*60*1000);
+					}else if(start.equals(from)&&finish.equals(to)){
+						date = start.getTime() - finish.getTime();
+						month = date / (30*24*60*60*1000);
+					}else if(start.equals(from)&&"NULL".equals(finish)){
+						date = start.getTime() - to.getTime();
+						month = date / (30*24*60*60*1000);
+					}else if(start.equals(from)&&"NULL".equals(finish)&&"NULL".equals(to)){
+						date = start.getTime() - to.getTime();
+						month = date / (30*24*60*60*1000);
+					}
+					
+				} catch (Exception e) {
+					System.out.println("Error: "+e.getMessage());
+				}
+    			listExp.add(tmNode);
+    		}
+    	}
+    	
+    	return listExp;
     }
-    
+   
     // search query:"MATCH (n) WHERE n.name contains $x RETURN n"
     public List<Node> searchNode(Node node){
     	List<Node> list = new ArrayList<Node>();
