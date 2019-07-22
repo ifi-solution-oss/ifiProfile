@@ -506,7 +506,6 @@ body {
 	
 	<script type="text/javascript">
 		var i = 0;
-		var form = document.getElementById("search");
 		var search = document.getElementById("element");
 	
 		var b = document.createElement("INPUT");
@@ -521,7 +520,6 @@ body {
 	
 	<script type="text/javascript">
 		var i = 0;
-		var form = document.getElementById("profile");
 		var tmpValue = document.getElementById("getPerson");
 		
 		var b = document.createElement("INPUT");

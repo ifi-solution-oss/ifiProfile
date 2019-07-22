@@ -2,6 +2,8 @@ package com.ifi.profile.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -164,6 +166,18 @@ public class HomeController {
 		modelRet.addObject("listProject", listProject);
 //		modelRet.addObject("listPerson", listPerson);
 		
+		return modelRet;
+	}
+	
+	@RequestMapping(value="/projectDetail", method = RequestMethod.GET)
+	public ModelAndView projectDetail(HttpServletRequest req){
+		NeoService neoService = new NeoService(Constants.URL_IFI, Constants.USER_IFI, Constants.PASS_IFI);
+		String projectName = req.getParameter("projectName");
+		List<Node> listPerson = neoService.searchPerson(projectName);
+		
+		ModelAndView modelRet = new ModelAndView("projectDetail");
+		
+		modelRet.addObject("listPerson", listPerson); 
 		return modelRet;
 	}
 }

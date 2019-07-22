@@ -656,12 +656,63 @@ public class NeoService {
     	return nodeInfo;
     }
     
+    // search person work in project and project info
+    public List<Node> searchPerson(String  projectName){
+    	List<Node> nodeInfo = new ArrayList<Node>();
+    	try(Session session = driver.session()){
+    		String tmpStr = "MATCH (n: Person),(p:Project) WHERE ";
+//    		if((node.getListFields()!=null)&&(!"".equals(node.getListFields()))){
+//    			for(Field field : node.getListFields()){
+//    				String str =  "p.project =" + "\'" + field.getValue() + "\'";
+//    				tmpStr += str;
+//    			}
+//			}
+    		tmpStr += "p.project =" + "\'" + projectName + "\'";
+    		
+    		tmpStr += " MATCH (n)-[r]->(p)";
+    		tmpStr += " RETURN p as project, collect(n.name) as person";
+    		String tmpQuery = tmpStr;
+    		StatementResult rs = session.run(tmpQuery);
+    		while(rs.hasNext()){
+    			Node tmpNode = new Node();
+    			Record record = rs.next();
+    			
+    			try {
+    				// get person
+    				String test = record.get("person").toString();
+    				// remove special character
+					test = test.replace("[\"","");	
+	    			test = test.replace("\"]","");
+	    			test = test.replace("\"","");
+    				tmpNode.setLabelNode(test);
+					// get list project
+    				Map<String, Object> tmpMap = record.get("project").asMap();
+					List<Field> listFields = new ArrayList<Field>();
+					//Converting to Map.Entry so that we can get key and value separately so Elements can traverse in any order  
+					for(Map.Entry entry:tmpMap.entrySet()){
+						// create object field and set value for field
+						Field tmpField = new Field();
+						tmpField.setKey(entry.getKey().toString());
+						tmpField.setValue(entry.getValue().toString());
+						listFields.add(tmpField);
+					}
+					tmpNode.setListFields(listFields);
+					
+				} catch (Exception e) {
+					System.out.println("Error: "+e.getMessage());
+				}
+    			nodeInfo.add(tmpNode);
+    		}
+    	}
+    	return nodeInfo;
+    }
+    
     // Advance view profile: calculate the experience of person bases on project
     public List<Node> expTech(Node node){
     	List<Node> listExp = new ArrayList<Node>();
     	
     	try(Session session = driver.session()){
-    		String tmpQuery = "(n: Person),(p:Project) WHERE ";
+    		String tmpQuery = "MATCH (n: Person),(p:Project) WHERE ";
     		if((node.getListFields()!=null)&&(!"".equals(node.getListFields()))){
     			for(Field field : node.getListFields()){
     				String tmpStr =  "n.name contains" + "\'" + field.getValue() + "\'";
@@ -774,6 +825,7 @@ public class NeoService {
     	
     	return list;
     }
+    
    
     public void close()
     {

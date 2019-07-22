@@ -55,6 +55,7 @@
     			
      			 <!-- List project that person joined and technologies used in project -->
      			 <h4>Project</h4>
+     			 <form action="projectDetail" method="get">
      			 <table class="table">
      			 <thead>
      			 	<tr>
@@ -64,16 +65,16 @@
      			 </thead>
      			 <tbody>
      			 	<c:forEach var="listProject" items="${listProject}">
-     			 		<c:forEach var="pro" items="${listProject.listFields}">
+     			 		<c:forEach var="pro" items="${listProject.listFields}">	
      			 			<tr>
-     			 				<td>${pro.value}</td> <!-- value is project -->
+     			 				<td><a href="projectDetail?projectName=${pro.value}">${pro.value}</a></td> <!-- value is project -->
      			 				<td>${pro.key}</td>	  <!-- key is technology -->
      			 			</tr>
      			 		</c:forEach>
      				 </c:forEach>
      			 </tbody>
      			 </table>
-     			 <br>
+     			 </form>
 			</div>
 		</div>
 	</div>
