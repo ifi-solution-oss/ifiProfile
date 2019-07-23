@@ -723,18 +723,28 @@ public class NeoService {
     		tmpQuery += "\n MATCH (t: Technology)-[]->(p)";
     		tmpQuery += "RETURN t.name AS technologies, p.project as project, p.startdate as start, p.finishdate as finish, r.from as from, r.to as to";
     		StatementResult rs = session.run(tmpQuery);
+    		System.out.println(tmpQuery);
     		while(rs.hasNext()){
     			Node tmNode = new Node();
     			Record record = rs.next();
     			try {
+    				// initialize a list contains all date
+    				List<Date> listDate = new ArrayList<Date>();
     				// get date from database
 					String startDate = record.get("start").asString();
 					String finishDate = record.get("finish").toString();
 					finishDate = finishDate.replaceAll("\"", "");
 					String workFrom = record.get("from").asString();
-					String workTo = record.get("to").asString();
+					String workTo = record.get("to").toString();
+					workTo = workTo.replaceAll("\"", "");
+					if("null".equals(finishDate)){
+						finishDate = workTo;
+					}
+					if("null".equals(finishDate)&&"null".equals(workTo)){
+						break;
+					}
 					String format = "yyyy-MM-dd";
-					Date currentDate = new Date();
+					
 					// format date and add date get from database to object date
 					SimpleDateFormat sdf = new SimpleDateFormat(format);
 					Date start = sdf.parse(startDate);
@@ -742,28 +752,19 @@ public class NeoService {
 					Date from = sdf.parse(workFrom);
 					Date to = sdf.parse(workTo);
 				//	Date current = sdf.format(currentDate);
-					
-					// formula calculating month between to date
-					long date, month;
-					if(start.before(from) && to.before(finish)){
-						date = from.getTime() - to.getTime();
-						month = date / (30*24*60*60*1000);
-					}else if(start.before(from)&&finish.equals(to)){
-						date = from.getTime() - finish.getTime();
-						month = date / (30*24*60*60*1000);
-					}else if(start.equals(from)&& to.before(finish)){
-						date = start.getTime() - to.getTime();
-						month = date / (30*24*60*60*1000);
-					}else if(start.equals(from)&&finish.equals(to)){
-						date = start.getTime() - finish.getTime();
-						month = date / (30*24*60*60*1000);
-					}else if(start.equals(from)&&"NULL".equals(finish)){
-						date = start.getTime() - to.getTime();
-						month = date / (30*24*60*60*1000);
-					}else if(start.equals(from)&&"NULL".equals(finish)&&"NULL".equals(to)){
-						date = start.getTime() - to.getTime();
-						month = date / (30*24*60*60*1000);
+					if(start.before(from)){
+						listDate.add(from);
+					}else{
+						listDate.add(start);
 					}
+					if(finish.after(to)){
+						listDate.add(to);
+					}else{
+						listDate.add(finish);
+					}
+					System.out.println(listDate);
+					
+				
 					
 				} catch (Exception e) {
 					System.out.println("Error: "+e.getMessage());
@@ -775,6 +776,65 @@ public class NeoService {
     	return listExp;
     }
    
+    // search person has more than 4 year experience
+    // query:
+//    with 1 as experience
+//    match (n:Person),(t:Technology)
+//    where t.name = "HTML"
+//    match (n)-[r]->(t)
+//    where r.exp > experience
+//    return n.name as name, r.exp as experience, t.name as TechName
+//    order by experience
+    public List<Node> searchPersonExp(Node node){
+    	List<Node> listExp = new ArrayList<Node>();
+    		try(Session session = driver.session()){
+    			String tmpStr = "WITH ";
+    			if((node.getListFields()!=null)&&(!"".equals(node.getListFields()))){
+        			for(Field field : node.getListFields()){
+        				tmpStr +=  field.getKey() + "AS experience";
+        			}
+    			}
+    			tmpStr += "MATCH (n:Person),(t:Technology)";
+    			tmpStr += "WHERE";
+    			if((node.getListFields()!=null)&&(!"".equals(node.getListFields()))){
+        			for(Field field : node.getListFields()){
+        				tmpStr +=  "t.name = " + "\'" + field.getValue() + "\'";
+        			}
+    			}
+    			tmpStr += "MATCH (n)-[r]->(t)";
+    			tmpStr += "WHERE r.exp > experience";
+    			tmpStr += "RETURN n.name as personName, r.exp as experience, t.name as techName";
+   				tmpStr += "ORDER BY experience";
+    			String tmpQuery = tmpStr;
+    			System.out.println(tmpQuery);
+    			StatementResult rs = session.run(tmpQuery);
+    			while(rs.hasNext()){
+    				Node tmpNode = new Node();
+    				Record record = rs.next();
+    				try {
+						tmpNode.setLabelNode(record.get("personName").asString());
+
+						List<Field> listExperience = new ArrayList<Field>();
+						Field tmpExp = new Field();
+						tmpExp.setKey(record.get("experience").toString());
+						listExperience.add(tmpExp);
+						
+						List<Field> listTech = new ArrayList<Field>();
+						Field tmpTech = new Field();
+						tmpTech.setValue(record.get("techName").asString());
+						listTech.add(tmpTech);
+						
+						listExperience.add(tmpTech);
+						tmpNode.setListFields(listExperience);
+					} catch (Exception e) {
+						System.out.println("Error: "+e.getMessage());
+					}
+    				listExp.add(tmpNode);
+    			}
+    		}
+    	return listExp;
+    }
+    
     // search query:"MATCH (n) WHERE n.name contains $x RETURN n"
     public List<Node> searchNode(Node node){
     	List<Node> list = new ArrayList<Node>();

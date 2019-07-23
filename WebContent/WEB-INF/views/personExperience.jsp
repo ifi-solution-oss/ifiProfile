@@ -4,7 +4,7 @@
 <%@ page session="false"%>
 <html>
 <head>
-<title>Project Detail</title>
+<title>Person Experience</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -20,18 +20,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-10">
-			<h4>Project Information</h4>
-			<!-- get project information -->
-				<c:forEach var="listPerson" items="${listPerson}">
-					<c:forEach var="project" items="${listPerson.listFields}">
-						${project.key}: ${project.value}<br>
-					</c:forEach>
-				</c:forEach>
-			<h4>Project member</h4>
-			<!-- get list person that were members join in project -->
-				<c:forEach var="listPerson" items="${listPerson}">
-					<li>${listPerson.labelNode}</li>
-				</c:forEach>
+				
 			</div>	
 		</div>
 	</div>

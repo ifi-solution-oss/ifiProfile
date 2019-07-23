@@ -158,6 +158,7 @@ public class HomeController {
 		List<Node> nodeInfo = neoService.searchNode(node);
 		List<Node> listProject = neoService.getProject(node);
 //		List<Node> listPerson = neoService.getPersons(node);
+		List<Node> listExperience = neoService.expTech(node);
 		neoService.close();
 		
 		ModelAndView modelRet = new ModelAndView("viewProfile");
@@ -165,10 +166,12 @@ public class HomeController {
 		modelRet.addObject("nodeInfo", nodeInfo);
 		modelRet.addObject("listProject", listProject);
 //		modelRet.addObject("listPerson", listPerson);
+		modelRet.addObject("listExperience", listExperience);
 		
 		return modelRet;
 	}
 	
+	// redirect from view profile. To search project info by click to project name
 	@RequestMapping(value="/projectDetail", method = RequestMethod.GET)
 	public ModelAndView projectDetail(HttpServletRequest req){
 		NeoService neoService = new NeoService(Constants.URL_IFI, Constants.USER_IFI, Constants.PASS_IFI);
@@ -180,4 +183,16 @@ public class HomeController {
 		modelRet.addObject("listPerson", listPerson); 
 		return modelRet;
 	}
+	
+	@RequestMapping(value="/personExperience", method = RequestMethod.GET)
+	public ModelAndView personExperience(@Validated Node node){
+		NeoService neoService = new NeoService(Constants.URL_IFI, Constants.USER_IFI, Constants.PASS_IFI);
+		List<Node> personExperience = neoService.expTech(node);
+		
+		ModelAndView modelRet = new ModelAndView("personExperience");
+		
+		modelRet.addObject("personExperience", personExperience);
+		return modelRet;
+	}
+	
 }

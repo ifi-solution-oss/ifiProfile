@@ -103,12 +103,19 @@ body {
 				</form>
 				</div>
 				
+				<!-- Search person by experience -->
+				<div class="col-sm-6">
+					<form action="personExperience" method="get">
+						<div id="personExperience"></div>
+					</form>
+				</div>
+				
 				<div class="col-sm-6">
 				<form action="searchByRelation" method="post" id="searchRelation">
 					<select name="typeNode">
 						<option value="">----Node Source----</option>
 						<c:forEach var="list" items="${listLabels}">
-							<option value="${list.typeNode }" >${list.typeNode }</option>
+							<option value="${list.typeNode}" >${list.typeNode}</option>
 						</c:forEach>
 					</select>
 					<input type="text" name="relation" placeholder="Enter Relationship" style="width: 30%">
