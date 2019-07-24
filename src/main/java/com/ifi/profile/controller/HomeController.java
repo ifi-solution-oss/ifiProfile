@@ -187,10 +187,10 @@ public class HomeController {
 	@RequestMapping(value="/personExperience", method = RequestMethod.GET)
 	public ModelAndView personExperience(@Validated Node node){
 		NeoService neoService = new NeoService(Constants.URL_IFI, Constants.USER_IFI, Constants.PASS_IFI);
-		List<Node> personExperience = neoService.expTech(node);
-		
+		List<Node> personExperience = neoService.searchPersonExp(node);
+	
 		ModelAndView modelRet = new ModelAndView("personExperience");
-		
+
 		modelRet.addObject("personExperience", personExperience);
 		return modelRet;
 	}

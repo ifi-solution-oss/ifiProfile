@@ -536,7 +536,6 @@ public class NeoService {
 					listTechs.addAll(listExp);
 					tmpNode.setListFields(listTechs);
 					
-
 				} catch (Exception e) {
 					System.out.println("Error: "+e.getMessage());
 				}
@@ -788,23 +787,23 @@ public class NeoService {
     public List<Node> searchPersonExp(Node node){
     	List<Node> listExp = new ArrayList<Node>();
     		try(Session session = driver.session()){
-    			String tmpStr = "WITH ";
+    			String tmpStr = " WITH ";
     			if((node.getListFields()!=null)&&(!"".equals(node.getListFields()))){
         			for(Field field : node.getListFields()){
-        				tmpStr +=  field.getKey() + "AS experience";
+        				tmpStr +=  field.getKey() + " AS experience";
         			}
     			}
-    			tmpStr += "MATCH (n:Person),(t:Technology)";
-    			tmpStr += "WHERE";
+    			tmpStr += "\n MATCH (n:Person),(t:Technology)";
+    			tmpStr += "\n WHERE";
     			if((node.getListFields()!=null)&&(!"".equals(node.getListFields()))){
         			for(Field field : node.getListFields()){
-        				tmpStr +=  "t.name = " + "\'" + field.getValue() + "\'";
+        				tmpStr +=  " t.name = " + "\'" + field.getValue() + "\'";
         			}
     			}
-    			tmpStr += "MATCH (n)-[r]->(t)";
-    			tmpStr += "WHERE r.exp > experience";
-    			tmpStr += "RETURN n.name as personName, r.exp as experience, t.name as techName";
-   				tmpStr += "ORDER BY experience";
+    			tmpStr += "\n MATCH (n)-[r]->(t)";
+    			tmpStr += "\n WHERE r.exp > experience";
+    			tmpStr += "\n RETURN n.name as personName, r.exp as experience, t.name as techName";
+   				tmpStr += "\n ORDER BY experience";
     			String tmpQuery = tmpStr;
     			System.out.println(tmpQuery);
     			StatementResult rs = session.run(tmpQuery);
@@ -825,6 +824,7 @@ public class NeoService {
 						listTech.add(tmpTech);
 						
 						listExperience.add(tmpTech);
+						System.out.println(listExperience);
 						tmpNode.setListFields(listExperience);
 					} catch (Exception e) {
 						System.out.println("Error: "+e.getMessage());

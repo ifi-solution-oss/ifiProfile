@@ -49,7 +49,7 @@
     				 		 <td>${tech.value}</td>
     				 		</tr>
     					 </c:forEach>
-     			 </c:forEach>
+     			 	</c:forEach>
      			 </tbody>
      			 </table>
     			

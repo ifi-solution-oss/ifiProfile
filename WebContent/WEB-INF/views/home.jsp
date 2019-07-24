@@ -90,7 +90,9 @@ body {
 		<div class="container">
 		<h1>IFI Profile</h1>
 			<div class="row">
+			<!-- Search function -->
 				<div class="col-sm-6">
+				<!-- Search person by name -->
 				<form action="search" id="search" method="post">
 					<div id="element"></div>
 					<input type="submit" value="Search">
@@ -101,14 +103,10 @@ body {
 					<div id="getPerson"></div>
 					<input type="submit" value="View Profile">
 				</form>
-				</div>
 				
 				<!-- Search person by experience -->
-				<div class="col-sm-6">
-					<form action="personExperience" method="get">
-						<div id="personExperience"></div>
-					</form>
-				</div>
+				<button id="btn-experience">Search Person By Experience</button><br><br>
+			</div>
 				
 				<div class="col-sm-6">
 				<form action="searchByRelation" method="post" id="searchRelation">
@@ -129,7 +127,10 @@ body {
 				</form>
 				</div>
 				<div class="col-sm-6">
+				<!-- Create relationship -->
 				<button id="btn-relate">Create Relationship</button>
+				
+				<!-- Add a new node -->
 				<form id="form" action="add" method="post">
 					<br><input type="submit" value="Create Node"><br>
 					<p>Type Node:</p>
@@ -506,37 +507,37 @@ body {
     		i++;
         	$('#relateModal').modal('show');
         })
+        
+        // search person by experience
+        $("#btn-experience").click(function (){
+        	var form = document.getElementById("searchByExp");
+        	
+        	var yearExp = document.getElementById("yearExp");
+        	var techName = document.getElementById("techName");
+        	
+        	var x = document.createElement("INPUT");
+    		tmpName = "listFields["+i+"].";
+    		x.setAttribute("type", "text");
+    		x.setAttribute("name", tmpName+"key");
+    		x.setAttribute("id","property-key"+i);
+    		yearExp.appendChild(x);
+    		
+    		var y = document.createElement("INPUT");
+    		tmpName = "listFields["+i+"].";
+    		y.setAttribute("type", "text");
+    		y.setAttribute("name", tmpName+"value");
+    		y.setAttribute("id","property-value"+i);
+			techName.appendChild(y);
+    		
+        	$('#expModal').modal('show');
+        })
 	})
 
 
 	</script>
 	
-	<script type="text/javascript">
-		var i = 0;
-		var search = document.getElementById("element");
+	<!-- Search person by experience -->
 	
-		var b = document.createElement("INPUT");
-		tmpName = "listFields["+i+"].";
-		b.setAttribute("type", "text");
-		b.setAttribute("name", tmpName+"value");
-		b.setAttribute("id","property-value"+i);
-	
-		search.appendChild(b);
-
-	</script>
-	
-	<script type="text/javascript">
-		var i = 0;
-		var tmpValue = document.getElementById("getPerson");
-		
-		var b = document.createElement("INPUT");
-		tmpName = "listFields["+i+"].";
-		b.setAttribute("type", "text");
-		b.setAttribute("name", tmpName+"value");
-		b.setAttribute("id","property-value"+i);
-		
-		tmpValue.appendChild(b);
-	</script>
 	
 	<!-- The Modal -->
 	<div class="modal fade" id="ifiModal">
@@ -655,6 +656,31 @@ body {
 				<p>Relationship properties</p>
 			</form>
 				<br><button id="addBtn" onclick="addRelationField()">Add properties</button>
+	      </div>
+	      <!-- Modal footer -->
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	
+	<!-- Modal search person by experience -->
+	<div class="modal fade" id="expModal">
+	  <div class="modal-dialog modal-dialog-centered">
+	    <div class="modal-content">
+	      <!-- Modal Header -->
+	      <div class="modal-header">
+	        <h4 id="name-node" class="modal-title">Search Person By Experience</h4>
+	        <button type="button" class="close" data-dismiss="modal">&times;</button>
+	      </div>
+	      <!-- Modal body -->
+	      <div id="experience" class="modal-body">
+	         <form id="searchByExp" action="personExperience" method="get">
+	         	<p id="yearExp">Year Experience <br></p>
+	         	<p id="techName">Technology <br></p>
+	         	<input type="submit" value="Search">
+	         </form>
 	      </div>
 	      <!-- Modal footer -->
 	      <div class="modal-footer">

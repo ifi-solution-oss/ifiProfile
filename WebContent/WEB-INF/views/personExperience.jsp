@@ -20,7 +20,26 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-10">
-				
+				<table class="table">
+					<thead>
+						<tr>
+							<th>Person Name</th>
+							<th>Technology</th>
+							<th>Year Experience</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach var="personExp" items="${personExperience}">		
+							<c:forEach var="techExp" items="${personExp.listFields}">
+							<tr>
+								<td>${personExp.labelNode }</td>
+								<td>${techExp.value}</td>
+								<td>${techExp.key}</td>
+							</tr>
+							</c:forEach>
+						</c:forEach>
+					</tbody>
+				</table>
 			</div>	
 		</div>
 	</div>
