@@ -94,13 +94,13 @@ body {
 				<div class="col-sm-6">
 				<!-- Search person by name -->
 				<form action="search" id="search" method="post">
-					<div id="element"></div>
+					<input type="text" name="personName">
 					<input type="submit" value="Search">
 				</form><br>
 				
 				<!-- View profile -->
 				<form action="viewProfile" method="get" id="profile">
-					<div id="getPerson"></div>
+					<input type="text" name="personName">
 					<input type="submit" value="View Profile">
 				</form>
 				

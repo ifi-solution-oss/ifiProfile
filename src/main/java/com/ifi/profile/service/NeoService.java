@@ -495,16 +495,12 @@ public class NeoService {
     // match (n:Person{name:"Nguyen Hoang Hiep"})-[]->(t:Technology)
     // MATCH (n)-[]->(t)
     // RETURN t.name AS technologies, r.exp AS experience
-    public List<Node> getInfo(Node node){
+    public List<Node> getInfo(String personName){
     	List<Node> nodeInfo = new ArrayList<Node>();
     	try(Session session = driver.session()){
     		String tmpStr = "MATCH (n: Person),(t: Technology) WHERE ";
-    		if((node.getListFields()!=null)&&(!"".equals(node.getListFields()))){
-    			for(Field field : node.getListFields()){
-    				String str =  "n.name =" + "\'" + field.getValue() + "\'";
-    				tmpStr += str;
-    			}
-			}
+    		String str =  "n.name =" + "\'" + personName + "\'";
+    		tmpStr += str;
     		tmpStr += "\n MATCH (n)-[r]->(t)";
     		tmpStr += "\n RETURN t.name AS technologies, r.exp AS experience";
     		String tmpQuery = tmpStr;
@@ -551,16 +547,12 @@ public class NeoService {
 //    MATCH (n)-[]->(p)
 //    MATCH (t: Technology)-[]->(p)
 //    RETURN p.project AS project, collect(t.name) AS technologies
-    public List<Node> getProject(Node node){
+    public List<Node> getProject(String personName){
     	List<Node> nodeInfor = new ArrayList<Node>();
     	try(Session session = driver.session()){
     		String tmpStr = "MATCH (n: Person),(p:Project) WHERE ";
-    		if((node.getListFields()!=null)&&(!"".equals(node.getListFields()))){
-    			for(Field field : node.getListFields()){
-    				String str =  "n.name =" + "\'" + field.getValue() + "\'";
-    				tmpStr += str;
-    			}
-			}
+    		String str =  "n.name =" + "\'" + personName + "\'";
+    		tmpStr += str;
     		tmpStr += "\n MATCH (n)-[]->(p)";
     		tmpStr += "\n MATCH (t: Technology)-[]->(p)";
     		tmpStr += "\n RETURN p.project AS project, collect(t.name) AS technologies";
@@ -598,61 +590,6 @@ public class NeoService {
     	}
     	
     	return nodeInfor;
-    }
-    
-    // show project and persons take part in project
-    // query:
-//    match (n:Person{name:"Nguyen Huu Huong"})-[]->(p:Project)
-//    match (m:Person)-[]->(p)
-//    return p.project as project, collect(m.name) as person
-    public List<Node> getPersons(Node node){
-    	List<Node> nodeInfo = new ArrayList<Node>();
-    	try(Session session = driver.session()){
-    		String tmpStr = "MATCH (n: Person),(p:Project) WHERE ";
-    		if((node.getListFields()!=null)&&(!"".equals(node.getListFields()))){
-    			for(Field field : node.getListFields()){
-    				String str =  "n.name =" + "\'" + field.getValue() + "\'";
-    				tmpStr += str;
-    			}
-			}
-    		tmpStr += "\n MATCH (n)-[]->(p)";
-    		tmpStr += "\n MATCH (m:Person)-[]->(p)";
-    		tmpStr += "\n RETURN p.project as project, collect(m.name) as person";
-    		String tmpQuery = tmpStr;
-    		StatementResult rs = session.run(tmpQuery);
-    		while(rs.hasNext()){
-    			Node tmpNode = new Node();
-    			Record record = rs.next();
-    			
-    			try {
-					// get list project
-					List<Field> listProject = new ArrayList<Field>();
-					Field tmpProject = new Field();
-					tmpProject.setKey(record.get("project").asString());
-					listProject.add(tmpProject);
-					
-					// get list person takes part in project
-					List<Field> listPerson = new ArrayList<Field>();
-					Field tmpPerson = new Field();
-					String test = record.get("person").toString();
-					// remove special character
-					test = test.replace("[\"","");	
-	    			test = test.replace("\"]","");
-	    			test = test.replace("\"","");
-	    			tmpPerson.setValue(test);
-	    			listPerson.add(tmpPerson);
-	    			
-					// merge two list
-					listProject.addAll(listPerson);
-					tmpNode.setListFields(listProject);
-					
-				} catch (Exception e) {
-					System.out.println("Error: "+e.getMessage());
-				}
-    			nodeInfo.add(tmpNode);
-    		}
-    	}
-    	return nodeInfo;
     }
     
     // search person work in project and project info
@@ -707,20 +644,16 @@ public class NeoService {
     }
     
     // Advance view profile: calculate the experience of person bases on project
-    public List<Node> expTech(Node node){
+    public List<Node> expTech(String personName){
     	List<Node> listExp = new ArrayList<Node>();
     	
     	try(Session session = driver.session()){
     		String tmpQuery = "MATCH (n: Person),(p:Project) WHERE ";
-    		if((node.getListFields()!=null)&&(!"".equals(node.getListFields()))){
-    			for(Field field : node.getListFields()){
-    				String tmpStr =  "n.name contains" + "\'" + field.getValue() + "\'";
-    				tmpQuery += tmpStr;
-    			}
-			}
+    		String tmpStr =  "n.name contains" + "\'" + personName + "\'";
+    		tmpQuery += tmpStr;
     		tmpQuery += "\n MATCH (n)-[r]->(p)";
     		tmpQuery += "\n MATCH (t: Technology)-[]->(p)";
-    		tmpQuery += "RETURN t.name AS technologies, p.project as project, p.startdate as start, p.finishdate as finish, r.from as from, r.to as to";
+    		tmpQuery += "RETURN t.name AS technologies, p.startdate as start, p.finishdate as finish, r.from as from, r.to as to";
     		StatementResult rs = session.run(tmpQuery);
     		System.out.println(tmpQuery);
     		while(rs.hasNext()){
@@ -750,7 +683,7 @@ public class NeoService {
 					Date finish = sdf.parse(finishDate);
 					Date from = sdf.parse(workFrom);
 					Date to = sdf.parse(workTo);
-				//	Date current = sdf.format(currentDate);
+					// Date current = sdf.format(currentDate);
 					if(start.before(from)){
 						listDate.add(from);
 					}else{
@@ -762,8 +695,6 @@ public class NeoService {
 						listDate.add(finish);
 					}
 					System.out.println(listDate);
-					
-				
 					
 				} catch (Exception e) {
 					System.out.println("Error: "+e.getMessage());
@@ -836,17 +767,14 @@ public class NeoService {
     }
     
     // search query:"MATCH (n) WHERE n.name contains $x RETURN n"
-    public List<Node> searchNode(Node node){
+    public List<Node> searchNode(String personName){
     	List<Node> list = new ArrayList<Node>();
     		
     	try(Session session = driver.session()){
     		String tmpQuery = "MATCH (n) WHERE ";
-    		if((node.getListFields()!=null)&&(!"".equals(node.getListFields()))){
-    			for(Field field : node.getListFields()){
-    				String tmpStr =  "n.name contains" + "\'" + field.getValue() + "\'";
-    				tmpQuery += tmpStr;
-    			}
-			}
+    		
+    		String tmpStr =  "n.name contains" + "\'" + personName + "\'";
+    		tmpQuery += tmpStr;
     		tmpQuery += "RETURN n AS obj";
 
        		StatementResult result = session.run(

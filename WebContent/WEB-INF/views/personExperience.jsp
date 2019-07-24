@@ -32,7 +32,7 @@
 						<c:forEach var="personExp" items="${personExperience}">		
 							<c:forEach var="techExp" items="${personExp.listFields}">
 							<tr>
-								<td>${personExp.labelNode }</td>
+								<td>${personExp.labelNode}</td>
 								<td>${techExp.value}</td>
 								<td>${techExp.key}</td>
 							</tr>
@@ -43,6 +43,5 @@
 			</div>	
 		</div>
 	</div>
-	
 </body>
 </html>

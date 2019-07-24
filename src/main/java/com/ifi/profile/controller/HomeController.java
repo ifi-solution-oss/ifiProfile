@@ -67,10 +67,10 @@ public class HomeController {
 	
 	// Search
 	@RequestMapping(value = "/search", method = RequestMethod.POST)
-	public ModelAndView search(@Validated Node node){
+	public ModelAndView search(HttpServletRequest req){
 		NeoService neoService = new NeoService(Constants.URL_IFI, Constants.USER_IFI, Constants.PASS_IFI);
-		
-		List<Node> lists = neoService.searchNode(node);
+		String personName = req.getParameter("personName");
+		List<Node> lists = neoService.searchNode(personName);
 		
 		neoService.close();
 		ModelAndView modelRet = new ModelAndView("search");
@@ -152,20 +152,21 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = "/viewProfile", method = RequestMethod.GET)
-	public ModelAndView viewProfile(@Validated Node node){
+	public ModelAndView viewProfile(@Validated Node node, HttpServletRequest req){
 		NeoService neoService = new NeoService(Constants.URL_IFI, Constants.USER_IFI, Constants.PASS_IFI);
-		List<Node> listTech = neoService.getInfo(node);
-		List<Node> nodeInfo = neoService.searchNode(node);
-		List<Node> listProject = neoService.getProject(node);
-//		List<Node> listPerson = neoService.getPersons(node);
-		List<Node> listExperience = neoService.expTech(node);
+		// use servlet to pass data from front end
+		String personName = req.getParameter("personName");
+		List<Node> nodeInfo = neoService.searchNode(personName);
+		
+		List<Node> listTech = neoService.getInfo(personName);
+		List<Node> listProject = neoService.getProject(personName);
+		List<Node> listExperience = neoService.expTech(personName);
 		neoService.close();
 		
 		ModelAndView modelRet = new ModelAndView("viewProfile");
 		modelRet.addObject("listTech", listTech);
 		modelRet.addObject("nodeInfo", nodeInfo);
 		modelRet.addObject("listProject", listProject);
-//		modelRet.addObject("listPerson", listPerson);
 		modelRet.addObject("listExperience", listExperience);
 		
 		return modelRet;
@@ -175,6 +176,7 @@ public class HomeController {
 	@RequestMapping(value="/projectDetail", method = RequestMethod.GET)
 	public ModelAndView projectDetail(HttpServletRequest req){
 		NeoService neoService = new NeoService(Constants.URL_IFI, Constants.USER_IFI, Constants.PASS_IFI);
+		// use servlet to pass data from front end
 		String projectName = req.getParameter("projectName");
 		List<Node> listPerson = neoService.searchPerson(projectName);
 		
