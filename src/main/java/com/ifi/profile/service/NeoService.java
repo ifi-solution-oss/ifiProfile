@@ -3,9 +3,12 @@ package com.ifi.profile.service;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
-
+import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.neo4j.driver.AuthTokens;
 import org.neo4j.driver.Driver;
@@ -648,58 +651,59 @@ public class NeoService {
     	List<Node> listExp = new ArrayList<Node>();
     	
     	try(Session session = driver.session()){
-    		String tmpQuery = "MATCH (n: Person),(p:Project) WHERE ";
-    		String tmpStr =  "n.name contains" + "\'" + personName + "\'";
+    		String tmpQuery = "MATCH (n: Person),(t:Technology) WHERE ";
+    		String tmpStr =  "n.name =" + "\'" + personName + "\'";
     		tmpQuery += tmpStr;
+    		tmpQuery += "\n MATCH (t)-[]->(p:Project)";
     		tmpQuery += "\n MATCH (n)-[r]->(p)";
-    		tmpQuery += "\n MATCH (t: Technology)-[]->(p)";
-    		tmpQuery += "RETURN t.name AS technologies, p.startdate as start, p.finishdate as finish, r.from as from, r.to as to";
+    		tmpQuery += "\n RETURN t.name AS technologies,p.project AS project ,r.from AS from, r.to AS to";
     		StatementResult rs = session.run(tmpQuery);
     		System.out.println(tmpQuery);
     		while(rs.hasNext()){
     			Node tmNode = new Node();
     			Record record = rs.next();
     			try {
-    				// initialize a list contains all date
-    				List<Date> listDate = new ArrayList<Date>();
+    				tmNode.setLabelNode(record.get("project").asString());
+    				List<Field> listTech = new ArrayList<Field>();
+    				Field tmTech = new Field();
+    				tmTech.setKey(record.get("technologies").asString());
+    				listTech.add(tmTech);
+
     				// get date from database
-					String startDate = record.get("start").asString();
-					String finishDate = record.get("finish").toString();
-					finishDate = finishDate.replaceAll("\"", "");
 					String workFrom = record.get("from").asString();
 					String workTo = record.get("to").toString();
 					workTo = workTo.replaceAll("\"", "");
-					if("null".equals(finishDate)){
-						finishDate = workTo;
-					}
-					if("null".equals(finishDate)&&"null".equals(workTo)){
+					if("null".equals(workTo)){
 						break;
 					}
 					String format = "yyyy-MM-dd";
 					
 					// format date and add date get from database to object date
 					SimpleDateFormat sdf = new SimpleDateFormat(format);
-					Date start = sdf.parse(startDate);
-					Date finish = sdf.parse(finishDate);
 					Date from = sdf.parse(workFrom);
 					Date to = sdf.parse(workTo);
-					// Date current = sdf.format(currentDate);
-					if(start.before(from)){
-						listDate.add(from);
-					}else{
-						listDate.add(start);
-					}
-					if(finish.after(to)){
-						listDate.add(to);
-					}else{
-						listDate.add(finish);
-					}
-					System.out.println(listDate);
+					
+					// calculate time between two date (from ... to ...)
+					long diff = Math.abs(to.getTime()-from.getTime());
+					// exchange time between two date to month
+					long month = Math.round(TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS)/30);
+					
+					String totalMonth = Long.toString(month);
+					List<Field> listExpTech = new ArrayList<Field>();
+					Field tmListExp = new Field();
+					tmListExp.setValue(totalMonth);
+					listExpTech.add(tmListExp);
+					
+					List<Field> combinedList = Stream.of(listTech, listExpTech).flatMap(x -> x.stream()).collect(Collectors.toList());
+				//	listTech.addAll(listExpTech);
+				
+					tmNode.setListFields(combinedList);
 					
 				} catch (Exception e) {
 					System.out.println("Error: "+e.getMessage());
 				}
     			listExp.add(tmNode);
+    			
     		}
     	}
     	
@@ -801,6 +805,7 @@ public class NeoService {
 						tmpField.setKey(entry.getKey().toString());
 						tmpField.setValue(entry.getValue().toString());
 						listFields.add(tmpField);
+						
 					}
 					tmpNode.setListFields(listFields);
 				} catch (Exception e) {
