@@ -14,76 +14,11 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
-<style>
-* {box-sizing: border-box}
 
-body {
-  font-family: "Lato", sans-serif;
-  height: 100%;
-  margin: 0px;
-
-}
-
-/* Style the tab */
-.tab {
-  float: left;
-  border: 1px solid white;
-  background-color: #003333;
-  width: 20%;
-  height: 100%;
-  position: fixed;
-}
-
-/* Style the buttons inside the tab */
-.tab button {
-  display: block;
-  background-color: #003333;
-  color: white;
-  padding: 22px 16px;
-  width: 100%;
-  border: none;
-  outline: none;
-  text-align: left;
-  cursor: pointer;
-  transition: 0.3s;
-  font-size: 17px;
-  
-}
-
-/* Change background color of buttons on hover */
-.tab button:hover {
-  background-color: #00cccc;
-}
-
-/* Create an active/current "tab button" class */
-.tab button.active {
-  background-color: #00cccc;
-}
-
-/* Style the tab content */
-.tabcontent {
-  float: right;
-  margin: 0;
-  background-color: #e6e6e6;
-  padding: 0;
-  width: 80%;
- /* overflow: auto; */
-  border-left: none;
-  height: 100%;
-}
-</style>
 </head>
 
 <body>
 	<jsp:include page="_header.jsp"></jsp:include>
-	
-	<div class="tab">
-		<button class="tablinks" onclick="openTab(event, 'Home')" id="defaultOpen">Home</button>
-		<button class="tablinks" onclick="openTab(event, 'Department')" >Department</button>
-		<button class="tablinks" onclick="openTab(event, 'Projects')" >Projects</button>
-		<button class="tablinks" onclick="openTab(event, 'Staff')">Staff</button>
-		<button class="tablinks" onclick="openTab(event, 'Technologies')">Technologies</button>
-	</div>
 	
 		<!-- Home page -->
 	<div id="Home" class="tabcontent">
@@ -93,14 +28,16 @@ body {
 			<!-- Search function -->
 				<div class="col-sm-6">
 				<!-- Search person by name -->
-				<form action="search" id="search" method="post">
-					<input type="text" name="personName">
+				<form autocomplete="off" action="search" id="search" method="post">
+					<div class="autocomplete">
+						<input id="myInput" type="text" name="nameNode">
+					</div>
 					<input type="submit" value="Search">
 				</form><br>
 				
 				<!-- View profile -->
 				<form action="viewProfile" method="get" id="profile">
-					<input type="text" name="personName">
+					<input type="text" name="nameNode">
 					<input type="submit" value="View Profile">
 				</form>
 				
@@ -536,9 +473,109 @@ body {
 
 	</script>
 	
-	<!-- Search person by experience -->
-	
-	
+	<!-- Autocomplete javascript -->
+
+	<script>
+	function autocomplete(inp, arr) {
+	  /*the autocomplete function takes two arguments,
+	  the text field element and an array of possible autocompleted values:*/
+	  var currentFocus;
+	  /*execute a function when someone writes in the text field:*/
+	  inp.addEventListener("input", function(e) {
+	      var a, b, i, val = this.value;
+	      /*close any already open lists of autocompleted values*/
+	      closeAllLists();
+	      if (!val) { return false;}
+	      currentFocus = -1;
+	      /*create a DIV element that will contain the items (values):*/
+	      a = document.createElement("DIV");
+	      a.setAttribute("id", this.id + "autocomplete-list");
+	      a.setAttribute("class", "autocomplete-items");
+	      /*append the DIV element as a child of the autocomplete container:*/
+	      this.parentNode.appendChild(a);
+	      /*for each item in the array...*/
+	      for (i = 0; i < arr.length; i++) {
+	        /*check if the item starts with the same letters as the text field value:*/
+	        if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+	          /*create a DIV element for each matching element:*/
+	          b = document.createElement("DIV");
+	          /*make the matching letters bold:*/
+	          b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
+	          b.innerHTML += arr[i].substr(val.length);
+	          /*insert a input field that will hold the current array item's value:*/
+	          b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+	          /*execute a function when someone clicks on the item value (DIV element):*/
+	          b.addEventListener("click", function(e) {
+	              /*insert the value for the autocomplete text field:*/
+	              inp.value = this.getElementsByTagName("input")[0].value;
+	              /*close the list of autocompleted values,
+	              (or any other open lists of autocompleted values:*/
+	              closeAllLists();
+	          });
+	          a.appendChild(b);
+	        }
+	      }
+	  });
+	  /*execute a function presses a key on the keyboard:*/
+	  inp.addEventListener("keydown", function(e) {
+	      var x = document.getElementById(this.id + "autocomplete-list");
+	      if (x) x = x.getElementsByTagName("div");
+	      if (e.keyCode == 40) {
+	        /*If the arrow DOWN key is pressed,
+	        increase the currentFocus variable:*/
+	        currentFocus++;
+	        /*and and make the current item more visible:*/
+	        addActive(x);
+	      } else if (e.keyCode == 38) { //up
+	        /*If the arrow UP key is pressed,
+	        decrease the currentFocus variable:*/
+	        currentFocus--;
+	        /*and and make the current item more visible:*/
+	        addActive(x);
+	      } else if (e.keyCode == 13) {
+	        /*If the ENTER key is pressed, prevent the form from being submitted,*/
+	        e.preventDefault();
+	        if (currentFocus > -1) {
+	          /*and simulate a click on the "active" item:*/
+	          if (x) x[currentFocus].click();
+	        }
+	      }
+	  });
+	  function addActive(x) {
+	    /*a function to classify an item as "active":*/
+	    if (!x) return false;
+	    /*start by removing the "active" class on all items:*/
+	    removeActive(x);
+	    if (currentFocus >= x.length) currentFocus = 0;
+	    if (currentFocus < 0) currentFocus = (x.length - 1);
+	    /*add class "autocomplete-active":*/
+	    x[currentFocus].classList.add("autocomplete-active");
+	  }
+	  function removeActive(x) {
+	    /*a function to remove the "active" class from all autocomplete items:*/
+	    for (var i = 0; i < x.length; i++) {
+	      x[i].classList.remove("autocomplete-active");
+	    }
+	  }
+	  function closeAllLists(elmnt) {
+	    /*close all autocomplete lists in the document,
+	    except the one passed as an argument:*/
+	    var x = document.getElementsByClassName("autocomplete-items");
+	    for (var i = 0; i < x.length; i++) {
+	      if (elmnt != x[i] && elmnt != inp) {
+	        x[i].parentNode.removeChild(x[i]);
+	      }
+	    }
+	  }
+	  var data = document.getElementById();
+	  /*execute a function when someone clicks in the document:*/
+	  	document.addEventListener("click", function (e) {
+	  	    closeAllLists(e.target);
+	  	});
+		}
+	autocomplete(document.getElementById("myInput"), data);
+	</script>
+
 	<!-- The Modal -->
 	<div class="modal fade" id="ifiModal">
 	  <div class="modal-dialog modal-dialog-centered">
@@ -690,22 +727,5 @@ body {
 	  </div>
 	</div>
 	
-	<script>
-		function openTab(evt, tabName){
- 		 var i, tabcontent, tablinks;
- 		 tabcontent = document.getElementsByClassName("tabcontent");
- 		 for (i = 0; i < tabcontent.length; i++) {
-  		  tabcontent[i].style.display = "none";
- 		 }
-  		tablinks = document.getElementsByClassName("tablinks");
-  		for (i = 0; i < tablinks.length; i++) {
-   		 tablinks[i].className = tablinks[i].className.replace(" active", "");
-  		}
-  		document.getElementById(tabName).style.display = "block";
-  		evt.currentTarget.className += " active";
-		}
-
-	document.getElementById("defaultOpen").click();
-	</script>
 </body>
 </html>

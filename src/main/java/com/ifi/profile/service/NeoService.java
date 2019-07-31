@@ -432,21 +432,20 @@ public class NeoService {
     }
     
     // get list nodes
-    public List<Node> getListNodes()
-    {
+    public List<Node> getListNodes(){
     	List<Node> ret = new ArrayList<Node>();
-        try (Session session = driver.session())
-        {
+        try (Session session = driver.session()){
             // Auto-commit transactions are a quick and easy way to wrap a read.
             StatementResult result = session.run(
-                    "MATCH (n) RETURN n as obj");
+                    "MATCH (n) RETURN n as obj, n.name as person");
             // Each Cypher execution returns a stream of records.
-            while (result.hasNext())
-            {
+            while (result.hasNext()){
             	Node tmpUser = new Node();
                 Record record = result.next();
                 // Values can be extracted from a record by index or name.
                 try {
+                	
+                	
                 	Map<String, Object> tmMap = record.get("obj").asMap();
                 	if (tmMap.get("name") != null){
                 		tmpUser.setLabelNode(tmMap.get("name").toString());
@@ -463,11 +462,9 @@ public class NeoService {
                 } catch (Exception ex) {
                 	System.out.println("Error:"+ex.getMessage());
                 }
-                
                 ret.add(tmpUser);
             }
         }
-        
         return ret;
     }
     
@@ -550,11 +547,11 @@ public class NeoService {
 //    MATCH (n)-[]->(p)
 //    MATCH (t: Technology)-[]->(p)
 //    RETURN p.project AS project, collect(t.name) AS technologies
-    public List<Node> getProject(String personName){
+    public List<Node> getProject(String nameNode){
     	List<Node> nodeInfor = new ArrayList<Node>();
     	try(Session session = driver.session()){
     		String tmpStr = "MATCH (n: Person),(p:Project) WHERE ";
-    		String str =  "n.name =" + "\'" + personName + "\'";
+    		String str =  "n.name =" + "\'" + nameNode + "\'";
     		tmpStr += str;
     		tmpStr += "\n MATCH (n)-[]->(p)";
     		tmpStr += "\n MATCH (t: Technology)-[]->(p)";
@@ -647,12 +644,12 @@ public class NeoService {
     }
     
     // Advance view profile: calculate the experience of person bases on project
-    public List<Node> expTech(String personName){
+    public List<Node> expTech(String nameNode){
     	List<Node> listExp = new ArrayList<Node>();
     	
     	try(Session session = driver.session()){
     		String tmpQuery = "MATCH (n: Person),(t:Technology) WHERE ";
-    		String tmpStr =  "n.name =" + "\'" + personName + "\'";
+    		String tmpStr =  "n.name =" + "\'" + nameNode + "\'";
     		tmpQuery += tmpStr;
     		tmpQuery += "\n MATCH (t)-[]->(p:Project)";
     		tmpQuery += "\n MATCH (n)-[r]->(p)";
@@ -746,7 +743,7 @@ public class NeoService {
     				Node tmpNode = new Node();
     				Record record = rs.next();
     				try {
-						tmpNode.setLabelNode(record.get("personName").asString());
+						tmpNode.setLabelNode(record.get("nameNode").asString());
 
 						List<Field> listExperience = new ArrayList<Field>();
 						Field tmpExp = new Field();
@@ -770,14 +767,17 @@ public class NeoService {
     	return listExp;
     }
     
+    // search function
     // search query:"MATCH (n) WHERE n.name contains $x RETURN n"
-    public List<Node> searchNode(String personName){
+    public List<Node> searchNode(String nameNode){
     	List<Node> list = new ArrayList<Node>();
     		
     	try(Session session = driver.session()){
     		String tmpQuery = "MATCH (n) WHERE ";
     		
-    		String tmpStr =  "n.name contains" + "\'" + personName + "\'";
+    		String tmpStr =  "n.name contains" + "\'" + nameNode + "\'";
+    		tmpStr +=  " OR n.domain contains" + "\'" + nameNode + "\'";
+    		tmpStr +=  " OR n.project contains" + "\'" + nameNode + "\'";
     		tmpQuery += tmpStr;
     		tmpQuery += "RETURN n AS obj";
 
@@ -818,7 +818,6 @@ public class NeoService {
     	
     	return list;
     }
-    
    
     public void close()
     {

@@ -69,8 +69,8 @@ public class HomeController {
 	@RequestMapping(value = "/search", method = RequestMethod.POST)
 	public ModelAndView search(HttpServletRequest req){
 		NeoService neoService = new NeoService(Constants.URL_IFI, Constants.USER_IFI, Constants.PASS_IFI);
-		String personName = req.getParameter("personName");
-		List<Node> lists = neoService.searchNode(personName);
+		String nameNode = req.getParameter("nameNode");
+		List<Node> lists = neoService.searchNode(nameNode);
 		
 		neoService.close();
 		ModelAndView modelRet = new ModelAndView("search");
@@ -155,12 +155,12 @@ public class HomeController {
 	public ModelAndView viewProfile(@Validated Node node, HttpServletRequest req){
 		NeoService neoService = new NeoService(Constants.URL_IFI, Constants.USER_IFI, Constants.PASS_IFI);
 		// use servlet to pass data from front end
-		String personName = req.getParameter("personName");
-		List<Node> nodeInfo = neoService.searchNode(personName);
+		String nameNode = req.getParameter("nameNode");
+		List<Node> nodeInfo = neoService.searchNode(nameNode);
 		
-		List<Node> listTech = neoService.getInfo(personName);
-		List<Node> listProject = neoService.getProject(personName);
-		List<Node> listExperience = neoService.expTech(personName);
+		List<Node> listTech = neoService.getInfo(nameNode);
+		List<Node> listProject = neoService.getProject(nameNode);
+		List<Node> listExperience = neoService.expTech(nameNode);
 		neoService.close();
 		
 		ModelAndView modelRet = new ModelAndView("viewProfile");
