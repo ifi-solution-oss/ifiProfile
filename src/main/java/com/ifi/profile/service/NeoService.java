@@ -437,7 +437,7 @@ public class NeoService {
         try (Session session = driver.session()){
             // Auto-commit transactions are a quick and easy way to wrap a read.
             StatementResult result = session.run(
-                    "MATCH (n) RETURN n as obj, n.name as person");
+                    "MATCH (n) RETURN n as obj");
             // Each Cypher execution returns a stream of records.
             while (result.hasNext()){
             	Node tmpUser = new Node();
@@ -818,6 +818,7 @@ public class NeoService {
     	
     	return list;
     }
+   
    
     public void close()
     {
