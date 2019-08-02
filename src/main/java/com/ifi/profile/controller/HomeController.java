@@ -31,12 +31,14 @@ public class HomeController {
 		List<Node> listNodes = neoService.getListNodes();
 		// list label
 		List<Node> listLabels = neoService.getLabels();
-
+		// list node for search function
+		List<Node> listNodeForSearch = neoService.autocompleSearch();
 		neoService.close();
 		
 		ModelAndView modelRet = new ModelAndView("home");
         modelRet.addObject("lists", listNodes);
         modelRet.addObject("listLabels", listLabels);
+        modelRet.addObject("listNodeForSearch", listNodeForSearch);
 		return modelRet;
 	}
 
@@ -56,12 +58,15 @@ public class HomeController {
 		List<Node> listNodes = neoService.getListNodes();
 		// list label
 		List<Node> listLabels = neoService.getLabels();
+		// list node for search function
+		List<Node> listNodeForSearch = neoService.autocompleSearch();
         neoService.close();
         
         // render view
         ModelAndView modelRet = new ModelAndView("home");
         modelRet.addObject("lists", listNodes);
         modelRet.addObject("listLabels", listLabels);
+        modelRet.addObject("listNodeForSearch", listNodeForSearch);
 		return modelRet;
 	}
 	

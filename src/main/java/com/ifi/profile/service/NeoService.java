@@ -555,7 +555,7 @@ public class NeoService {
     		tmpStr += str;
     		tmpStr += "\n MATCH (n)-[]->(p)";
     		tmpStr += "\n MATCH (t: Technology)-[]->(p)";
-    		tmpStr += "\n RETURN p.project AS project, collect(t.name) AS technologies";
+    		tmpStr += "\n RETURN p.name AS project, collect(t.name) AS technologies";
     		String tmpQuery = tmpStr;
     		StatementResult rs = session.run(tmpQuery);
     		while(rs.hasNext()){
@@ -603,7 +603,7 @@ public class NeoService {
 //    				tmpStr += str;
 //    			}
 //			}
-    		tmpStr += "p.project =" + "\'" + projectName + "\'";
+    		tmpStr += "p.name =" + "\'" + projectName + "\'";
     		
     		tmpStr += " MATCH (n)-[r]->(p)";
     		tmpStr += " RETURN p as project, collect(n.name) as person";
@@ -653,7 +653,7 @@ public class NeoService {
     		tmpQuery += tmpStr;
     		tmpQuery += "\n MATCH (t)-[]->(p:Project)";
     		tmpQuery += "\n MATCH (n)-[r]->(p)";
-    		tmpQuery += "\n RETURN t.name AS technologies,p.project AS project ,r.from AS from, r.to AS to";
+    		tmpQuery += "\n RETURN t.name AS technologies,p.name AS project ,r.from AS from, r.to AS to";
     		StatementResult rs = session.run(tmpQuery);
     		System.out.println(tmpQuery);
     		while(rs.hasNext()){
@@ -777,7 +777,7 @@ public class NeoService {
     		
     		String tmpStr =  "n.name contains" + "\'" + nameNode + "\'";
     		tmpStr +=  " OR n.domain contains" + "\'" + nameNode + "\'";
-    		tmpStr +=  " OR n.project contains" + "\'" + nameNode + "\'";
+    		tmpStr +=  " OR n.title contains" + "\'" + nameNode + "\'";
     		tmpQuery += tmpStr;
     		tmpQuery += "RETURN n AS obj";
 
@@ -819,6 +819,41 @@ public class NeoService {
     	return list;
     }
    
+    // get list nodes for search function (auto complete)
+    public List<Node> autocompleSearch(){
+    	List<Node> ret = new ArrayList<Node>();
+        try (Session session = driver.session()){
+            // Auto-commit transactions are a quick and easy way to wrap a read.
+            StatementResult result = session.run(
+                    "MATCH (n) RETURN n as obj");
+            // Each Cypher execution returns a stream of records.
+            while (result.hasNext()){
+            	Node tmpUser = new Node();
+                Record record = result.next();
+                // Values can be extracted from a record by index or name.
+                try {
+                	Map<String, Object> tmMap = record.get("obj").asMap();
+                	
+                	List<Field> listFields = new ArrayList<Field>();
+                	for(Map.Entry entry:tmMap.entrySet()){
+                		Field tmpField = new Field();
+                		String tmpKey = entry.getKey().toString();
+                		if(("name").equals(tmpKey)||("domain").equals(tmpKey)||("title").equals(tmpKey)){
+                			tmpField.setKey(tmpKey);
+                			String tmpValue = entry.getValue().toString();
+                            tmpField.setValue(tmpValue);
+                            listFields.add(tmpField);
+                		}
+                	}
+                	tmpUser.setListFields(listFields);
+                } catch (Exception ex) {
+                	System.out.println("Error:"+ex.getMessage());
+                }
+                ret.add(tmpUser);
+            }
+        }
+        return ret;
+    }
    
     public void close()
     {
