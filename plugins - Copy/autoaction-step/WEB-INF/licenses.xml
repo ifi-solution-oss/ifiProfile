@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<l:dependencies xmlns:l='licenses' groupId='io.jenkins.plugins' artifactId='autoaction-step' version='1.1'><l:dependency name='AutoAction Plugin' groupId='io.jenkins.plugins' artifactId='autoaction-step' version='1.1' url='https://wiki.jenkins.io/display/JENKINS/AutoAction+Step+Plugin'><l:description>Run the auto actions from "flat lines" scripts based on Selenium WebDriver</l:description><l:license name='MIT License' url='https://opensource.org/licenses/MIT'/></l:dependency></l:dependencies>

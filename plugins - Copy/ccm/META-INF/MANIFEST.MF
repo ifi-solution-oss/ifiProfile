@@ -1,0 +1,26 @@
+Manifest-Version: 1.0
+Archiver-Version: Plexus Archiver
+Created-By: Apache Maven
+Built-By: Wadeck
+Build-Jdk: 1.8.0_144
+Extension-Name: ccm
+Specification-Title: This plug-in generates the trend report for CCM, an
+     open source static code analysis program.
+Specification-Vendor: Jenkins
+Implementation-Vendor: Jenkins
+Implementation-Title: ccm
+Implementation-Version: 3.2
+Plugin-Class: hudson.plugins.ccm.CcmPlugin
+Group-Id: org.jvnet.hudson.plugins
+Short-Name: ccm
+Long-Name: CCM Plug-in
+Url: http://wiki.jenkins-ci.org/display/JENKINS/CCM+Plugin
+Plugin-Version: 3.2
+Hudson-Version: 1.596.1
+Jenkins-Version: 1.596.1
+Plugin-Dependencies: maven-plugin:2.9;resolution:=optional,analysis-co
+ re:1.94,matrix-project:1.2.1,token-macro:1.10;resolution:=optional,da
+ shboard-view:2.9.4;resolution:=optional
+Plugin-Developers: Bruno P. Kinoshita:kinow:brunodepaulak@yahoo.com.br
+ ,Cesar Fernandes de Almeida:cesar1983:cesar.fa@gmail.com
+

@@ -1,0 +1,22 @@
+Manifest-Version: 1.0
+Archiver-Version: Plexus Archiver
+Created-By: Apache Maven
+Built-By: bobo
+Build-Jdk: 1.8.0_121
+Extension-Name: bootstraped-multi-test-results-report
+Specification-Title: The project offers the possibility to build test 
+ reports using a bootstrap components,
+         offering rendering support on a wide range of devices.
+Implementation-Title: bootstraped-multi-test-results-report
+Implementation-Version: 2.1.3
+Group-Id: com.github.bogdanlivadariu
+Short-Name: bootstraped-multi-test-results-report
+Long-Name: bootstraped-multi-test-results-report
+Url: https://wiki.jenkins-ci.org/display/JENKINS/Bootstraped+Multi+Tes
+ t+Results+Report
+Plugin-Version: 2.1.3
+Hudson-Version: 2.32.1
+Jenkins-Version: 2.32.1
+Plugin-Developers: Bogdan Livadariu:bogdanlivadariu:bogdan.livadariu@g
+ mail.com
+

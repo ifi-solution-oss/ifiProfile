@@ -1,0 +1,21 @@
+Manifest-Version: 1.0
+Archiver-Version: Plexus Archiver
+Created-By: Apache Maven
+Built-By: vct
+Build-Jdk: 1.8.0_212
+Extension-Name: autoaction-step
+Specification-Title: Run the auto actions from "flat lines" scripts ba
+ sed on Selenium WebDriver
+Implementation-Title: autoaction-step
+Implementation-Version: 1.1
+Group-Id: io.jenkins.plugins
+Short-Name: autoaction-step
+Long-Name: AutoAction Plugin
+Url: https://wiki.jenkins.io/display/JENKINS/AutoAction+Step+Plugin
+Plugin-Version: 1.1
+Hudson-Version: 2.7.3
+Jenkins-Version: 2.7.3
+Plugin-Dependencies: structs:1.7
+Plugin-Developers: Vo Chi Thanh:vochithanh:vochithanh.work@yahoo.com
+Support-Dynamic-Loading: true
+

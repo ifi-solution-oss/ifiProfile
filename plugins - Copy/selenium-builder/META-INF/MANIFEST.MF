@@ -1,0 +1,22 @@
+Manifest-Version: 1.0
+Archiver-Version: Plexus Archiver
+Created-By: Apache Maven
+Built-By: ross
+Build-Jdk: 1.6.0_65
+Extension-Name: selenium-builder
+Specification-Title: Jenkins plugin which invokes scripts using the Se
+ lenium Builder interpreter
+Specification-Vendor: Sauce Labs
+Implementation-Vendor: Sauce Labs
+Implementation-Title: selenium-builder
+Implementation-Version: 1.14
+Group-Id: org.jenkins-ci.plugins
+Short-Name: selenium-builder
+Long-Name: Jenkins Selenium Builder plugin
+Url: http://wiki.jenkins-ci.org/display/JENKINS/Selenium+Builder+Plugin
+Plugin-Version: 1.14
+Hudson-Version: 1.439
+Jenkins-Version: 1.439
+Plugin-Dependencies: javadoc:1.0,maven-plugin:1.467
+Plugin-Developers: Ross Rowe:rossrowe:
+

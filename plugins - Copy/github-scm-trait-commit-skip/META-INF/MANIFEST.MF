@@ -1,0 +1,21 @@
+Manifest-Version: 1.0
+Archiver-Version: Plexus Archiver
+Created-By: Apache Maven
+Built-By: MU51AR
+Build-Jdk: 1.8.0_192
+Extension-Name: github-scm-trait-commit-skip
+Specification-Title: Allows to ignore GitHub branches/pull requests/co
+ mmits based on the content of commit messages
+Implementation-Title: github-scm-trait-commit-skip
+Implementation-Version: 0.4.0
+Group-Id: org.jenkins-ci.plugins
+Short-Name: github-scm-trait-commit-skip
+Long-Name: GitHub Commit Skip SCM Behaviour
+Url: https://wiki.jenkins-ci.org/display/JENKINS/GitHub+Commit+Skip+SC
+ M+Behaviour+Plugin
+Plugin-Version: 0.4.0
+Hudson-Version: 2.73.3
+Jenkins-Version: 2.73.3
+Plugin-Dependencies: branch-api:2.0.20,github-branch-source:2.3.6
+Plugin-Developers: Javier Delgado:witokodoria:witokondoria@gmail.com
+

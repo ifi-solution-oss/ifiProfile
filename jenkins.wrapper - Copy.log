@@ -1,0 +1,52 @@
+2019-08-05 10:13:54,151 INFO  - Starting ServiceWrapper in the service mode
+2019-08-05 10:13:54,209 INFO  - Starting C:\Program Files (x86)\Jenkins\jre\bin\java -Xrs -Xmx256m -Dhudson.lifecycle=hudson.lifecycle.WindowsServiceLifecycle -jar "C:\Program Files (x86)\Jenkins\jenkins.war" --httpPort=8080 --webroot="C:\Program Files (x86)\Jenkins\war"
+2019-08-05 10:13:54,219 INFO  - Extension loaded: killOnStartup
+2019-08-05 10:13:54,219 WARN  - The requested PID file 'C:\Program Files (x86)\Jenkins\jenkins.pid' does not exist. The runaway process won't be checked
+2019-08-05 10:13:54,229 INFO  - Starting C:\Program Files (x86)\Jenkins\jre\bin\java -Xrs -Xmx256m -Dhudson.lifecycle=hudson.lifecycle.WindowsServiceLifecycle -jar "C:\Program Files (x86)\Jenkins\jenkins.war" --httpPort=8080 --webroot="C:\Program Files (x86)\Jenkins\war"
+2019-08-05 10:13:54,272 INFO  - Started process 12044
+2019-08-05 10:13:54,277 DEBUG - Forwarding logs of the process System.Diagnostics.Process (java) to winsw.SizeBasedRollingLogAppender
+2019-08-05 10:13:54,282 INFO  - Recording PID of the started process:12044. PID file destination is C:\Program Files (x86)\Jenkins\jenkins.pid
+2019-08-05 10:18:32,261 INFO  - Starting ServiceWrapper in the service mode
+2019-08-05 10:18:32,308 INFO  - Starting C:\Program Files (x86)\Jenkins\jre\bin\java -Xrs -Xmx256m -Dhudson.lifecycle=hudson.lifecycle.WindowsServiceLifecycle -jar "C:\Program Files (x86)\Jenkins\jenkins.war" --httpPort=8989 --webroot="C:\Program Files (x86)\Jenkins\war"
+2019-08-05 10:18:32,323 INFO  - Extension loaded: killOnStartup
+2019-08-05 10:18:32,323 DEBUG - Checking the potentially runaway process with PID=12044
+2019-08-05 10:18:32,339 DEBUG - No runaway process with PID=12044. The process has been already stopped.
+2019-08-05 10:18:32,339 INFO  - Starting C:\Program Files (x86)\Jenkins\jre\bin\java -Xrs -Xmx256m -Dhudson.lifecycle=hudson.lifecycle.WindowsServiceLifecycle -jar "C:\Program Files (x86)\Jenkins\jenkins.war" --httpPort=8989 --webroot="C:\Program Files (x86)\Jenkins\war"
+2019-08-05 10:18:32,370 INFO  - Started process 5252
+2019-08-05 10:18:32,370 DEBUG - Forwarding logs of the process System.Diagnostics.Process (java) to winsw.SizeBasedRollingLogAppender
+2019-08-05 10:18:32,370 INFO  - Recording PID of the started process:5252. PID file destination is C:\Program Files (x86)\Jenkins\jenkins.pid
+2019-08-05 10:39:33,585 DEBUG - Starting ServiceWrapper in the CLI mode
+2019-08-05 10:39:34,271 INFO  - Restarting the service with id 'Jenkins'
+2019-08-05 10:39:34,276 DEBUG - Completed. Exit code is 0
+2019-08-05 10:39:34,343 DEBUG - Starting ServiceWrapper in the CLI mode
+2019-08-05 10:39:34,426 INFO  - Restarting the service with id 'Jenkins'
+2019-08-05 10:39:34,447 INFO  - Stopping Jenkins
+2019-08-05 10:39:34,448 DEBUG - ProcessKill 5252
+2019-08-05 10:39:34,490 INFO  - Found child process: 5368 Name: conhost.exe
+2019-08-05 10:39:34,520 INFO  - Stopping process 5368
+2019-08-05 10:39:34,523 INFO  - Send SIGINT 5368
+2019-08-05 10:39:34,524 WARN  - SIGINT to 5368 failed - Killing as fallback
+2019-08-05 10:39:34,526 INFO  - Stopping process 5252
+2019-08-05 10:39:34,529 INFO  - Send SIGINT 5252
+2019-08-05 10:39:34,529 WARN  - SIGINT to 5252 failed - Killing as fallback
+2019-08-05 10:39:34,531 INFO  - Finished Jenkins
+2019-08-05 10:39:34,532 DEBUG - Completed. Exit code is 0
+2019-08-05 10:39:35,593 INFO  - Starting ServiceWrapper in the service mode
+2019-08-05 10:39:35,603 DEBUG - Completed. Exit code is 0
+2019-08-05 10:39:35,611 INFO  - Starting C:\Program Files (x86)\Jenkins\jre\bin\java -Xrs -Xmx256m -Dhudson.lifecycle=hudson.lifecycle.WindowsServiceLifecycle -jar "C:\Program Files (x86)\Jenkins\jenkins.war" --httpPort=8989 --webroot="C:\Program Files (x86)\Jenkins\war"
+2019-08-05 10:39:35,616 INFO  - Extension loaded: killOnStartup
+2019-08-05 10:39:35,619 DEBUG - Checking the potentially runaway process with PID=5252
+2019-08-05 10:39:35,628 DEBUG - No runaway process with PID=5252. The process has been already stopped.
+2019-08-05 10:39:35,629 INFO  - Starting C:\Program Files (x86)\Jenkins\jre\bin\java -Xrs -Xmx256m -Dhudson.lifecycle=hudson.lifecycle.WindowsServiceLifecycle -jar "C:\Program Files (x86)\Jenkins\jenkins.war" --httpPort=8989 --webroot="C:\Program Files (x86)\Jenkins\war"
+2019-08-05 10:39:35,643 INFO  - Started process 12032
+2019-08-05 10:39:35,646 DEBUG - Forwarding logs of the process System.Diagnostics.Process (java) to winsw.SizeBasedRollingLogAppender
+2019-08-05 10:39:35,650 INFO  - Recording PID of the started process:12032. PID file destination is C:\Program Files (x86)\Jenkins\jenkins.pid
+2019-08-05 11:25:42,005 INFO  - Starting ServiceWrapper in the service mode
+2019-08-05 11:25:42,021 INFO  - Starting C:\Program Files (x86)\Jenkins\jre\bin\java -Xrs -Xmx256m -Dhudson.lifecycle=hudson.lifecycle.WindowsServiceLifecycle -jar "C:\Program Files (x86)\Jenkins\jenkins.war" --httpPort=8080 --webroot="C:\Program Files (x86)\Jenkins\war"
+2019-08-05 11:25:42,021 INFO  - Extension loaded: killOnStartup
+2019-08-05 11:25:42,021 DEBUG - Checking the potentially runaway process with PID=12032
+2019-08-05 11:25:42,052 DEBUG - No runaway process with PID=12032. The process has been already stopped.
+2019-08-05 11:25:42,052 INFO  - Starting C:\Program Files (x86)\Jenkins\jre\bin\java -Xrs -Xmx256m -Dhudson.lifecycle=hudson.lifecycle.WindowsServiceLifecycle -jar "C:\Program Files (x86)\Jenkins\jenkins.war" --httpPort=8080 --webroot="C:\Program Files (x86)\Jenkins\war"
+2019-08-05 11:25:42,099 INFO  - Started process 11796
+2019-08-05 11:25:42,115 DEBUG - Forwarding logs of the process System.Diagnostics.Process (java) to winsw.SizeBasedRollingLogAppender
+2019-08-05 11:25:42,115 INFO  - Recording PID of the started process:11796. PID file destination is C:\Program Files (x86)\Jenkins\jenkins.pid

@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<l:dependencies xmlns:l='licenses' groupId='org.jenkins-ci.plugins' artifactId='form-element-path' version='1.9'><l:dependency name='Form element path plugin' groupId='org.jenkins-ci.plugins' artifactId='form-element-path' version='1.9' url='https://wiki.jenkins.io/display/JENKINS/Form+Element+Path+Plugin'><l:description>Adds Path designators to form elements to simplify Selenium testing of Jenkins.</l:description></l:dependency></l:dependencies>

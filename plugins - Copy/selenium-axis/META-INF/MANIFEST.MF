@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+v: 0.0.6
+Url: https://wiki.jenkins-ci.org/display/JENKINS/Selenium+Axis+Plugin
+Group-Id: org.jenkins-ci.plugins
+Jenkins-Version: 1.480
+Plugin-Version: 0.0.6
+Long-Name: Selenium Capability Axis
+Short-Name: selenium-axis
+

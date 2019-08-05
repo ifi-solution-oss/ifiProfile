@@ -1,0 +1,15 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<org.jenkinsci.plugins.p4.PerforceScm_-DescriptorImpl plugin="p4@1.10.3">
+  <generation>1</generation>
+  <autoSave>false</autoSave>
+  <credential></credential>
+  <clientName></clientName>
+  <depotPath></depotPath>
+  <autoSubmitOnChange>false</autoSubmitOnChange>
+  <deleteClient>false</deleteClient>
+  <deleteFiles>false</deleteFiles>
+  <hideTicket>false</hideTicket>
+  <maxFiles>50</maxFiles>
+  <maxChanges>20</maxChanges>
+  <headLimit>1000</headLimit>
+</org.jenkinsci.plugins.p4.PerforceScm_-DescriptorImpl>

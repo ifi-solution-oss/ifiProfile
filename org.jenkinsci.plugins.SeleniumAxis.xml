@@ -1,0 +1,10 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<org.jenkinsci.plugins.SeleniumAxis_-DescriptorImpl plugin="selenium-axis@0.0.6">
+  <displayName>Selenium Capability Axis</displayName>
+  <server>http://localhost:4444</server>
+  <sauceLabs>false</sauceLabs>
+  <sauceLabsName></sauceLabsName>
+  <sauceLabsPwd>{AQAAABAAAAAQBEZNZKzGeWXf0gePlnexRpwiq8sj0gjij4SehEexvho=}</sauceLabsPwd>
+  <sauceLabsAPIURL>http://saucelabs.com/rest/v1/info/platforms/webdriver</sauceLabsAPIURL>
+  <sauceLabsURL>http://ondemand.saucelabs.com:80</sauceLabsURL>
+</org.jenkinsci.plugins.SeleniumAxis_-DescriptorImpl>

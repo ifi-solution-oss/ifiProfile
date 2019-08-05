@@ -1,0 +1,19 @@
+Manifest-Version: 1.0
+Archiver-Version: Plexus Archiver
+Created-By: Apache Maven
+Built-By: Zeta
+Build-Jdk: 1.8.0_192
+Extension-Name: pipeline-gitstatuswrapper
+Specification-Title: Plugin that provides wrappers for github statuses
+Implementation-Title: pipeline-gitstatuswrapper
+Implementation-Version: 1.2.0
+Group-Id: org.jenkins-ci.plugins
+Short-Name: pipeline-gitstatuswrapper
+Long-Name: GitHub Status Wrapper Plugin
+Url: https://wiki.jenkins.io/display/JENKINS/GitStatusWrapper+Plugin
+Plugin-Version: 1.2.0
+Hudson-Version: 2.73.3
+Jenkins-Version: 2.73.3
+Plugin-Dependencies: github-branch-source:2.2.3
+Plugin-Developers: :hello_woof:
+

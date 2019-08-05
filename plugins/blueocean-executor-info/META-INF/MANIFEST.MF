@@ -1,0 +1,22 @@
+Manifest-Version: 1.0
+Archiver-Version: Plexus Archiver
+Created-By: Apache Maven
+Built-By: root
+Build-Jdk: 1.8.0_191
+Extension-Name: blueocean-executor-info
+Specification-Title: Show what executors are doing what.
+Implementation-Title: blueocean-executor-info
+Implementation-Version: 1.18.0
+Group-Id: io.jenkins.blueocean
+Short-Name: blueocean-executor-info
+Long-Name: Blue Ocean Executor Info
+Url: https://wiki.jenkins-ci.org/display/JENKINS/Blue+Ocean+Plugin
+Minimum-Java-Version: 1.8
+Plugin-Version: 1.18.0
+Hudson-Version: 2.138.4
+Jenkins-Version: 2.138.4
+Plugin-Dependencies: blueocean-pipeline-api-impl:1.18.0,blueocean-rest
+ :1.18.0,blueocean-web:1.18.0,workflow-scm-step:2.7,workflow-step-api:
+ 2.19,script-security:1.56,structs:1.17
+Plugin-Developers: Keith Zantow:kzantow:kzantow@cloudbees.com
+

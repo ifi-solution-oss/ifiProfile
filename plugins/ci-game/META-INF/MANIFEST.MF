@@ -1,0 +1,24 @@
+Manifest-Version: 1.0
+Archiver-Version: Plexus Archiver
+Created-By: Apache Maven
+Built-By: simschla
+Build-Jdk: 1.7.0_79
+Extension-Name: ci-game
+Implementation-Title: ci-game
+Implementation-Version: 1.26
+Group-Id: org.jenkins-ci.plugins
+Short-Name: ci-game
+Long-Name: Jenkins Continuous Integration game
+Url: http://wiki.jenkins-ci.org/display/JENKINS/The+Continuous+Integra
+ tion+Game+plugin
+Plugin-Version: 1.26
+Hudson-Version: 1.580.3
+Jenkins-Version: 1.580.3
+Plugin-Dependencies: findbugs:4.50;resolution:=optional,warnings:3.0;r
+ esolution:=optional,pmd:3.1;resolution:=optional,checkstyle:3.40;reso
+ lution:=optional,structs:1.3,jacoco:1.0.18;resolution:=optional,tasks
+ :4.0;resolution:=optional,junit:1.0,violations:0.5.4;resolution:=opti
+ onal,analysis-core:1.58
+Plugin-Developers: Erik Ramfelt:redsolo:eramfelt@gmail.com,Christoph K
+ utzinski:kutzi:kutzi@gmx.de
+

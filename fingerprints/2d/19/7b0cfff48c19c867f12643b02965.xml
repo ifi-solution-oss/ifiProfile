@@ -1,0 +1,21 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-08-05 04:00:44.498 UTC</timestamp>
+  <md5sum>2d197b0cfff48c19c867f12643b02965</md5sum>
+  <fileName>Credential id=Linhvietvu name=vuvietlinh98@gmail.com/****** (username_password)</fileName>
+  <usages>
+    <entry>
+      <string>IFI2</string>
+      <ranges>1</ranges>
+    </entry>
+    <entry>
+      <string>IFI1</string>
+      <ranges>1</ranges>
+    </entry>
+    <entry>
+      <string>IFI2/default</string>
+      <ranges>1</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

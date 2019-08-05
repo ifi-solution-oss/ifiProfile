@@ -1,0 +1,2 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<com.barchart.jenkins.cascade.PluginActivator plugin="maven-release-cascade@1.3.2"/>

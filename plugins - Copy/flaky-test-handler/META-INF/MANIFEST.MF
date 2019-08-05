@@ -1,0 +1,22 @@
+Manifest-Version: 1.0
+Archiver-Version: Plexus Archiver
+Created-By: Apache Maven
+Built-By: qzluo
+Build-Jdk: 1.7.0_91
+Extension-Name: flaky-test-handler
+Specification-Title: Display rerun flaky tests
+Implementation-Title: flaky-test-handler
+Implementation-Version: 1.0.4
+Group-Id: org.jenkins-ci.plugins
+Short-Name: flaky-test-handler
+Long-Name: Flaky Test Handler plugin
+Url: https://wiki.jenkins-ci.org/display/JENKINS/Flaky+Test+Handler+Pl
+ ugin
+Plugin-Version: 1.0.4
+Hudson-Version: 1.580.1
+Jenkins-Version: 1.580.1
+Plugin-Dependencies: junit:1.4,git:2.2.2,git-client:1.9.1;resolution:=
+ optional
+Plugin-Developers: Qingzhou Luo:seriousamlqz:qingzhouluo@gmail.com,Joh
+ n Micco:jmicco:jmicco@google.com
+

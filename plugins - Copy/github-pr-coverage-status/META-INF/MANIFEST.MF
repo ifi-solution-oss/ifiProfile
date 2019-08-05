@@ -1,0 +1,26 @@
+Manifest-Version: 1.0
+Archiver-Version: Plexus Archiver
+Created-By: Apache Maven
+Built-By: terma
+Build-Jdk: 1.8.0_181
+Extension-Name: github-pr-coverage-status
+Specification-Title: Addon for https://wiki.jenkins-ci.org/display/JEN
+ KINS/GitHub+pull+request+builder+plugin
+         give you possibility to publish code coverage status (Cobertu
+ ra and Jenkins) to Pull Request Commits.
+         So you will see coverage of your PR and comparision with mast
+ er.
+Implementation-Title: github-pr-coverage-status
+Implementation-Version: 2.0.0
+Group-Id: org.jenkins-ci.plugins
+Short-Name: github-pr-coverage-status
+Long-Name: GitHub Pull Request Coverage Status
+Url: https://wiki.jenkins-ci.org/display/JENKINS/GitHub+PR+Coverage+St
+ atus+Plugin
+Minimum-Java-Version: 1.8
+Plugin-Version: 2.0.0
+Hudson-Version: 2.7
+Jenkins-Version: 2.7
+Plugin-Dependencies: github-api:1.90
+Plugin-Developers: Artem Stasiuk:terma:artem.stasuk@gmail.com
+

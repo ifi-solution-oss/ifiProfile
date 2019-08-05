@@ -1,0 +1,20 @@
+Manifest-Version: 1.0
+Archiver-Version: Plexus Archiver
+Created-By: Apache Maven
+Built-By: RoukeB
+Build-Jdk: 1.8.0_152
+Extension-Name: selenium
+Specification-Title: The Jenkins Plugins Parent POM Project
+Implementation-Title: selenium
+Implementation-Version: 3.141.59
+Plugin-Class: hudson.plugins.selenium.PluginImpl
+Group-Id: org.jenkins-ci.plugins
+Short-Name: selenium
+Long-Name: Jenkins Selenium Plugin
+Url: http://wiki.jenkins-ci.org/display/JENKINS/Selenium+Plugin
+Plugin-Version: 3.141.59
+Hudson-Version: 1.580.1
+Jenkins-Version: 1.580.1
+Plugin-Developers: Richard Lavoie:darkrift:lavoie.richard@gmail.com,Ro
+ uke Broersma:mobrockers:mobrockers@gmail.com
+

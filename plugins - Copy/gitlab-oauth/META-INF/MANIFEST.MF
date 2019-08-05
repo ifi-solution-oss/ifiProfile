@@ -1,0 +1,23 @@
+Manifest-Version: 1.0
+Archiver-Version: Plexus Archiver
+Created-By: Apache Maven
+Built-By: melhabib
+Build-Jdk: 1.8.0_144
+Extension-Name: gitlab-oauth
+Specification-Title: A Jenkins authentication plugin that delegates to
+  gitlab.  We also implement an Authorization Strategy that users the 
+ acquired OAuth token to interact with the Gitlab API to determine a u
+ sers level of access to Jenkins.
+Implementation-Title: gitlab-oauth
+Implementation-Version: 1.4
+Group-Id: org.jenkins-ci.plugins
+Short-Name: gitlab-oauth
+Long-Name: Gitlab Authentication plugin
+Url: http://wiki.jenkins-ci.org/display/JENKINS/Gitlab+OAuth+Plugin
+Plugin-Version: 1.4
+Hudson-Version: 2.89.2
+Jenkins-Version: 2.89.2
+Plugin-Dependencies: git:3.6.4,mailer:1.20
+Plugin-Developers: Mohamed EL HABIB:mohamed-el-habib:mohamed.el-habib@
+ digitaslbi.fr
+

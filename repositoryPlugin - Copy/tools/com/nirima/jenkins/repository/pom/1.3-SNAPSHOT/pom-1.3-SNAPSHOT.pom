@@ -1,0 +1,122 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.jenkins-ci.plugins</groupId>
+        <artifactId>plugin</artifactId>
+        <version>1.609.2</version>
+    </parent>
+
+    <groupId>com.nirima.jenkins.repository</groupId>
+    <artifactId>pom</artifactId>
+    <name>Jenkins Maven Repository Server : Project POM</name>
+
+    <version>1.3-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <ciManagement>
+        <url>http://localhost:8080/jenkins</url>
+    </ciManagement>
+
+    <profiles>
+        <profile>
+            <id>repository</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>com.nirima.jenkins.repository</groupId>
+                        <artifactId>jenkins-maven-plugin</artifactId>
+                        <version>${pom.version}</version>
+                        <executions>
+                            <execution>
+                            <goals>
+                                <goal>report-artifacts</goal>
+                            </goals>
+                        </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
+    <developers>
+        <developer>
+            <id>magnayn</id>
+            <name>Nigel Magnay</name>
+            <email>nigel.magnay@gmail.com</email>
+        </developer>
+        <developer>
+            <id>bjwschaap</id>
+            <name>Bastiaan Schaap</name>
+            <email>bastiaan.schaap@gmail.com</email>
+        </developer>
+    </developers>
+
+    <properties>
+        <hpi.plugin.version>1.113</hpi.plugin.version>
+        <jenkins.version>${project.parent.version}</jenkins.version>
+        <jdk.debug>true</jdk.debug>
+        <jdk.optimize>false</jdk.optimize>
+        <jdk.source>1.7</jdk.source>
+        <jdk.target>1.7</jdk.target>
+    </properties>
+    <build>
+        <pluginManagement>
+            <plugins>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${maven-compiler-plugin.version}</version>
+                    <configuration>
+                        <source>${jdk.source}</source>
+                        <target>${jdk.target}</target>
+                        <debug>${jdk.debug}</debug>
+                        <optimize>${jdk.optimize}</optimize>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.jenkins-ci.tools</groupId>
+                    <artifactId>maven-hpi-plugin</artifactId>
+                    <version>${hpi.plugin.version}</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+    <licenses>
+       <license>
+          <name>MIT</name>
+       </license>
+    </licenses>
+    <scm>
+        <connection>scm:git:git://github.com/magnayn/Jenkins-Repository.git</connection>
+        <developerConnection>scm:git:git@github.com:magnayn/Jenkins-Repository.git</developerConnection>
+    </scm>
+    <modules>
+        <module>repository-hpi</module>
+        <module>jenkins-maven-plugin</module>
+    </modules>
+
+   <!-- get every artifact through repo.jenkins-ci.org, which proxies all the artifacts that we need -->
+   <repositories>
+       <repository>
+           <id>repo.jenkins-ci.org</id>
+	   <url>http://repo.jenkins-ci.org/public/</url>
+       </repository>
+   </repositories>
+
+   <pluginRepositories>
+       <pluginRepository>
+            <id>repo.jenkins-ci.org</id>
+            <url>http://repo.jenkins-ci.org/public/</url>
+       </pluginRepository>
+   </pluginRepositories>
+
+    <distributionManagement>
+        <repository>
+            <id>maven.jenkins-ci.org</id>
+            <url>http://maven.jenkins-ci.org:8081/content/repositories/releases/</url>
+        </repository>
+    </distributionManagement>
+
+</project>

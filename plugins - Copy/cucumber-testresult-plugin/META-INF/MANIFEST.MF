@@ -1,0 +1,24 @@
+Manifest-Version: 1.0
+Archiver-Version: Plexus Archiver
+Created-By: Apache Maven
+Built-By: jnord
+Build-Jdk: 1.8.0_144
+Extension-Name: cucumber-testresult-plugin
+Specification-Title: This plugin understands cucumber json files and c
+ onverts them to Jenkins TestCase so they can be seen in the standard 
+ test reports.
+Implementation-Title: cucumber-testresult-plugin
+Implementation-Version: 0.10.1
+Plugin-Class: org.jenkinsci.plugins.cucumber.jsontestsupport.CucumberJ
+ SONSupportPlugin
+Group-Id: org.jenkins-ci.plugins
+Short-Name: cucumber-testresult-plugin
+Long-Name: Cucumber json test reporting.
+Url: http://wiki.jenkins-ci.org/display/JENKINS/Cucumber+Test+Result+P
+ lugin
+Plugin-Version: 0.10.1
+Hudson-Version: 1.651
+Jenkins-Version: 1.651
+Plugin-Dependencies: junit:1.2,matrix-project:1.4,structs:1.5
+Plugin-Developers: James Nord:teilo:
+

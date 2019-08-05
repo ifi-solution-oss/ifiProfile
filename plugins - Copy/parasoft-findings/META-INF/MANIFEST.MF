@@ -1,0 +1,25 @@
+Manifest-Version: 1.0
+Archiver-Version: Plexus Archiver
+Created-By: Apache Maven
+Built-By: marzec
+Build-Jdk: 1.8.0_112
+Extension-Name: parasoft-findings
+Specification-Title: The Jenkins Plugins Parent POM Project
+Specification-Vendor: Parasoft
+Implementation-Vendor: Parasoft
+Implementation-Title: parasoft-findings
+Implementation-Version: 10.4.2
+Group-Id: com.parasoft
+Short-Name: parasoft-findings
+Long-Name: Parasoft Findings
+Url: https://wiki.jenkins-ci.org/display/JENKINS/Parasoft+Findings+Plu
+ gin
+Plugin-Version: 10.4.2
+Hudson-Version: 2.89.1
+Jenkins-Version: 2.89.1
+PluginFirstClassLoader: true
+Plugin-Dependencies: warnings-ng:4.0.0,structs:1.10,xunit:1.102;resolu
+ tion:=optional
+Plugin-Developers: Jacek Marzec:jacekmarzecparasoft:jacek.marzec@paras
+ oft.com,Joseph Benken:benken_parasoft:benken@parasoft.com
+

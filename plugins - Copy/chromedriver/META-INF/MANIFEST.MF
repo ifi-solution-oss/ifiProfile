@@ -1,0 +1,17 @@
+Manifest-Version: 1.0
+Archiver-Version: Plexus Archiver
+Created-By: Apache Maven
+Built-By: nicolas
+Build-Jdk: 1.8.0_25
+Extension-Name: chromedriver
+Implementation-Title: chromedriver
+Implementation-Version: 1.2
+Group-Id: org.jenkins-ci.plugins
+Short-Name: chromedriver
+Long-Name: chromedriver
+Url: https://wiki.jenkins-ci.org/display/JENKINS/ChromeDriver+plugin
+Plugin-Version: 1.2
+Hudson-Version: 1.609
+Jenkins-Version: 1.609
+Plugin-Developers: 
+

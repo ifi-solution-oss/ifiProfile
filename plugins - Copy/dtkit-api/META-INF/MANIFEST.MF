@@ -1,0 +1,21 @@
+Manifest-Version: 1.0
+Archiver-Version: Plexus Archiver
+Created-By: Apache Maven
+Built-By: nikolasfalco
+Build-Jdk: 1.8.0_161
+Extension-Name: dtkit-api
+Specification-Title: This plugin exposes the DTKit 2 APIs to other Jen
+ kins plugins.
+Implementation-Title: dtkit-api
+Implementation-Version: 2.1.1-1
+Group-Id: org.jenkins-ci.plugins
+Short-Name: dtkit-api
+Long-Name: DTKit 2 API.
+Url: http://wiki.jenkins-ci.org/display/JENKINS/DTKit
+Minimum-Java-Version: 1.8
+Plugin-Version: 2.1.1-1
+Hudson-Version: 2.138.4
+Jenkins-Version: 2.138.4
+Plugin-Developers: 
+Support-Dynamic-Loading: true
+

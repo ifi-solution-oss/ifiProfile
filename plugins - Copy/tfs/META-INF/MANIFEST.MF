@@ -1,0 +1,26 @@
+Manifest-Version: 1.0
+Archiver-Version: Plexus Archiver
+Created-By: Apache Maven
+Built-By: jenkins
+Build-Jdk: 1.8.0_91
+Extension-Name: tfs
+Specification-Title: The Jenkins Plugins Parent POM Project
+Implementation-Title: tfs
+Implementation-Version: 5.142.0
+Group-Id: org.jenkins-ci.plugins
+Short-Name: tfs
+Long-Name: Team Foundation Server Plug-in
+Url: http://wiki.jenkins-ci.org/display/JENKINS/Team+Foundation+Server
+ +Plugin
+Compatible-Since-Version: 3.2.0
+Plugin-Version: 5.142.0
+Hudson-Version: 1.642.3
+Jenkins-Version: 1.642.3
+Plugin-Dependencies: workflow-cps:2.30,workflow-job:2.10,workflow-supp
+ ort:2.14,credentials:1.25,git:2.5.2,mailer:1.16
+Plugin-Developers: David Staheli:dastahel:dastahel@microsoft.com,Jason
+  Prickett:jpricketmsft:jpricket@microsoft.com,Jeff Young:jeffyoung:je
+ you@microsoft.com,Sriram Balasubramaniyan:jenkinssriramb:sriramb@micr
+ osoft.com,Kalyan:kalyan:kasubram@microsoft.com,Kellie Jos:kelliejos:k
+ ej@microsoft.com,Manfred Moser:mosabua:manfred@simpligility.com
+

@@ -1,0 +1,21 @@
+<l:dependencies xmlns:l='licenses' version='2.0' artifactId='ivy-plugin' groupId='org.jenkins-ci.plugins'>
+  <l:dependency version='2.0' artifactId='ivy-plugin' groupId='org.jenkins-ci.plugins' name='Ivy Plugin' url='https://wiki.jenkins.io/display/JENKINS/Ivy+Plugin'>
+    <l:description>This plugin adds Ivy support to Jenkins</l:description>
+  </l:dependency>
+  <l:dependency version='1.9.12' artifactId='cloning' groupId='uk.com.robust-it' name='' url=''>
+    <l:description></l:description>
+  </l:dependency>
+  <l:dependency version='2.4.0' artifactId='ivy' groupId='org.apache.ivy' name='' url=''>
+    <l:description></l:description>
+  </l:dependency>
+  <l:dependency version='0.1.54' artifactId='jsch' groupId='com.jcraft' name='' url=''>
+    <l:description></l:description>
+  </l:dependency>
+  <l:dependency version='1.0' artifactId='commons-vfs' groupId='commons-vfs' name='Commons VFS' url='http://jakarta.apache.org/commons/vfs/'>
+    <l:description>VFS is a Virtual File System library.</l:description>
+    <l:license url='/LICENSE.txt' name='The Apache Software License, Version 2.0' />
+  </l:dependency>
+  <l:dependency version='3.0.1' artifactId='objenesis' groupId='org.objenesis' name='' url=''>
+    <l:description></l:description>
+  </l:dependency>
+</l:dependencies>

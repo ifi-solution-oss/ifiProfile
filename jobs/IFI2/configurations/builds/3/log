@@ -1,0 +1,24 @@
+Started by upstream project "[8mha:////4NOHUG2R8l4VaBKft1J7mab/ZhGB34NEd2rkOsxdW2QjAAAAlh+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAyWEgYu/az8JH1PN08jfQCFpeFZvwAAAA==[0mIFI2" build number [8mha:////4GJ25zMt3yxvguVqbBUMnClpAggV8cL2nSAY5AFx3LAeAAAAlh+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLQIwSBm79rPwkfU83TyN9YwB16ntYwAAAAA==[0m3
+originally caused by:
+ Started by upstream project "[8mha:////4MxFtSBLEH/avOuvdB7ugReTzta4r+97lzvoj+61XYw3AAAAlh+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAyWEgYu/az8JH1PN09DfQBG9sxyvwAAAA==[0mIFI1" build number [8mha:////4PnUjwMU/nh5ZwsQ4711iRRMXgeJvp2SkbBGd74upkAQAAAAlh+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLQIwSBm79rPwkfU83T0N9IwC6ZDotwAAAAA==[0m2
+ originally caused by:
+  Started by user [8mha:////4OdsCdK0DyPThWcHlK5FpomMwkJaGBeg2Zd/CUXa2O6KAAAAmx+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAyeEgYB/dLi1CJ9oHUZZZmpJWWlANK849/FAAAA[0mLinh Viet Vu
+Running as SYSTEM
+[EnvInject] - Loading node environment variables.
+Building in workspace C:\Program Files (x86)\Jenkins\workspace\IFI2\default
+using credential Linhvietvu
+ > C:\Program Files\Git\bin\git.exe rev-parse --is-inside-work-tree # timeout=10
+Fetching changes from the remote Git repository
+ > C:\Program Files\Git\bin\git.exe config remote.origin.url https://github.com/ifi-solution-oss/ifiProfile.git # timeout=10
+Fetching upstream changes from https://github.com/ifi-solution-oss/ifiProfile.git
+ > C:\Program Files\Git\bin\git.exe --version # timeout=10
+using GIT_ASKPASS to set credentials username_password
+ > C:\Program Files\Git\bin\git.exe fetch --tags --force --progress https://github.com/ifi-solution-oss/ifiProfile.git +refs/heads/*:refs/remotes/origin/*
+Checking out Revision 4284b4211b5cdc585ac2673e51cc8e11e298c2f2 (refs/remotes/origin/Linhvietvu)
+ > C:\Program Files\Git\bin\git.exe config core.sparsecheckout # timeout=10
+ > C:\Program Files\Git\bin\git.exe checkout -f 4284b4211b5cdc585ac2673e51cc8e11e298c2f2
+Commit message: "commit 2"
+ > C:\Program Files\Git\bin\git.exe rev-list --no-walk 4284b4211b5cdc585ac2673e51cc8e11e298c2f2 # timeout=10
+[EnvInject] - Mask passwords that will be passed as build parameters.
+No mail will be sent out, as 'IFI2 » default #3' does not have a result yet. Please make sure you set a proper result in case of pipeline/build scripts.
+Finished: SUCCESS

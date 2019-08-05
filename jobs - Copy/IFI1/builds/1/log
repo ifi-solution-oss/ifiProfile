@@ -1,0 +1,29 @@
+Started by user [8mha:////4OdsCdK0DyPThWcHlK5FpomMwkJaGBeg2Zd/CUXa2O6KAAAAmx+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAyeEgYB/dLi1CJ9oHUZZZmpJWWlANK849/FAAAA[0mLinh Viet Vu
+Running as SYSTEM
+[EnvInject] - Loading node environment variables.
+Building in workspace C:\Program Files (x86)\Jenkins\workspace\IFI1
+using credential Linhvietvu
+Cloning the remote Git repository
+Cloning repository https://github.com/ifi-solution-oss/ifiProfile.git
+ > C:\Program Files\Git\bin\git.exe init C:\Program Files (x86)\Jenkins\workspace\IFI1 # timeout=10
+Fetching upstream changes from https://github.com/ifi-solution-oss/ifiProfile.git
+ > C:\Program Files\Git\bin\git.exe --version # timeout=10
+using GIT_ASKPASS to set credentials username_password
+ > C:\Program Files\Git\bin\git.exe fetch --tags --force --progress https://github.com/ifi-solution-oss/ifiProfile.git +refs/heads/*:refs/remotes/origin/*
+ > C:\Program Files\Git\bin\git.exe config remote.origin.url https://github.com/ifi-solution-oss/ifiProfile.git # timeout=10
+ > C:\Program Files\Git\bin\git.exe config --add remote.origin.fetch +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > C:\Program Files\Git\bin\git.exe config remote.origin.url https://github.com/ifi-solution-oss/ifiProfile.git # timeout=10
+Fetching upstream changes from https://github.com/ifi-solution-oss/ifiProfile.git
+using GIT_ASKPASS to set credentials username_password
+ > C:\Program Files\Git\bin\git.exe fetch --tags --force --progress https://github.com/ifi-solution-oss/ifiProfile.git +refs/heads/*:refs/remotes/origin/*
+ > C:\Program Files\Git\bin\git.exe rev-parse "refs/remotes/origin/master^{commit}" # timeout=10
+ > C:\Program Files\Git\bin\git.exe rev-parse "refs/remotes/origin/origin/master^{commit}" # timeout=10
+Checking out Revision 0819851638abe5f1031170b9077f71c6b0bbfad7 (refs/remotes/origin/master)
+ > C:\Program Files\Git\bin\git.exe config core.sparsecheckout # timeout=10
+ > C:\Program Files\Git\bin\git.exe checkout -f 0819851638abe5f1031170b9077f71c6b0bbfad7
+Commit message: "update search function"
+First time build. Skipping changelog.
+New run name is '#1'
+New run name is '#1'
+Triggering a new build of [8mha:////4NOHUG2R8l4VaBKft1J7mab/ZhGB34NEd2rkOsxdW2QjAAAAlh+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAyWEgYu/az8JH1PN08jfQCFpeFZvwAAAA==[0mIFI2
+Finished: SUCCESS

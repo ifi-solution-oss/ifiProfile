@@ -1,0 +1,72 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.jenkins-ci.plugins</groupId>
+        <artifactId>plugin</artifactId>
+        <version>3.43</version>
+    </parent>
+    <artifactId>dtkit-api</artifactId>
+    <version>2.1.1-1</version>
+    <packaging>hpi</packaging>
+    <name>DTKit 2 API.</name>
+    <description>This plugin exposes the DTKit 2 APIs to other Jenkins plugins.</description>
+    <url>http://wiki.jenkins-ci.org/display/JENKINS/DTKit</url>
+
+    <properties>
+        <java.level>8</java.level>
+        <dtkit-frmk.version>2.1.1</dtkit-frmk.version>
+        <!-- jenkins version defined as provided in dtkit-metrics-hudson-api -->
+        <jenkins.version>2.138.4</jenkins.version>
+    </properties>
+
+    <repositories>
+        <repository>
+            <id>repo.jenkins-ci.org</id>
+            <url>http://repo.jenkins-ci.org/public/</url>
+        </repository>
+    </repositories>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>repo.jenkins-ci.org</id>
+            <url>http://repo.jenkins-ci.org/public/</url>
+        </pluginRepository>
+    </pluginRepositories>
+
+    <scm>
+        <connection>scm:git:git://github.com/jenkinsci/dtkit-plugin.git</connection>
+        <developerConnection>scm:git:git@github.com:jenkinsci/dtkit-plugin.git</developerConnection>
+        <tag>dtkit-api-2.1.1-1</tag>
+    </scm>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.jenkins-ci.lib.dtkit</groupId>
+            <artifactId>dtkit-metrics-hudson-api</artifactId>
+            <version>${dtkit-frmk.version}</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>3.0.0</version>
+                <configuration>
+                    <configLocation>${maven.multiModuleProjectDirectory}/checkstyle.xml</configLocation>
+                    <sourceDirectories>${project.build.sourceDirectory}</sourceDirectories>
+                    <testSourceDirectories>${project.build.testSourceDirectory}</testSourceDirectories>
+                    <includeTestSourceDirectory>true</includeTestSourceDirectory>
+                    <resourceIncludes>**/*.properties,**/*.jelly</resourceIncludes>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>

@@ -1,0 +1,20 @@
+Manifest-Version: 1.0
+Archiver-Version: Plexus Archiver
+Created-By: Apache Maven
+Built-By: jglick
+Build-Jdk: 1.8.0_212
+Extension-Name: form-element-path
+Specification-Title: Adds Path designators to form elements to simplif
+ y Selenium testing of Jenkins.
+Implementation-Title: form-element-path
+Implementation-Version: 1.9
+Group-Id: org.jenkins-ci.plugins
+Short-Name: form-element-path
+Long-Name: Form element path plugin
+Url: https://wiki.jenkins.io/display/JENKINS/Form+Element+Path+Plugin
+Minimum-Java-Version: 1.8
+Plugin-Version: 1.9
+Hudson-Version: 2.176.1
+Jenkins-Version: 2.176.1
+Plugin-Developers: 
+

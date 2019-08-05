@@ -1,0 +1,24 @@
+Manifest-Version: 1.0
+Archiver-Version: Plexus Archiver
+Created-By: Apache Maven
+Built-By: sam
+Build-Jdk: 1.8.0_191
+Extension-Name: github-oauth
+Specification-Title: A Jenkins authentication plugin that delegates to
+  GitHub.  We also implement an Authorization Strategy that uses the a
+ cquired OAuth token to interact with the GitHub API to determine a us
+ er's level of access to Jenkins.
+Implementation-Title: github-oauth
+Implementation-Version: 0.32
+Group-Id: org.jenkins-ci.plugins
+Short-Name: github-oauth
+Long-Name: GitHub Authentication plugin
+Url: http://wiki.jenkins-ci.org/display/JENKINS/Github+OAuth+Plugin
+Compatible-Since-Version: 0.3
+Plugin-Version: 0.32
+Hudson-Version: 2.7.1
+Jenkins-Version: 2.7.1
+Plugin-Dependencies: matrix-project:1.7,github-api:1.77,workflow-multi
+ branch:2.9,git:3.0.0,mailer:1.18,github-branch-source:1.9
+Plugin-Developers: Sam Gleske:sag47:sam.mxracer@gmail.com
+

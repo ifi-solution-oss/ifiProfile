@@ -1,0 +1,21 @@
+Manifest-Version: 1.0
+Archiver-Version: Plexus Archiver
+Created-By: Apache Maven
+Built-By: rmpestano
+Build-Jdk: 1.8.0_151
+Extension-Name: cucumber-living-documentation
+Specification-Title: Enables Cucumber living documentation on Jenkins
+Implementation-Title: cucumber-living-documentation
+Implementation-Version: 2.2.2
+Group-Id: org.jenkins-ci.plugins
+Short-Name: cucumber-living-documentation
+Long-Name: Cucumber Living Documentation Plugin
+Url: https://wiki.jenkins.io/display/JENKINS/Cucumber+Living+Documenta
+ tion+Plugin
+Plugin-Version: 2.2.2
+Hudson-Version: 2.73.3
+Jenkins-Version: 2.73.3
+Plugin-Dependencies: workflow-cps:2.13;resolution:=optional,workflow-j
+ ob:2.8;resolution:=optional,workflow-step-api:2.10;resolution:=optional
+Plugin-Developers: Rafael M. Pestano:rmpestano:rmpestano@gmail.com
+

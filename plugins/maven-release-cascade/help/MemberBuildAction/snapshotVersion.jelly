@@ -1,0 +1,13 @@
+<!--
+
+    Copyright (C) 2013 Barchart, Inc. <http://www.barchart.com/>
+
+    All rights reserved. Licensed under the OSI BSD License.
+
+    http://www.opensource.org/licenses/bsd-license.php
+
+-->
+<div>
+	Select snapshot version for the artifact after successful release.
+	All other snapshot versions in the cascade will be set by default rules.
+</div>

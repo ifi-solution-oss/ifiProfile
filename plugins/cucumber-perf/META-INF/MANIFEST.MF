@@ -1,0 +1,19 @@
+Manifest-Version: 1.0
+Archiver-Version: Plexus Archiver
+Created-By: Apache Maven
+Built-By: bririd
+Build-Jdk: 1.8.0_77
+Extension-Name: cucumber-perf
+Specification-Title: The Jenkins Plugins Parent POM Project
+Implementation-Title: cucumber-perf
+Implementation-Version: 2.0.9
+Group-Id: com.castlemon.hudson
+Short-Name: cucumber-perf
+Long-Name: cucumber-perf
+Url: http://wiki.jenkins-ci.org/display/JENKINS/Cucumber+Performance+R
+ eports+Plugin
+Plugin-Version: 2.0.9
+Hudson-Version: 1.579
+Jenkins-Version: 1.579
+Plugin-Developers: Jim Gallagher:truedub:jegallagher@gmail.com
+

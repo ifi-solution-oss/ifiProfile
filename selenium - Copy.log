@@ -1,0 +1,8 @@
+Starting Selenium Grid
+[Jenkins] $ "C:\Program Files (x86)\Jenkins\jre\bin\java" -cp "C:\Program Files (x86)\Jenkins\war\WEB-INF\lib\remoting-3.33.jar" hudson.remoting.Launcher -cp "C:\Program Files (x86)\Jenkins\plugins\selenium\WEB-INF\lib\selenium-server-standalone-3.141.59.jar;C:\Program Files (x86)\Jenkins\plugins\selenium\WEB-INF\lib\htmlunit-driver-standalone-2.33.3.jar" -connectTo localhost:53544
+Starting Selenium Grid
+channel started
+Aug 05, 2019 10:42:06 AM hudson.plugins.selenium.HubLauncher call
+OFF: Grid hub starting with log level INFO
+Aug 05, 2019 10:42:06 AM hudson.plugins.selenium.HubLauncher call
+OFF: Grid Hub preparing to start on port 4444

@@ -1,0 +1,254 @@
+<l:dependencies xmlns:l='licenses'>
+  <l:dependency name='Jenkins Selenium Builder plugin' groupId='org.jenkins-ci.plugins' artifactId='selenium-builder' version='1.14' url='http://wiki.jenkins-ci.org/display/JENKINS/Selenium+Builder+Plugin'>
+    <l:description>Jenkins plugin which invokes scripts using the Selenium Builder interpreter</l:description>
+    <l:license name='The Apache Software License, Version 2.0' url='http://www.apache.org/licenses/LICENSE-2.0.txt' />
+  </l:dependency>
+  <l:dependency name='HttpClient' groupId='org.apache.httpcomponents' artifactId='httpclient' version='4.2.1' url='http://hc.apache.org/httpcomponents-client'>
+    <l:description>HttpComponents Client (base module)</l:description>
+    <l:license name='Apache License' url='LICENSE.txt' />
+  </l:dependency>
+  <l:dependency name='JSON.simple' groupId='com.googlecode.json-simple' artifactId='json-simple' version='1.1' url='http://code.google.com/p/json-simple/'>
+    <l:description>A simple Java toolkit for JSON</l:description>
+    <l:license name='The Apache Software License, Version 2.0' url='http://www.apache.org/licenses/LICENSE-2.0.txt' />
+  </l:dependency>
+  <l:dependency name='Jetty :: Http Utility' groupId='org.eclipse.jetty' artifactId='jetty-http' version='8.1.15.v20140411' url='http://www.eclipse.org/jetty'>
+    <l:description>Administrative parent pom for Jetty modules</l:description>
+    <l:license name='Apache Software License - Version 2.0' url='http://www.apache.org/licenses/LICENSE-2.0' />
+    <l:license name='Eclipse Public License - Version 1.0' url='http://www.eclipse.org/org/documents/epl-v10.php' />
+  </l:dependency>
+  <l:dependency name='HttpCore' groupId='org.apache.httpcomponents' artifactId='httpcore' version='4.2.1' url='http://hc.apache.org/httpcomponents-core-ga'>
+    <l:description>HttpComponents Core (blocking I/O)</l:description>
+    <l:license name='Apache License' url='LICENSE.txt' />
+  </l:dependency>
+  <l:dependency name='CSS Parser' groupId='net.sourceforge.cssparser' artifactId='cssparser' version='0.9.5' url='http://cssparser.sourceforge.net/'>
+    <l:description>A CSS parser which implements SAC (the Simple API for CSS).</l:description>
+    <l:license name='GNU Lesser General Public License' url='http://www.gnu.org/licenses/lgpl.txt' />
+  </l:dependency>
+  <l:dependency name='sauce_java_common' groupId='com.saucelabs' artifactId='sauce_java_common' version='2.1.8' url='https://saucelabs.com/sauce_java_common'>
+    <l:description>Collection of Java helper libraries for Sauce Labs</l:description>
+    <l:license name='The Apache Software License, Version 2.0' url='http://www.apache.org/licenses/LICENSE-2.0.txt' />
+  </l:dependency>
+  <l:dependency name='The Netty Project' groupId='io.netty' artifactId='netty' version='3.5.5.Final' url='http://netty.io/'>
+    <l:description>The Netty project is an effort to provide an asynchronous event-driven
+    network application framework and tools for rapid development of
+    maintainable high performance and high scalability protocol servers and
+    clients.  In other words, Netty is a NIO client server framework which
+    enables quick and easy development of network applications such as protocol
+    servers and clients. It greatly simplifies and streamlines network
+    programming such as TCP and UDP socket server.</l:description>
+    <l:license name='Apache License, Version 2.0' url='http://www.apache.org/licenses/LICENSE-2.0' />
+  </l:dependency>
+  <l:dependency name='selenium-remote-driver' groupId='org.seleniumhq.selenium' artifactId='selenium-remote-driver' version='2.35.0' url='http://selenium.googlecode.com/selenium-remote-driver/'>
+    <l:description>Browser automation framework</l:description>
+    <l:license name='The Apache Software License, Version 2.0' url='http://www.apache.org/licenses/LICENSE-2.0.txt' />
+  </l:dependency>
+  <l:dependency name='HttpClient' groupId='commons-httpclient' artifactId='commons-httpclient' version='3.1' url='http://jakarta.apache.org/httpcomponents/httpclient-3.x/'>
+    <l:description>The HttpClient  component supports the client-side of RFC 1945 (HTTP/1.0)  and RFC 2616 (HTTP/1.1) , several related specifications (RFC 2109 (Cookies) , RFC 2617 (HTTP Authentication) , etc.), and provides a framework by which new request types (methods) or HTTP extensions can be created easily.</l:description>
+    <l:license name='Apache License' url='http://www.apache.org/licenses/LICENSE-2.0' />
+  </l:dependency>
+  <l:dependency name='Jetty :: Websocket' groupId='org.eclipse.jetty' artifactId='jetty-websocket' version='8.1.15.v20140411' url='http://www.eclipse.org/jetty'>
+    <l:description>Administrative parent pom for Jetty modules</l:description>
+    <l:license name='Apache Software License - Version 2.0' url='http://www.apache.org/licenses/LICENSE-2.0' />
+    <l:license name='Eclipse Public License - Version 1.0' url='http://www.eclipse.org/org/documents/epl-v10.php' />
+  </l:dependency>
+  <l:dependency name='selenium-htmlunit-driver' groupId='org.seleniumhq.selenium' artifactId='selenium-htmlunit-driver' version='2.43.1' url='http://selenium.googlecode.com/selenium-htmlunit-driver/'>
+    <l:description>Browser automation framework</l:description>
+    <l:license name='The Apache Software License, Version 2.0' url='http://www.apache.org/licenses/LICENSE-2.0.txt' />
+  </l:dependency>
+  <l:dependency name='Commons CLI' groupId='commons-cli' artifactId='commons-cli' version='1.2' url='http://commons.apache.org/cli/'>
+    <l:description>Commons CLI provides a simple API for presenting, processing and validating a command line interface.</l:description>
+    <l:license name='The Apache Software License, Version 2.0' url='http://www.apache.org/licenses/LICENSE-2.0.txt' />
+  </l:dependency>
+  <l:dependency name='selenium-support' groupId='org.seleniumhq.selenium' artifactId='selenium-support' version='2.43.1' url='http://selenium.googlecode.com/selenium-support/'>
+    <l:description>Browser automation framework</l:description>
+    <l:license name='The Apache Software License, Version 2.0' url='http://www.apache.org/licenses/LICENSE-2.0.txt' />
+  </l:dependency>
+  <l:dependency name='sebuilder-interpreter' groupId='com.saucelabs' artifactId='sebuilder-interpreter' version='1.0.6' url='http://sebuilder.github.io/se-builder/'>
+    <l:description>Java Selenium Builder interpreter</l:description>
+    <l:license name='The Apache Software License, Version 2.0' url='http://www.apache.org/licenses/LICENSE-2.0.txt' />
+  </l:dependency>
+  <l:dependency name='Commons IO' groupId='commons-io' artifactId='commons-io' version='1.4' url='http://commons.apache.org/io/'>
+    <l:description>Commons-IO contains utility classes, stream implementations, file filters, file comparators and endian classes.</l:description>
+    <l:license name='The Apache Software License, Version 2.0' url='http://www.apache.org/licenses/LICENSE-2.0.txt' />
+  </l:dependency>
+  <l:dependency name='Plexus Archiver Component' groupId='org.codehaus.plexus' artifactId='plexus-archiver' version='2.4.4' url='http://plexus.codehaus.org/plexus-components/plexus-archiver'>
+    <l:description>The Plexus project provides a full software stack for creating and executing software projects.</l:description>
+    <l:license name='The Apache Software License, Version 2.0' url='http://www.apache.org/licenses/LICENSE-2.0.txt' />
+  </l:dependency>
+  <l:dependency name='selenium-chrome-driver' groupId='org.seleniumhq.selenium' artifactId='selenium-chrome-driver' version='2.43.1' url='http://selenium.googlecode.com/selenium-chrome-driver/'>
+    <l:description>Browser automation framework</l:description>
+    <l:license name='The Apache Software License, Version 2.0' url='http://www.apache.org/licenses/LICENSE-2.0.txt' />
+  </l:dependency>
+  <l:dependency name='Default Plexus Container' groupId='org.codehaus.plexus' artifactId='plexus-container-default' version='1.0-alpha-9-stable-1'>
+    <l:description />
+  </l:dependency>
+  <l:dependency name='Commons Lang' groupId='commons-lang' artifactId='commons-lang' version='2.4' url='http://commons.apache.org/lang/'>
+    <l:description>Commons Lang, a package of Java utility classes for the
+        classes that are in java.lang's hierarchy, or are considered to be so
+        standard as to justify existence in java.lang.</l:description>
+    <l:license name='The Apache Software License, Version 2.0' url='http://www.apache.org/licenses/LICENSE-2.0.txt' />
+  </l:dependency>
+  <l:dependency name='selenium-api' groupId='org.seleniumhq.selenium' artifactId='selenium-api' version='2.35.0' url='http://selenium.googlecode.com/selenium-api/'>
+    <l:description>Browser automation framework</l:description>
+    <l:license name='The Apache Software License, Version 2.0' url='http://www.apache.org/licenses/LICENSE-2.0.txt' />
+  </l:dependency>
+  <l:dependency name='Commons Codec' groupId='commons-codec' artifactId='commons-codec' version='1.4' url='http://commons.apache.org/codec/'>
+    <l:description>The codec package contains simple encoder and decoders for
+     various formats such as Base64 and Hexadecimal.  In addition to these
+     widely used encoders and decoders, the codec package also maintains a
+     collection of phonetic encoding utilities.</l:description>
+    <l:license name='The Apache Software License, Version 2.0' url='http://www.apache.org/licenses/LICENSE-2.0.txt' />
+  </l:dependency>
+  <l:dependency name='XZ for Java' groupId='org.tukaani' artifactId='xz' version='1.2' url='http://tukaani.org/xz/java.html'>
+    <l:description>XZ data compression</l:description>
+    <l:license name='Public Domain' />
+  </l:dependency>
+  <l:dependency name='Commons Compress' groupId='org.apache.commons' artifactId='commons-compress' version='1.5' url='http://commons.apache.org/compress/'>
+    <l:description>Apache Commons Compress software defines an API for working with compression and archive formats.
+These include: bzip2, gzip, pack200, xz and ar, cpio, jar, tar, zip, dump.</l:description>
+    <l:license name='The Apache Software License, Version 2.0' url='http://www.apache.org/licenses/LICENSE-2.0.txt' />
+  </l:dependency>
+  <l:dependency name='ci-sauce' groupId='com.saucelabs' artifactId='ci-sauce' version='1.101' url='http://github.com/saucelabs/ci-sauce'>
+    <l:description>Collection of helper libraries for Sauce Labs CI plugins</l:description>
+    <l:license name='The Apache Software License, Version 2.0' url='http://www.apache.org/licenses/LICENSE-2.0.txt' />
+  </l:dependency>
+  <l:dependency name='HtmlUnit' groupId='net.sourceforge.htmlunit' artifactId='htmlunit' version='2.15' url='http://htmlunit.sourceforge.net'>
+    <l:description>A headless browser intended for use in testing web-based applications.</l:description>
+    <l:license name='Apache License, Version 2.0' url='http://www.apache.org/licenses/LICENSE-2.0.txt' />
+  </l:dependency>
+  <l:dependency name='JSON (JavaScript Object Notation)' groupId='org.json' artifactId='json' version='20080701' url='http://www.json.org/java/index.html'>
+    <l:description>JSON (JavaScript Object Notation) is a lightweight data-interchange format.
+    It is easy for humans to read and write. It is easy for machines to parse and generate.
+    It is based on a subset of the JavaScript Programming Language, Standard ECMA-262 3rd Edition
+    - December 1999. JSON is a text format that is completely language independent but uses
+    conventions that are familiar to programmers of the C-family of languages, including C, C++, C#,
+    Java, JavaScript, Perl, Python, and many others.
+    These properties make JSON an ideal data-interchange language.</l:description>
+    <l:license name='provided without support or warranty' url='http://www.json.org/license.html' />
+  </l:dependency>
+  <l:dependency name='selenium-java' groupId='org.seleniumhq.selenium' artifactId='selenium-java' version='2.43.1' url='http://selenium.googlecode.com/selenium-java/'>
+    <l:description>Browser automation framework</l:description>
+    <l:license name='The Apache Software License, Version 2.0' url='http://www.apache.org/licenses/LICENSE-2.0.txt' />
+  </l:dependency>
+  <l:dependency name='Commons Logging' groupId='commons-logging' artifactId='commons-logging' version='1.1.1' url='http://commons.apache.org/logging'>
+    <l:description>Commons Logging is a thin adapter allowing configurable bridging to other,
+    well known logging systems.</l:description>
+    <l:license name='The Apache Software License, Version 2.0' url='http://www.apache.org/licenses/LICENSE-2.0.txt' />
+  </l:dependency>
+  <l:dependency name='Plexus Common Utilities' groupId='org.codehaus.plexus' artifactId='plexus-utils' version='3.0.15' url='http://plexus.codehaus.org/plexus-utils'>
+    <l:description>A collection of various utility classes to ease working with strings, files, command lines, XML and
+    more.</l:description>
+    <l:license name='The Apache Software License, Version 2.0' url='http://www.apache.org/licenses/LICENSE-2.0.txt' />
+  </l:dependency>
+  <l:dependency name='Simple API for CSS' groupId='org.w3c.css' artifactId='sac' version='1.3' url='http://www.w3.org/Style/CSS/SAC/'>
+    <l:description>SAC is a standard interface for CSS parsers.</l:description>
+    <l:license name='The W3C Software License' url='http://www.w3.org/Consortium/Legal/copyright-software-19980720' />
+  </l:dependency>
+  <l:dependency name='Xalan Java' groupId='xalan' artifactId='xalan' version='2.7.1' url='http://xml.apache.org/xalan-j/'>
+    <l:description>Xalan-Java is an XSLT processor for transforming XML documents into HTML,
+    text, or other XML document types. It implements XSL Transformations (XSLT)
+    Version 1.0 and XML Path Language (XPath) Version 1.0 and can be used from
+    the command line, in an applet or a servlet, or as a module in other program.</l:description>
+    <l:license name='The Apache Software License, Version 2.0' url='http://www.apache.org/licenses/LICENSE-2.0.txt' />
+  </l:dependency>
+  <l:dependency name='Jetty :: IO Utility' groupId='org.eclipse.jetty' artifactId='jetty-io' version='8.1.15.v20140411' url='http://www.eclipse.org/jetty'>
+    <l:description>Administrative parent pom for Jetty modules</l:description>
+    <l:license name='Apache Software License - Version 2.0' url='http://www.apache.org/licenses/LICENSE-2.0' />
+    <l:license name='Eclipse Public License - Version 1.0' url='http://www.eclipse.org/org/documents/epl-v10.php' />
+  </l:dependency>
+  <l:dependency name='Jetty :: Utilities' groupId='org.eclipse.jetty' artifactId='jetty-util' version='8.1.15.v20140411' url='http://www.eclipse.org/jetty'>
+    <l:description>Utility classes for Jetty</l:description>
+    <l:license name='Apache Software License - Version 2.0' url='http://www.apache.org/licenses/LICENSE-2.0' />
+    <l:license name='Eclipse Public License - Version 1.0' url='http://www.eclipse.org/org/documents/epl-v10.php' />
+  </l:dependency>
+  <l:dependency name='Apache HttpClient Mime' groupId='org.apache.httpcomponents' artifactId='httpmime' version='4.3.3' url='http://hc.apache.org/httpcomponents-client'>
+    <l:description>HttpComponents HttpClient - MIME coded entities</l:description>
+    <l:license name='Apache License, Version 2.0' url='LICENSE.txt' />
+  </l:dependency>
+  <l:dependency name='Commons Exec' groupId='org.apache.commons' artifactId='commons-exec' version='1.1' url='http://commons.apache.org/exec/'>
+    <l:description>A library to reliably execute external processes from within the JVM</l:description>
+    <l:license name='The Apache Software License, Version 2.0' url='http://www.apache.org/licenses/LICENSE-2.0.txt' />
+  </l:dependency>
+  <l:dependency name='selenium-safari-driver' groupId='org.seleniumhq.selenium' artifactId='selenium-safari-driver' version='2.43.1' url='http://selenium.googlecode.com/selenium-safari-driver/'>
+    <l:description>Browser automation framework</l:description>
+    <l:license name='The Apache Software License, Version 2.0' url='http://www.apache.org/licenses/LICENSE-2.0.txt' />
+  </l:dependency>
+  <l:dependency name='Xalan Java Serializer' groupId='xalan' artifactId='serializer' version='2.7.1' url='http://xml.apache.org/xalan-j/'>
+    <l:description>Serializer to write out XML, HTML etc. as a stream of characters from an input DOM or from input
+    SAX events.</l:description>
+    <l:license name='The Apache Software License, Version 2.0' url='http://www.apache.org/licenses/LICENSE-2.0.txt' />
+  </l:dependency>
+  <l:dependency name='webbit' groupId='org.webbitserver' artifactId='webbit' version='0.4.15' url='http://webbitserver.org/'>
+    <l:description>A Java event based WebSocket and HTTP server</l:description>
+    <l:license name='BSD License' url='http://www.opensource.org/licenses/bsd-license' />
+  </l:dependency>
+  <l:dependency name='Apache Commons Lang' groupId='org.apache.commons' artifactId='commons-lang3' version='3.3.2' url='http://commons.apache.org/proper/commons-lang/'>
+    <l:description>Apache Commons Lang, a package of Java utility classes for the
+  classes that are in java.lang's hierarchy, or are considered to be so
+  standard as to justify existence in java.lang.</l:description>
+    <l:license name='The Apache Software License, Version 2.0' url='http://www.apache.org/licenses/LICENSE-2.0.txt' />
+  </l:dependency>
+  <l:dependency name='Commons Collections' groupId='commons-collections' artifactId='commons-collections' version='3.2.1' url='http://commons.apache.org/collections/'>
+    <l:description>Types that extend and augment the Java Collections Framework.</l:description>
+    <l:license name='The Apache Software License, Version 2.0' url='http://www.apache.org/licenses/LICENSE-2.0.txt' />
+  </l:dependency>
+  <l:dependency name='Xerces2 Java Parser' groupId='xerces' artifactId='xercesImpl' version='2.9.1' url='http://xerces.apache.org/xerces2-j'>
+    <l:description>Xerces2 is the next generation of high performance, fully compliant XML parsers in the
+    Apache Xerces family. This new version of Xerces introduces the Xerces Native Interface (XNI),
+    a complete framework for building parser components and configurations that is extremely
+    modular and easy to program.</l:description>
+    <l:license name='The Apache Software License, Version 2.0' url='http://www.apache.org/licenses/LICENSE-2.0.txt' />
+  </l:dependency>
+  <l:dependency name='classworlds' groupId='classworlds' artifactId='classworlds' version='1.1-alpha-2' url='http://classworlds.codehaus.org/'>
+    <l:description></l:description>
+  </l:dependency>
+  <l:dependency name='saucerest' groupId='com.saucelabs' artifactId='saucerest' version='1.0.25' url='https://saucelabs.com'>
+    <l:description>Java library which provides helper methods for invoking the Sauce Labs REST API</l:description>
+    <l:license name='The Apache Software License, Version 2.0' url='http://www.apache.org/licenses/LICENSE-2.0.txt' />
+  </l:dependency>
+  <l:dependency name='Plexus IO Components' groupId='org.codehaus.plexus' artifactId='plexus-io' version='2.0.10' url='http://plexus.codehaus.org/plexus-components/plexus-io'>
+    <l:description>The Plexus project provides a full software stack for creating and executing software projects.</l:description>
+    <l:license name='The Apache Software License, Version 2.0' url='http://www.apache.org/licenses/LICENSE-2.0.txt' />
+  </l:dependency>
+  <l:dependency name='selenium-ie-driver' groupId='org.seleniumhq.selenium' artifactId='selenium-ie-driver' version='2.43.1' url='http://selenium.googlecode.com/selenium-ie-driver/'>
+    <l:description>Browser automation framework</l:description>
+    <l:license name='The Apache Software License, Version 2.0' url='http://www.apache.org/licenses/LICENSE-2.0.txt' />
+  </l:dependency>
+  <l:dependency name='Data Mapper for Jackson' groupId='org.codehaus.jackson' artifactId='jackson-mapper-asl' version='1.5.0' url='http://jackson.codehaus.org'>
+    <l:description>Data Mapper package is a high-performance data binding package
+built on Jackson JSON processor</l:description>
+    <l:license name='The Apache Software License, Version 2.0' url='http://www.apache.org/licenses/LICENSE-2.0.txt' />
+  </l:dependency>
+  <l:dependency name='cglib' groupId='cglib' artifactId='cglib-nodep' version='2.1_3' url='http://cglib.sourceforge.net/'>
+    <l:description />
+  </l:dependency>
+  <l:dependency name='Neko HTML' groupId='net.sourceforge.nekohtml' artifactId='nekohtml' version='1.9.13' url='http://nekohtml.sourceforge.net/'>
+    <l:description />
+    <l:license name='The Apache Software License, Version 2.0' url='http://www.apache.org/licenses/LICENSE-2.0.txt' />
+  </l:dependency>
+  <l:dependency name='Jackson' groupId='org.codehaus.jackson' artifactId='jackson-core-asl' version='1.5.0' url='http://jackson.codehaus.org'>
+    <l:description>Jackson is a high-performance JSON processor (parser, generator)</l:description>
+    <l:license name='The Apache Software License, Version 2.0' url='http://www.apache.org/licenses/LICENSE-2.0.txt' />
+  </l:dependency>
+  <l:dependency name='selenium-firefox-driver' groupId='org.seleniumhq.selenium' artifactId='selenium-firefox-driver' version='2.43.1' url='http://selenium.googlecode.com/selenium-firefox-driver/'>
+    <l:description>Browser automation framework</l:description>
+    <l:license name='The Apache Software License, Version 2.0' url='http://www.apache.org/licenses/LICENSE-2.0.txt' />
+  </l:dependency>
+  <l:dependency name='opencsv' groupId='net.sf.opencsv' artifactId='opencsv' version='2.3' url='http://opencsv.sf.net'>
+    <l:description>A simple library for reading and writing CSV in Java</l:description>
+    <l:license name='Apache 2' url='http://www.apache.org/licenses/LICENSE-2.0.txt' />
+  </l:dependency>
+  <l:dependency name='HtmlUnit Core JS' groupId='net.sourceforge.htmlunit' artifactId='htmlunit-core-js' version='2.15' url='http://htmlunit.sourceforge.net'>
+    <l:description>HtmlUnit adaptation of Mozilla Rhino Javascript engine for Java. 
+		Changes are documented by a diff (rhinoDiff.txt) contained in the generated jar files.</l:description>
+    <l:license name='Mozilla Public License version 2.0' url='http://www.mozilla.org/MPL/2.0/' />
+  </l:dependency>
+  <l:dependency name='Java Native Access' groupId='net.java.dev.jna' artifactId='jna' version='3.4.0' url='https://github.com/twall/jna'>
+    <l:description>Java Native Access</l:description>
+    <l:license name='LGPL, version 2.1' url='http://creativecommons.org/licenses/LGPL/2.1/' />
+  </l:dependency>
+  <l:dependency name='Java Native Access Platform' groupId='net.java.dev.jna' artifactId='platform' version='3.4.0' url='https://github.com/twall/jna'>
+    <l:description>Java Native Access Platform</l:description>
+    <l:license name='LGPL, version 2.1' url='http://creativecommons.org/licenses/LGPL/2.1/' />
+  </l:dependency>
+</l:dependencies>

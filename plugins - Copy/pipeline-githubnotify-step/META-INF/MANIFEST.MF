@@ -1,0 +1,23 @@
+Manifest-Version: 1.0
+Archiver-Version: Plexus Archiver
+Created-By: Apache Maven
+Built-By: raul
+Build-Jdk: 1.8.0_91
+Extension-Name: pipeline-githubnotify-step
+Specification-Title: Plugin that provides a GitHub status notification
+  step
+Implementation-Title: pipeline-githubnotify-step
+Implementation-Version: 1.0.4
+Group-Id: org.jenkins-ci.plugins
+Short-Name: pipeline-githubnotify-step
+Long-Name: Pipeline GitHub Notify Step Plugin
+Url: https://wiki.jenkins-ci.org/display/JENKINS/Pipeline+Githubnotify
+ +Step+Plugin
+Plugin-Version: 1.0.4
+Hudson-Version: 1.642.3
+Jenkins-Version: 1.642.3
+Plugin-Dependencies: workflow-aggregator:1.15,credentials:2.1.5,displa
+ y-url-api:0.5,git:2.4.0,github-api:1.90,github-branch-source:1.10.1
+Plugin-Developers: Raul Arabaolaza:raul-arabaolaza:rarabaolaza@cloudbe
+ es.com
+
