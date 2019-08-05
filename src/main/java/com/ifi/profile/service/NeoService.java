@@ -3,7 +3,6 @@ package com.ifi.profile.service;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -431,28 +430,99 @@ public class NeoService {
     	return lists;
     }
     
-    // get list nodes
-    public List<Node> getListNodes(){
+    // get list Person
+    public List<Node> getListPerson(){
     	List<Node> ret = new ArrayList<Node>();
         try (Session session = driver.session()){
             // Auto-commit transactions are a quick and easy way to wrap a read.
             StatementResult result = session.run(
-                    "MATCH (n) RETURN n as obj");
+                    "MATCH (n: Person) RETURN n AS person");
             // Each Cypher execution returns a stream of records.
             while (result.hasNext()){
             	Node tmpUser = new Node();
                 Record record = result.next();
                 // Values can be extracted from a record by index or name.
                 try {
-                	
-                	
-                	Map<String, Object> tmMap = record.get("obj").asMap();
-                	if (tmMap.get("name") != null){
-                		tmpUser.setLabelNode(tmMap.get("name").toString());
+                	Map<String, Object> tmPerson = record.get("person").asMap();
+
+                	if (tmPerson.get("name") != null){
+                		tmpUser.setLabelNode(tmPerson.get("name").toString());
                 	}
                 	
                 	List<Field> listFields = new ArrayList<Field>();
-                	for(Map.Entry entry:tmMap.entrySet()){
+                	for(Map.Entry entry:tmPerson.entrySet()){
+                		Field tmpField = new Field();
+                		tmpField.setKey(entry.getKey().toString());
+                        tmpField.setValue(entry.getValue().toString());
+                        listFields.add(tmpField);
+                	}
+                	tmpUser.setListFields(listFields);
+                } catch (Exception ex) {
+                	System.out.println("Error:"+ex.getMessage());
+                }
+                ret.add(tmpUser);
+            }
+        }
+        return ret;
+    }
+    
+    // get list projects
+    public List<Node> getListProjects(){
+    	List<Node> ret = new ArrayList<Node>();
+        try (Session session = driver.session()){
+            // Auto-commit transactions are a quick and easy way to wrap a read.
+            StatementResult result = session.run(
+                    "MATCH (n: Project) RETURN n AS project");
+            // Each Cypher execution returns a stream of records.
+            while (result.hasNext()){
+            	Node tmpUser = new Node();
+                Record record = result.next();
+                // Values can be extracted from a record by index or name.
+                try {
+                	Map<String, Object> tmProject = record.get("project").asMap();
+                	
+                	if (tmProject.get("name") != null){
+                		tmpUser.setLabelNode(tmProject.get("name").toString());
+                	}
+                	
+                	List<Field> listFields = new ArrayList<Field>();
+                	for(Map.Entry entry:tmProject.entrySet()){
+                		Field tmpField = new Field();
+                		tmpField.setKey(entry.getKey().toString());
+                        tmpField.setValue(entry.getValue().toString());
+                        listFields.add(tmpField);
+                	}
+                	tmpUser.setListFields(listFields);
+                } catch (Exception ex) {
+                	System.out.println("Error:"+ex.getMessage());
+                }
+                ret.add(tmpUser);
+            }
+        }
+        return ret;
+    }
+    
+    // get list technologies
+    public List<Node> getListTechs(){
+    	List<Node> ret = new ArrayList<Node>();
+        try (Session session = driver.session()){
+            // Auto-commit transactions are a quick and easy way to wrap a read.
+            StatementResult result = session.run(
+                    "MATCH (n: Technology) RETURN n AS technologies");
+            // Each Cypher execution returns a stream of records.
+            while (result.hasNext()){
+            	Node tmpUser = new Node();
+                Record record = result.next();
+                // Values can be extracted from a record by index or name.
+                try {
+                	Map<String, Object> tmTech = record.get("technologies").asMap();
+                	
+                	if (tmTech.get("name") != null){
+                		tmpUser.setLabelNode(tmTech.get("name").toString());
+                	}
+                	
+                	List<Field> listFields = new ArrayList<Field>();
+                	for(Map.Entry entry:tmTech.entrySet()){
                 		Field tmpField = new Field();
                 		tmpField.setKey(entry.getKey().toString());
                         tmpField.setValue(entry.getValue().toString());
@@ -845,12 +915,12 @@ public class NeoService {
                             listFields.add(tmpField);
                 		}
                 	}
-                	tmpUser.setListFields(listFields);
+                 	tmpUser.setListFields(listFields);	
                 } catch (Exception ex) {
                 	System.out.println("Error:"+ex.getMessage());
                 }
                 ret.add(tmpUser);
-            }
+            }   
         }
         return ret;
     }

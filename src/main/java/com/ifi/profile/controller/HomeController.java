@@ -28,7 +28,9 @@ public class HomeController {
 		NeoService neoService = new NeoService(Constants.URL_IFI, Constants.USER_IFI, Constants.PASS_IFI);
 				
 		// list nodes
-		List<Node> listNodes = neoService.getListNodes();
+		List<Node> listPersons = neoService.getListPerson();
+		List<Node> listProjects = neoService.getListProjects();
+		List<Node> listTechs = neoService.getListTechs();
 		// list label
 		List<Node> listLabels = neoService.getLabels();
 		// list node for search function
@@ -36,8 +38,13 @@ public class HomeController {
 		neoService.close();
 		
 		ModelAndView modelRet = new ModelAndView("home");
-        modelRet.addObject("lists", listNodes);
+		// list nodes
+        modelRet.addObject("listPersons", listPersons);
+        modelRet.addObject("listProjects", listProjects);
+        modelRet.addObject("listTechs", listTechs);
+        // list label
         modelRet.addObject("listLabels", listLabels);
+        // list node for search function
         modelRet.addObject("listNodeForSearch", listNodeForSearch);
 		return modelRet;
 	}
@@ -55,7 +62,9 @@ public class HomeController {
 		}
 		
 		// get list nodes
-		List<Node> listNodes = neoService.getListNodes();
+		List<Node> listPersons = neoService.getListPerson();
+		List<Node> listProjects = neoService.getListProjects();
+		List<Node> listTechs = neoService.getListTechs();
 		// list label
 		List<Node> listLabels = neoService.getLabels();
 		// list node for search function
@@ -64,8 +73,13 @@ public class HomeController {
         
         // render view
         ModelAndView modelRet = new ModelAndView("home");
-        modelRet.addObject("lists", listNodes);
+     // list nodes
+        modelRet.addObject("listPersons", listPersons);
+        modelRet.addObject("listProjects", listProjects);
+        modelRet.addObject("listTechs", listTechs);
+        // list label
         modelRet.addObject("listLabels", listLabels);
+        // list node for search function
         modelRet.addObject("listNodeForSearch", listNodeForSearch);
 		return modelRet;
 	}
@@ -93,13 +107,26 @@ public class HomeController {
 			System.out.println("error: node empty");
 		}
 		
-		List<Node> listNodes = neoService.getListNodes();
+		// get list nodes
+		List<Node> listPersons = neoService.getListPerson();
+		List<Node> listProjects = neoService.getListProjects();
+		List<Node> listTechs = neoService.getListTechs();
 		// list label
 		List<Node> listLabels = neoService.getLabels();
+		// list node for search function
+		List<Node> listNodeForSearch = neoService.autocompleSearch();
+		
 		neoService.close();
+		
 		ModelAndView modelRet = new ModelAndView("home");
-		modelRet.addObject("lists", listNodes);
-		modelRet.addObject("listLabels", listLabels);
+		// list nodes
+        modelRet.addObject("listPersons", listPersons);
+        modelRet.addObject("listProjects", listProjects);
+        modelRet.addObject("listTechs", listTechs);
+        // list label
+        modelRet.addObject("listLabels", listLabels);
+        // list node for search function
+        modelRet.addObject("listNodeForSearch", listNodeForSearch);
 		return modelRet;
 	}
 	
@@ -112,13 +139,24 @@ public class HomeController {
 			System.out.println("error: node empty");
 		}
 		
-		List<Node> listNodes = neoService.getListNodes();
+		// get list nodes
+		List<Node> listPersons = neoService.getListPerson();
+		List<Node> listProjects = neoService.getListProjects();
+		List<Node> listTechs = neoService.getListTechs();
 		// list label
 		List<Node> listLabels = neoService.getLabels();
+		// list node for search function
+		List<Node> listNodeForSearch = neoService.autocompleSearch();
 		neoService.close();
 		ModelAndView modelRet = new ModelAndView("home");
-		modelRet.addObject("lists", listNodes);
-		modelRet.addObject("listLabels", listLabels);
+		// list nodes
+        modelRet.addObject("listPersons", listPersons);
+        modelRet.addObject("listProjects", listProjects);
+        modelRet.addObject("listTechs", listTechs);
+        // list label
+        modelRet.addObject("listLabels", listLabels);
+        // list node for search function
+        modelRet.addObject("listNodeForSearch", listNodeForSearch);
 		return modelRet;
 	}
 	
@@ -128,12 +166,10 @@ public class HomeController {
 		
 		neoService.addRelationship(node);
 		List<Node> listLabels = neoService.getLabels();
-		List<Node> listNode = neoService.getListNodes();
 		neoService.close();
 		
 		ModelAndView modelRet = new ModelAndView("home");
 		modelRet.addObject("listLabels", listLabels);
-		modelRet.addObject("listNode", listNode);
 		return modelRet;
 	}
 	
@@ -143,7 +179,6 @@ public class HomeController {
 		
 		List<Node> lists = neoService.searchByRelationship(node);
 		List<Node> listNodes = neoService.getNode(node);
-		List<Node> listNode = neoService.getListNodes();
 		List<Node> listProject = neoService.advanceSearch(node);
 		neoService.close();
 		
@@ -151,7 +186,6 @@ public class HomeController {
 		ModelAndView modelRet = new ModelAndView("searchByRelation");
 		modelRet.addObject("lists", lists);
 		modelRet.addObject("listNodes", listNodes);
-		modelRet.addObject("listNode", listNode);
 		modelRet.addObject("listProject", listProject);
 		return modelRet;
 	}

@@ -27,8 +27,7 @@
 		<div class="container">
 		<h1>IFI Profile</h1>
 			<div class="row">
-			<!-- Search function -->
-				<div class="col-sm-6">
+			<div class="col-sm-6">
 				<!-- Search person by name -->
 				<form action="search" id="search" method="post">
 					<input id="myInput" type="text" name="nameNode">
@@ -78,36 +77,98 @@
 				</form>
 				<button id="addBtn" onclick="addField()">Add Field</button><br>
 				</div>
-				<div class="col-sm-6">
-				<c:if test="${not empty lists}">
-					<h4>List Nodes:</h4>
-					<table class="table table-hover table-bordered table-striped">
-					<thead>
-				      <tr>
-				        <th>No</th>
-				        <th class="col-md-1">Name</th>
-				      </tr>
-				    </thead>
-				    <tbody>
-				    <!-- use two-dimensional array to get value of node and field -->
-				      <c:forEach var="listValue" items="${lists}" varStatus="count">
-				      <tr>
-						  <td data-toggle="modal" data-target="#ifiModal" class="idClass" data-id="${listValue.labelNode}" 
-	      					data-list="<c:forEach var="field" items="${listValue.listFields}">${field.key}:${field.value}*+*+</c:forEach>">${count.index+1}</td>
-						  <td data-toggle="modal" data-target="#ifiModal" class="idClass" data-id="${listValue.labelNode}" 
-	      					data-list="<c:forEach var="field" items="${listValue.listFields}">${field.key}:${field.value}*+*+</c:forEach>">${listValue.labelNode}</td>
-						 <!-- delete function -->
-						  <td data-toggle="modal" data-target="#deleteModal" class="deleteClass" data-id="${listValue.labelNode}"
-						  data-list="<c:forEach var="field" items="${listValue.listFields}">${field.key}:${field.value}*+*+</c:forEach>"><button class="btn-remove"><i class="fas fa-trash-alt"></i></button></td>
-						  <!-- update function -->
-						  <td data-toggle="modal" data-target="#updateModal" class="updateClass" data-id="${listValue.labelNode}" data-labels="${listValue.typeNode }" 
-	      					data-list="<c:forEach var="field" items="${listValue.listFields}">${field.key}:${field.value}*+*+</c:forEach>"><button class="btn-update" ><i class="fas fa-pen"></i></button></td>		
-				      </tr>
-				      </c:forEach>
-				    </tbody>
-					</table>
-				</c:if>
+				<div class = "col-sm-4" id="person">
+					<c:if test="${not empty listPersons}">
+						<h4>List Persons:</h4>
+						<table class="table table-hover table-bordered table-striped">
+						<thead>
+					      <tr>
+					        <th>No</th>
+					        <th class="col-md-1">Name</th>
+					      </tr>
+					    </thead>
+					    <tbody>
+					    <!-- use two-dimensional array to get value of node and field -->
+					      <c:forEach var="listValue" items="${listPersons}" varStatus="count">
+					      <tr>
+							  <td data-toggle="modal" data-target="#ifiModal" class="idClass" data-id="${listValue.labelNode}" 
+		      					data-list="<c:forEach var="field" items="${listValue.listFields}">${field.key}:${field.value}*+*+</c:forEach>">${count.index+1}</td>
+							  <td data-toggle="modal" data-target="#ifiModal" class="idClass" data-id="${listValue.labelNode}" 
+		      					data-list="<c:forEach var="field" items="${listValue.listFields}">${field.key}:${field.value}*+*+</c:forEach>">${listValue.labelNode}</td>
+							 <!-- delete function -->
+							  <td data-toggle="modal" data-target="#deleteModal" class="deleteClass" data-id="${listValue.labelNode}"
+							  data-list="<c:forEach var="field" items="${listValue.listFields}">${field.key}:${field.value}*+*+</c:forEach>"><button class="btn-remove"><i class="fas fa-trash-alt"></i></button></td>
+							  <!-- update function -->
+							  <td data-toggle="modal" data-target="#updateModal" class="updateClass" data-id="${listValue.labelNode}" data-labels="${listValue.typeNode }" 
+		      					data-list="<c:forEach var="field" items="${listValue.listFields}">${field.key}:${field.value}*+*+</c:forEach>"><button class="btn-update" ><i class="fas fa-pen"></i></button></td>		
+					      </tr>
+					      </c:forEach>
+					    </tbody>
+						</table>
+					</c:if>
 				</div>
+				<div class = "col-sm-4" id="project">
+					<c:if test="${not empty listProjects}">
+						<h4>List Projects:</h4>
+						<table class="table table-hover table-bordered table-striped">
+						<thead>
+					      <tr>
+					        <th>No</th>
+					        <th class="col-md-1">Name</th>
+					      </tr>
+					    </thead>
+					    <tbody>
+					    <!-- use two-dimensional array to get value of node and field -->
+					      <c:forEach var="listValue" items="${listProjects}" varStatus="count">
+					      <tr>
+							  <td data-toggle="modal" data-target="#ifiModal" class="idClass" data-id="${listValue.labelNode}" 
+		      					data-list="<c:forEach var="field" items="${listValue.listFields}">${field.key}:${field.value}*+*+</c:forEach>">${count.index+1}</td>
+							  <td data-toggle="modal" data-target="#ifiModal" class="idClass" data-id="${listValue.labelNode}" 
+		      					data-list="<c:forEach var="field" items="${listValue.listFields}">${field.key}:${field.value}*+*+</c:forEach>">${listValue.labelNode}</td>
+							 <!-- delete function -->
+							  <td data-toggle="modal" data-target="#deleteModal" class="deleteClass" data-id="${listValue.labelNode}"
+							  data-list="<c:forEach var="field" items="${listValue.listFields}">${field.key}:${field.value}*+*+</c:forEach>"><button class="btn-remove"><i class="fas fa-trash-alt"></i></button></td>
+							  <!-- update function -->
+							  <td data-toggle="modal" data-target="#updateModal" class="updateClass" data-id="${listValue.labelNode}" data-labels="${listValue.typeNode }" 
+		      					data-list="<c:forEach var="field" items="${listValue.listFields}">${field.key}:${field.value}*+*+</c:forEach>"><button class="btn-update" ><i class="fas fa-pen"></i></button></td>		
+					      </tr>
+					      </c:forEach>
+					    </tbody>
+						</table>
+					</c:if>
+				</div>
+				<div class = "col-sm-4" id="technologies">
+					<c:if test="${not empty listTechs}">
+						<h4>List Technologies:</h4>
+						<table class="table table-hover table-bordered table-striped">
+						<thead>
+					      <tr>
+					        <th>No</th>
+					        <th class="col-md-1">Name</th>
+					      </tr>
+					    </thead>
+					    <tbody>
+					    <!-- use two-dimensional array to get value of node and field -->
+					      <c:forEach var="listValue" items="${listTechs}" varStatus="count">
+					      <tr>
+							  <td data-toggle="modal" data-target="#ifiModal" class="idClass" data-id="${listValue.labelNode}" 
+		      					data-list="<c:forEach var="field" items="${listValue.listFields}">${field.key}:${field.value}*+*+</c:forEach>">${count.index+1}</td>
+							  <td data-toggle="modal" data-target="#ifiModal" class="idClass" data-id="${listValue.labelNode}" 
+		      					data-list="<c:forEach var="field" items="${listValue.listFields}">${field.key}:${field.value}*+*+</c:forEach>">${listValue.labelNode}</td>
+							 <!-- delete function -->
+							  <td data-toggle="modal" data-target="#deleteModal" class="deleteClass" data-id="${listValue.labelNode}"
+							  data-list="<c:forEach var="field" items="${listValue.listFields}">${field.key}:${field.value}*+*+</c:forEach>"><button class="btn-remove"><i class="fas fa-trash-alt"></i></button></td>
+							  <!-- update function -->
+							  <td data-toggle="modal" data-target="#updateModal" class="updateClass" data-id="${listValue.labelNode}" data-labels="${listValue.typeNode }" 
+		      					data-list="<c:forEach var="field" items="${listValue.listFields}">${field.key}:${field.value}*+*+</c:forEach>"><button class="btn-update" ><i class="fas fa-pen"></i></button></td>		
+					      </tr>
+					      </c:forEach>
+					    </tbody>
+						</table>
+					</c:if>
+				</div>
+			<!-- Search function -->
+				
 			</div>
 		</div>
 	</div>
