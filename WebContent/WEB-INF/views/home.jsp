@@ -360,22 +360,37 @@
         	var my_id_value = $(this).data('id');
             var list = $(this).data('list');
             var type_node = $(this).data('type');
-           console.log(my_id_value);
-           console.log(list);
-           console.log(type_node);
+            
             $("#name-update-node").text(my_id_value + ' detail');
 
-            var form = document.getElementById("formUpdate");    	    
-          	
- //           var typeNode = document.createElement("input");
-	//		typeNode.setAttribute("type", "text");
-	//		typeNode.setAttribute("name", "typeNode");
-	//		typeNode.setAttribute("id", "typeNode");
+			var body = document.getElementById('update-body');
+			body.innerHTML = "";
+			// create form update
+			var form = document.createElement("form");
+			form.setAttribute("id","formUpdate");
+			form.setAttribute("action","updateNode");
+			form.setAttribute("method","post");
 			
+			var br = document.createElement('br');
+			
+			var submit = document.createElement("input");
+			submit.setAttribute("type","submit");
+			submit.setAttribute("value","Save");
+			form.appendChild(submit);
+			form.appendChild(br);
+			
+			var btn = document.createElement("button");
+			btn.setAttribute("id","addBtn");
+			btn.setAttribute("onclick","addUpdateField()");
+			btn.innerHTML = "Add Field";
 			
             while (list.length > 0){
             	var n = list.indexOf("*+*+");
 				var rowText = list.substring(0, n);
+				var elem = document.createElement('br');
+				elem.setAttribute("id","property-br"+i); 
+				
+				form.appendChild(elem);
 				
                 var m = list.indexOf(":");
 				var x = document.createElement("INPUT");
@@ -398,10 +413,6 @@
 				y.setAttribute("id","property-value"+i);
 				y.setAttribute("value",rowText);
 				
-				
-				var elem = document.createElement('br');
-				elem.setAttribute("id","property-br"+i); 
-				
 				form.appendChild(x);
 				form.appendChild(y);
 				
@@ -415,6 +426,8 @@
 				list = list.substring(n+4, list.length);
 				i++;
             }
+            body.appendChild(form);
+            body.appendChild(btn);
         })
         
         $(".deleteClass").click(function(){
@@ -593,16 +606,7 @@
 	      </div>
 	      <!-- Modal body -->
 	      <div id="update-body" class="modal-body">
-	        	<form id="formUpdate" action="updateNode" method="post">
-					<input type="submit" value="Save"><br>
-					<p>Label</p>
-					<select name="typeNode">
-						<c:forEach var="list" items="${listLabels}">
-							<option value="${list.typeNode }" >${list.typeNode }</option>
-						</c:forEach>
-					</select><br><br>
-				</form>
-				<button id="addBtn" onclick="addUpdateField()">Add Field</button><br>
+	        	
 	      </div>
 	      <!-- Modal footer -->
 	      <div class="modal-footer">
