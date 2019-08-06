@@ -20,8 +20,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-10">
-				<c:if test="${not empty nodeInfo}">
-					<h2> Profile</h2> 
+				<c:if test="${not empty nodeInfo}"> 
 				    <!-- use two-dimensional array to get value of node and field -->
 				    <h4>Individual Information</h4>
 				      <c:forEach var="nodeInfo" items="${nodeInfo}" >
@@ -33,71 +32,78 @@
 				      </c:forEach>			
 				</c:if>
 				<!-- List technologies that person has experience -->
-				 <h4>Technologies</h4>
-				 <table class="table">
-     			 <thead>
-     			 	<tr>
-     			 		<th>Technologies</th>
-     			 		<th>Experience(year)</th>
-     			 	</tr>
-     			 </thead>
-     			 <tbody>
-     			 	 <c:forEach var="listTech" items="${listTech}">
-    					 <c:forEach var="tech" items="${listTech.listFields}">
-    					 	<tr>
-    				 		 <td>${tech.key}</td> <!-- key is technology -->
-    				 		 <td>${tech.value}</td> <!-- value is experience -->
-    				 		</tr>
-    					 </c:forEach>
-     			 	</c:forEach>
-     			 </tbody>
-     			 </table>
+				<c:if test="${not empty listTech}">
+					 <h4>Technologies</h4>
+					 <table class="table">
+	     			 <thead>
+	     			 	<tr>
+	     			 		<th>Technologies</th>
+	     			 		<th>Experience(year)</th>
+	     			 	</tr>
+	     			 </thead>
+	     			 <tbody>
+	     			 	 <c:forEach var="listTech" items="${listTech}">
+	    					 <c:forEach var="tech" items="${listTech.listFields}">
+	    					 	<tr>
+	    				 		 <td>${tech.key}</td> <!-- key is technology -->
+	    				 		 <td>${tech.value}</td> <!-- value is experience -->
+	    				 		</tr>
+	    					 </c:forEach>
+	     			 	</c:forEach>
+	     			 </tbody>
+	     			 </table>
+				</c:if>
     			
      			 <!-- List project that person joined and technologies used in project -->
-     			 <h4>Project</h4>
-     			 <form action="projectDetail" method="get">
-     			 <table class="table">
-     			 <thead>
-     			 	<tr>
-     			 		<th>Project</th>
-     			 		<th>Technologies used</th>
-     			 	</tr>
-     			 </thead>
-     			 <tbody>
-     			 	<c:forEach var="listProject" items="${listProject}">
-     			 		<c:forEach var="pro" items="${listProject.listFields}">	
-     			 			<tr>
-     			 				<td><a href="projectDetail?projectName=${pro.value}">${pro.value}</a></td> <!-- value is project -->
-     			 				<td>${pro.key}</td>	  <!-- key is technology -->
-     			 			</tr>
-     			 		</c:forEach>
-     				 </c:forEach>
-     			 </tbody>
-     			 </table>
-     			 </form>
+     			 <c:if test="${not empty listProject}">
+     			 	<h4>Project</h4>
+		     			<form action="projectDetail" method="get">
+		     			 <table class="table">
+		     			 <thead>
+		     			 	<tr>
+		     			 		<th>Project</th>
+		     			 		<th>Technologies used</th>
+		     			 	</tr>
+		     			 </thead>
+		     			 <tbody>
+		     			 	<c:forEach var="listProject" items="${listProject}">
+		     			 		<c:forEach var="pro" items="${listProject.listFields}">	
+		     			 			<tr>
+		     			 				<td><a href="projectDetail?projectName=${pro.value}">${pro.value}</a></td> <!-- value is project -->
+		     			 				<td>${pro.key}</td>	  <!-- key is technology -->
+		     			 			</tr>
+		     			 		</c:forEach>
+		     				 </c:forEach>
+		     			 </tbody>
+		     			 </table>
+		     			</form>
+     			 </c:if>
      			 
      			 <!-- List technologies that person used in project -->
-				 <h4>Technologies</h4>
-				 <table class="table">
-     			 <thead>
-     			 	<tr>
-     			 		<th>Technologies</th>
-     			 		<th>Project</th>
-     			 		<th>Experience(month)</th>
-     			 	</tr>
-     			 </thead>
-     			 <tbody>
-     			 	 <c:forEach var="listExperience" items="${listExperience}">
-    					 <c:forEach var="exp" items="${listExperience.listFields}">
-    					 	<tr>
-    				 		 <td>${exp.key}</td> <!-- key is technology -->
-    				 		 <td>${listExperience.labelNode }</td>
-    				 		 <td>${exp.value}</td> <!-- value is experience -->
-    				 		</tr>
-    					 </c:forEach>
-     			 	</c:forEach>
-     			 </tbody>
-     			 </table>
+     			 <c:if test="${not empty listExperience}">
+     			 	<h4>Technologies</h4>
+					 <table class="table">
+	     			 <thead>
+	     			 	<tr>
+	     			 		<th>Technologies</th>
+	     			 		<th>Project</th>
+	     			 		<th>Experience(month)</th>
+	     			 	</tr>
+	     			 </thead>
+	     			 <tbody>
+	     			 	 <c:forEach var="listExperience" items="${listExperience}">
+	    					 <c:forEach var="exp" items="${listExperience.listFields}">
+	    					 	<tr>
+	    				 		 <td>${exp.key}</td> <!-- key is technology -->
+	    				 		 <td>${listExperience.labelNode }</td>
+	    				 		 <td>${exp.value}</td> <!-- value is experience -->
+	    				 		</tr>
+	    					 </c:forEach>
+	     			 	</c:forEach>
+	     			 </tbody>
+	     			 </table>
+     			 </c:if>
+				 
 			</div>
 		</div>
 	</div>

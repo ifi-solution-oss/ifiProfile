@@ -196,10 +196,13 @@ public class HomeController {
 		// use servlet to pass data from front end
 		String nameNode = req.getParameter("nameNode");
 		List<Node> nodeInfo = neoService.searchNode(nameNode);
-		
+		//get Person detail
 		List<Node> listTech = neoService.getInfo(nameNode);
 		List<Node> listProject = neoService.getProject(nameNode);
 		List<Node> listExperience = neoService.expTech(nameNode);
+		// get Technology detail
+		
+		// get Project detail
 		neoService.close();
 		
 		ModelAndView modelRet = new ModelAndView("viewProfile");

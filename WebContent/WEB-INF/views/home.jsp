@@ -11,7 +11,10 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
 <link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel = "stylesheet">
+<link href = "https://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css" rel = "stylesheet">
+<link href = "https://cdn.datatables.net/1.10.2/css/jquery.dataTables_themeroller.css" rel = "stylesheet">
 <script src = "https://code.jquery.com/jquery-1.10.2.js"></script>
+<script src = "https://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
 <script src = "https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
@@ -27,23 +30,27 @@
 		<div class="container">
 		<h1>IFI Profile</h1>
 			<div class="row">
-			<div class="col-sm-6">
-				<!-- Search person by name -->
-				<form action="search" id="search" method="post">
-					<input id="myInput" type="text" name="nameNode">
-					<input type="submit" value="Search">
-				</form><br>
+			<!--  -->
+				<div class="col-sm-12">
+					<!-- Search person by name -->
+					<form action="search" id="search" method="post">
+						<input id="myInput" type="text" name="nameNode">
+						<input type="submit" value="Search">
+					</form><br>
+					
+					<!-- View profile -->
 				
-				<!-- View profile -->
-				<form action="viewProfile" method="get" id="profile">
-					<input type="text" name="nameNode">
-					<input type="submit" value="View Profile">
-				</form>
-				
-				<!-- Search person by experience -->
-				<button id="btn-experience">Search Person By Experience</button><br><br>
-			</div>
-				
+					<form action="viewProfile" method="get" id="profile">
+						<input type="text" name="nameNode">
+						<input type="submit" value="View Profile">
+					</form>
+					 
+					<!-- Search person by experience -->
+					<!-- 
+					<button id="btn-experience">Search Person By Experience</button><br><br>
+					 -->
+				</div>
+				<!--  
 				<div class="col-sm-6">
 				<form action="searchByRelation" method="post" id="searchRelation">
 					<select name="typeNode">
@@ -62,11 +69,15 @@
 					<br><input type="submit" value="Search">
 				</form>
 				</div>
-				<div class="col-sm-6">
-				<!-- Create relationship -->
-				<button id="btn-relate">Create Relationship</button>
+				-->
 				
+				<!-- Create relationship -->
+				<!-- 
+				<div class="col-sm-6">
+				<button id="btn-relate">Create Relationship</button>
+				 -->
 				<!-- Add a new node -->
+				<!--
 				<form id="form" action="add" method="post">
 					<br><input type="submit" value="Create Node"><br>
 					<p>Type Node:</p>
@@ -77,10 +88,11 @@
 				</form>
 				<button id="addBtn" onclick="addField()">Add Field</button><br>
 				</div>
+				 -->
 				<div class = "col-sm-4" id="person">
 					<c:if test="${not empty listPersons}">
 						<h4>List Persons:</h4>
-						<table class="table table-hover table-bordered table-striped">
+						<table id="tbl-person" class="table table-hover table-bordered table-striped">
 						<thead>
 					      <tr>
 					        <th>No</th>
@@ -91,15 +103,15 @@
 					    <!-- use two-dimensional array to get value of node and field -->
 					      <c:forEach var="listValue" items="${listPersons}" varStatus="count">
 					      <tr>
-							  <td data-toggle="modal" data-target="#ifiModal" class="idClass" data-id="${listValue.labelNode}" 
+							  <td data-toggle="modal" data-target="#ifiModal" class="idClass" data-id="${listValue.typeNode}" data-type="${listValue.typeNode }"
 		      					data-list="<c:forEach var="field" items="${listValue.listFields}">${field.key}:${field.value}*+*+</c:forEach>">${count.index+1}</td>
 							  <td data-toggle="modal" data-target="#ifiModal" class="idClass" data-id="${listValue.labelNode}" 
 		      					data-list="<c:forEach var="field" items="${listValue.listFields}">${field.key}:${field.value}*+*+</c:forEach>">${listValue.labelNode}</td>
 							 <!-- delete function -->
-							  <td data-toggle="modal" data-target="#deleteModal" class="deleteClass" data-id="${listValue.labelNode}"
+							  <td data-toggle="modal" data-target="#deleteModal" class="deleteClass" data-id="${listValue.labelNode}" data-type="${listValue.typeNode }"
 							  data-list="<c:forEach var="field" items="${listValue.listFields}">${field.key}:${field.value}*+*+</c:forEach>"><button class="btn-remove"><i class="fas fa-trash-alt"></i></button></td>
 							  <!-- update function -->
-							  <td data-toggle="modal" data-target="#updateModal" class="updateClass" data-id="${listValue.labelNode}" data-labels="${listValue.typeNode }" 
+							  <td data-toggle="modal" data-target="#updateModal" class="updateClass" data-id="${listValue.labelNode}" data-type="${listValue.typeNode }"
 		      					data-list="<c:forEach var="field" items="${listValue.listFields}">${field.key}:${field.value}*+*+</c:forEach>"><button class="btn-update" ><i class="fas fa-pen"></i></button></td>		
 					      </tr>
 					      </c:forEach>
@@ -107,6 +119,7 @@
 						</table>
 					</c:if>
 				</div>
+				
 				<div class = "col-sm-4" id="project">
 					<c:if test="${not empty listProjects}">
 						<h4>List Projects:</h4>
@@ -121,15 +134,15 @@
 					    <!-- use two-dimensional array to get value of node and field -->
 					      <c:forEach var="listValue" items="${listProjects}" varStatus="count">
 					      <tr>
-							  <td data-toggle="modal" data-target="#ifiModal" class="idClass" data-id="${listValue.labelNode}" 
+							  <td data-toggle="modal" data-target="#ifiModal" class="idClass" data-id="${listValue.labelNode}" data-type="${listValue.typeNode }"
 		      					data-list="<c:forEach var="field" items="${listValue.listFields}">${field.key}:${field.value}*+*+</c:forEach>">${count.index+1}</td>
 							  <td data-toggle="modal" data-target="#ifiModal" class="idClass" data-id="${listValue.labelNode}" 
 		      					data-list="<c:forEach var="field" items="${listValue.listFields}">${field.key}:${field.value}*+*+</c:forEach>">${listValue.labelNode}</td>
 							 <!-- delete function -->
-							  <td data-toggle="modal" data-target="#deleteModal" class="deleteClass" data-id="${listValue.labelNode}"
+							  <td data-toggle="modal" data-target="#deleteModal" class="deleteClass" data-id="${listValue.labelNode}" data-type="${listValue.typeNode }"
 							  data-list="<c:forEach var="field" items="${listValue.listFields}">${field.key}:${field.value}*+*+</c:forEach>"><button class="btn-remove"><i class="fas fa-trash-alt"></i></button></td>
 							  <!-- update function -->
-							  <td data-toggle="modal" data-target="#updateModal" class="updateClass" data-id="${listValue.labelNode}" data-labels="${listValue.typeNode }" 
+							  <td data-toggle="modal" data-target="#updateModal" class="updateClass" data-id="${listValue.labelNode}" data-type="${listValue.typeNode }" 
 		      					data-list="<c:forEach var="field" items="${listValue.listFields}">${field.key}:${field.value}*+*+</c:forEach>"><button class="btn-update" ><i class="fas fa-pen"></i></button></td>		
 					      </tr>
 					      </c:forEach>
@@ -137,6 +150,7 @@
 						</table>
 					</c:if>
 				</div>
+				
 				<div class = "col-sm-4" id="technologies">
 					<c:if test="${not empty listTechs}">
 						<h4>List Technologies:</h4>
@@ -151,15 +165,15 @@
 					    <!-- use two-dimensional array to get value of node and field -->
 					      <c:forEach var="listValue" items="${listTechs}" varStatus="count">
 					      <tr>
-							  <td data-toggle="modal" data-target="#ifiModal" class="idClass" data-id="${listValue.labelNode}" 
+							  <td data-toggle="modal" data-target="#ifiModal" class="idClass" data-id="${listValue.labelNode}" data-type="${listValue.typeNode }"
 		      					data-list="<c:forEach var="field" items="${listValue.listFields}">${field.key}:${field.value}*+*+</c:forEach>">${count.index+1}</td>
 							  <td data-toggle="modal" data-target="#ifiModal" class="idClass" data-id="${listValue.labelNode}" 
 		      					data-list="<c:forEach var="field" items="${listValue.listFields}">${field.key}:${field.value}*+*+</c:forEach>">${listValue.labelNode}</td>
 							 <!-- delete function -->
-							  <td data-toggle="modal" data-target="#deleteModal" class="deleteClass" data-id="${listValue.labelNode}"
+							  <td data-toggle="modal" data-target="#deleteModal" class="deleteClass" data-id="${listValue.labelNode}" data-type="${listValue.typeNode }"
 							  data-list="<c:forEach var="field" items="${listValue.listFields}">${field.key}:${field.value}*+*+</c:forEach>"><button class="btn-remove"><i class="fas fa-trash-alt"></i></button></td>
 							  <!-- update function -->
-							  <td data-toggle="modal" data-target="#updateModal" class="updateClass" data-id="${listValue.labelNode}" data-labels="${listValue.typeNode }" 
+							  <td data-toggle="modal" data-target="#updateModal" class="updateClass" data-id="${listValue.labelNode}" data-type="${listValue.typeNode }" 
 		      					data-list="<c:forEach var="field" items="${listValue.listFields}">${field.key}:${field.value}*+*+</c:forEach>"><button class="btn-update" ><i class="fas fa-pen"></i></button></td>		
 					      </tr>
 					      </c:forEach>
@@ -305,12 +319,17 @@
         $(".idClass").click(function () {
         	var my_id_value = $(this).data('id');
             var list = $(this).data('list');
+            var type_node = $(this).data('type');
            
             $("#name-node").text(my_id_value + ' detail');
 
             var body = document.getElementById("modal-body");    	    
     	    body.innerHTML = '';
-            
+    	    // create a tag to link node info with viewProfile
+    	    var link = document.createElement('a');
+    	    link.setAttribute('href','viewProfile?nameNode='+my_id_value+'');
+    	    link.innerHTML = 'Span Detail';
+         	
     	    var tbl  = document.createElement('table');
     	    tbl.style.border = '1px solid gray';
     	    var i=0;
@@ -323,7 +342,7 @@
                 var m = list.indexOf(":");
                 td.appendChild(document.createTextNode(rowText.substring(0, m)));
                 td.style.border = '1px solid gray';
-//                 td.style.width  = '100px';
+//              td.style.width  = '100px';
                 rowText = rowText.substring(m+1, rowText.length);
                 var td = tr.insertCell();
                 td.appendChild(document.createTextNode(rowText));
@@ -332,6 +351,7 @@
 				list = list.substring(n+4, list.length);
             }
             body.appendChild(tbl);
+            body.appendChild(link);
         }) 
           
         // update node
@@ -339,10 +359,10 @@
     	 
         	var my_id_value = $(this).data('id');
             var list = $(this).data('list');
-       //     var label = $(this).data('label');
-         //   console.log(label);
+            var type_node = $(this).data('type');
            console.log(my_id_value);
            console.log(list);
+           console.log(type_node);
             $("#name-update-node").text(my_id_value + ' detail');
 
             var form = document.getElementById("formUpdate");    	    
@@ -518,6 +538,7 @@
         	$('#expModal').modal('show');
         })
 	})
+
 	</script>
 	
 	<!-- Autocomplete javascript -->
