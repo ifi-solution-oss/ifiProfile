@@ -85,7 +85,7 @@ public class HomeController {
 	}
 	
 	// Search
-	@RequestMapping(value = "/search", method = RequestMethod.POST)
+	@RequestMapping(value = "/search", method = RequestMethod.GET)
 	public ModelAndView search(HttpServletRequest req){
 		NeoService neoService = new NeoService(Constants.URL_IFI, Constants.USER_IFI, Constants.PASS_IFI);
 		String nameNode = req.getParameter("nameNode");
@@ -237,6 +237,13 @@ public class HomeController {
 
 		modelRet.addObject("personExperience", personExperience);
 		return modelRet;
+	}
+	
+	@RequestMapping(value="/nodeDetail", method = RequestMethod.GET)
+	public ModelAndView nodeDetail(HttpServletRequest req){
+		ModelAndView mav = new ModelAndView("search");
+		
+		return mav;
 	}
 	
 }

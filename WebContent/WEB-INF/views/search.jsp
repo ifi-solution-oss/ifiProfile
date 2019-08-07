@@ -16,6 +16,8 @@
 
 </head>
 <body>
+	<jsp:include page="_header.jsp"></jsp:include>
+	
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-6">
@@ -27,16 +29,18 @@
 							<c:forEach var="field" items="${listValue.listFields}">
 								${field.key} : ${field.value}<br>
 							</c:forEach>
-							<button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo">More Details</button>
-							 <div id="demo" class="collapse">
-							    Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-							    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-							    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-							  </div>
+							<a type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo" href="search?nameNode=${listValue.labelNode}">More Details</a>
 						</c:forEach>
 					</ul>
 				</c:if>
 				</div>
+			<div class="col-sm-6">
+		 	  <div id="demo" class="collapse" style="margin-top: 50px">
+			    Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+			    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+			    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+			  </div>
+			</div>
 		</div>
 	</div>
 </body>

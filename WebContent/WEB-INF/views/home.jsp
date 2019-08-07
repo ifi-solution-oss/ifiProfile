@@ -33,7 +33,7 @@
 			<!--  -->
 				<div class="col-sm-12">
 					<!-- Search person by name -->
-					<form action="search" id="search" method="post">
+					<form action="search" id="search" method="get">
 						<input id="myInput" type="text" name="nameNode">
 						<input type="submit" value="Search">
 					</form><br>
