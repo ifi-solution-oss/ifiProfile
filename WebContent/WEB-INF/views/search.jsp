@@ -9,9 +9,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 
 </head>
 <body>
@@ -19,88 +20,24 @@
 		<div class="row">
 			<div class="col-sm-6">
 				<c:if test="${not empty listSearch}">
-					<h4>List Nodes:</h4>
-					<table class="table table-hover table-bordered table-striped">
-					<thead>
-				      <tr>
-				        <th>No</th>
-				        <th class="col-md-1">Name</th>
-				      </tr>
-				    </thead>
-				    <tbody>
-				    <!-- use two-dimensional array to get value of node and field -->
-				      <c:forEach var="listValue" items="${listSearch}" varStatus="count">
-				      <tr data-toggle="modal" data-target="#ifiModal" class="idClass" data-id="${listValue.labelNode}" 
-	      					data-list="<c:forEach var="field" items="${listValue.listFields}">${field.key}:${field.value}*+*+</c:forEach>">
-						  <td>${count.index+1}</td>
-						  <td>${listValue.labelNode}</td>
-				      </tr>
-				      </c:forEach>
-				    </tbody>
-					</table>
+					<ul>
+						<c:forEach var="listValue" items="${listSearch}">
+						<h3>${listValue.typeNode}</h3>
+							<li>${listValue.labelNode}</li>
+							<c:forEach var="field" items="${listValue.listFields}">
+								${field.key} : ${field.value}<br>
+							</c:forEach>
+							<button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo">More Details</button>
+							 <div id="demo" class="collapse">
+							    Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+							    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+							    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+							  </div>
+						</c:forEach>
+					</ul>
 				</c:if>
 				</div>
 		</div>
-	</div>
-	
-	<script type="text/javascript">
-	$(function () {
-        $(".idClass").click(function () {
-        	var my_id_value = $(this).data('id');
-            var list = $(this).data('list');
-            $("#name-node").text(my_id_value + ' detail');
-
-            var body = document.getElementById("modal-body");    	    
-    	    body.innerHTML = '';
-            
-    	    var tbl  = document.createElement('table');
-    	    tbl.style.border = '1px solid gray';
-    	    
-            while (list.length > 0){
-            	var n = list.indexOf("*+*+");
-				var rowText = list.substring(0, n);
-            	
-            	var tr = tbl.insertRow();
-                var td = tr.insertCell();
-                var m = list.indexOf(":");
-                td.appendChild(document.createTextNode(rowText.substring(0, m)));
-                td.style.border = '1px solid gray';
-//                 td.style.width  = '100px';
-                rowText = rowText.substring(m+1, rowText.length);
-                var td = tr.insertCell();
-                td.appendChild(document.createTextNode(rowText));
-                td.style.border = '1px solid gray';
-
-				list = list.substring(n+4, list.length);
-            }
-            body.appendChild(tbl);
-        })
-    });
-	</script>
-
-	<!-- The Modal -->
-	<div class="modal fade" id="ifiModal">
-	  <div class="modal-dialog modal-dialog-centered">
-	    <div class="modal-content">
-	
-	      <!-- Modal Header -->
-	      <div class="modal-header">
-	        <h4 id="name-node" class="modal-title">Node Detail</h4>
-	        <button type="button" class="close" data-dismiss="modal">&times;</button>
-	      </div>
-	
-	      <!-- Modal body -->
-	      <div id="modal-body" class="modal-body">
-	        <label id="labelNode"></label>
-	      </div>
-	
-	      <!-- Modal footer -->
-	      <div class="modal-footer">
-	        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-	      </div>
-	
-	    </div>
-	  </div>
 	</div>
 </body>
 </html>

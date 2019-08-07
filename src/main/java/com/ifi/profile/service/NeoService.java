@@ -101,7 +101,6 @@ public class NeoService {
         	tmpQuery += ")";
         	String tmpDelete = " DETACH DELETE n";
         	tmpQuery += tmpDelete;
-        	System.out.println("tmpQuery: "+tmpQuery);
     		try(Transaction tx = session.beginTransaction()){
     			tx.run(tmpQuery);
     			tx.success();
@@ -126,8 +125,9 @@ public class NeoService {
         					tmpStr = field.getKey() + ": \'" + field.getValue() + "\',";
         				}
         				tmpQuery += tmpStr;
+        				String str = field.getKey();
         				// condition for selecting a key to break the loop 
-        				if(field.getKey().equals("name")||field.getKey().equals("chargeid")||field.getKey().equals("id")){
+        				if("name".equals(str)||"chargeid".equals(str)||"id".equals(str)){
         					break;
         				}
         			}
@@ -138,7 +138,7 @@ public class NeoService {
         		tmpQuery += "}";
         	}
         	tmpQuery += ")";
-        	String tmpUpdate = "SET ";
+        	String tmpUpdate = " SET ";
         	for (Field field : node.getListFields()){
         		if((field.getKey()!=null)&&(!"".equals(field.getKey()))&&(field.getValue()!=null)){
         			String str = "n." + field.getKey() + "=" + field.getValue() + ",";
@@ -154,7 +154,6 @@ public class NeoService {
         		tmpUpdate = tmpUpdate.substring(0, tmpUpdate.length() - 1);
     		}
         	tmpQuery += tmpUpdate;
-        	System.out.println(tmpQuery);
     		try(Transaction tx = session.beginTransaction()){
     			tx.run(tmpQuery);
     			tx.success();
@@ -861,7 +860,7 @@ public class NeoService {
     		tmpStr +=  " OR n.domain contains" + "\'" + nameNode + "\'";
     		tmpStr +=  " OR n.title contains" + "\'" + nameNode + "\'";
     		tmpQuery += tmpStr;
-    		tmpQuery += "RETURN n AS obj";
+    		tmpQuery += "RETURN distinct labels(n) AS label, n AS obj";
 
        		StatementResult result = session.run(
        				tmpQuery);
@@ -873,7 +872,11 @@ public class NeoService {
     			Record record = result.next();
     			// Values can be extracted from a record by index or name.
     			try {
-    				
+    				// get label
+    				String type = record.get("label").toString();
+                	type = type.replace("[\"","");	
+                	type = type.replace("\"]","");
+    				tmpNode.setTypeNode(type);
     				// add info taken from record to tmpMap
 					Map<String, Object> tmpMap = record.get("obj").asMap();
 					if(tmpMap.get("name") != null){	
@@ -885,7 +888,14 @@ public class NeoService {
 						// create object field and set value for field
 						Field tmpField = new Field();
 						tmpField.setKey(entry.getKey().toString());
-						tmpField.setValue(entry.getValue().toString());
+						String tmpValue = entry.getValue().toString();
+						tmpValue = tmpValue.replace("[","");
+						tmpValue = tmpValue.replace("]","");
+						if("null".equals(tmpValue)){
+							tmpValue = tmpValue.replace("null","");
+							tmpValue += "-----------";
+						}
+						tmpField.setValue(tmpValue);
 						listFields.add(tmpField);
 						
 					}

@@ -108,10 +108,10 @@
 							  <td data-toggle="modal" data-target="#ifiModal" class="idClass" data-id="${listValue.labelNode}" 
 		      					data-list="<c:forEach var="field" items="${listValue.listFields}">${field.key}:${field.value}*+*+</c:forEach>">${listValue.labelNode}</td>
 							 <!-- delete function -->
-							  <td data-toggle="modal" data-target="#deleteModal" class="deleteClass" data-id="${listValue.labelNode}" data-type="${listValue.typeNode }"
+							  <td data-toggle="modal" data-target="#ifiModal" class="deleteClass" data-id="${listValue.labelNode}" data-type="${listValue.typeNode }"
 							  data-list="<c:forEach var="field" items="${listValue.listFields}">${field.key}:${field.value}*+*+</c:forEach>"><button class="btn-remove"><i class="fas fa-trash-alt"></i></button></td>
 							  <!-- update function -->
-							  <td data-toggle="modal" data-target="#updateModal" class="updateClass" data-id="${listValue.labelNode}" data-type="${listValue.typeNode }"
+							  <td data-toggle="modal" data-target="#ifiModal" class="updateClass" data-id="${listValue.labelNode}" data-type="${listValue.typeNode }"
 		      					data-list="<c:forEach var="field" items="${listValue.listFields}">${field.key}:${field.value}*+*+</c:forEach>"><button class="btn-update" ><i class="fas fa-pen"></i></button></td>		
 					      </tr>
 					      </c:forEach>
@@ -139,10 +139,10 @@
 							  <td data-toggle="modal" data-target="#ifiModal" class="idClass" data-id="${listValue.labelNode}" 
 		      					data-list="<c:forEach var="field" items="${listValue.listFields}">${field.key}:${field.value}*+*+</c:forEach>">${listValue.labelNode}</td>
 							 <!-- delete function -->
-							  <td data-toggle="modal" data-target="#deleteModal" class="deleteClass" data-id="${listValue.labelNode}" data-type="${listValue.typeNode }"
+							  <td data-toggle="modal" data-target="#ifiModal" class="deleteClass" data-id="${listValue.labelNode}" data-type="${listValue.typeNode }"
 							  data-list="<c:forEach var="field" items="${listValue.listFields}">${field.key}:${field.value}*+*+</c:forEach>"><button class="btn-remove"><i class="fas fa-trash-alt"></i></button></td>
 							  <!-- update function -->
-							  <td data-toggle="modal" data-target="#updateModal" class="updateClass" data-id="${listValue.labelNode}" data-type="${listValue.typeNode }" 
+							  <td data-toggle="modal" data-target="#ifiModal" class="updateClass" data-id="${listValue.labelNode}" data-type="${listValue.typeNode }" 
 		      					data-list="<c:forEach var="field" items="${listValue.listFields}">${field.key}:${field.value}*+*+</c:forEach>"><button class="btn-update" ><i class="fas fa-pen"></i></button></td>		
 					      </tr>
 					      </c:forEach>
@@ -170,10 +170,10 @@
 							  <td data-toggle="modal" data-target="#ifiModal" class="idClass" data-id="${listValue.labelNode}" 
 		      					data-list="<c:forEach var="field" items="${listValue.listFields}">${field.key}:${field.value}*+*+</c:forEach>">${listValue.labelNode}</td>
 							 <!-- delete function -->
-							  <td data-toggle="modal" data-target="#deleteModal" class="deleteClass" data-id="${listValue.labelNode}" data-type="${listValue.typeNode }"
+							  <td data-toggle="modal" data-target="#ifiModal" class="deleteClass" data-id="${listValue.labelNode}" data-type="${listValue.typeNode }"
 							  data-list="<c:forEach var="field" items="${listValue.listFields}">${field.key}:${field.value}*+*+</c:forEach>"><button class="btn-remove"><i class="fas fa-trash-alt"></i></button></td>
 							  <!-- update function -->
-							  <td data-toggle="modal" data-target="#updateModal" class="updateClass" data-id="${listValue.labelNode}" data-type="${listValue.typeNode }" 
+							  <td data-toggle="modal" data-target="#ifiModal" class="updateClass" data-id="${listValue.labelNode}" data-type="${listValue.typeNode }" 
 		      					data-list="<c:forEach var="field" items="${listValue.listFields}">${field.key}:${field.value}*+*+</c:forEach>"><button class="btn-update" ><i class="fas fa-pen"></i></button></td>		
 					      </tr>
 					      </c:forEach>
@@ -361,9 +361,9 @@
             var list = $(this).data('list');
             var type_node = $(this).data('type');
             
-            $("#name-update-node").text(my_id_value + ' detail');
+            $("#name-node").text(my_id_value + ' detail');
 
-			var body = document.getElementById('update-body');
+			var body = document.getElementById('modal-body');
 			body.innerHTML = "";
 			// create form update
 			var form = document.createElement("form");
@@ -372,13 +372,22 @@
 			form.setAttribute("method","post");
 			
 			var br = document.createElement('br');
-			
+			// create submit button
 			var submit = document.createElement("input");
 			submit.setAttribute("type","submit");
 			submit.setAttribute("value","Save");
 			form.appendChild(submit);
 			form.appendChild(br);
 			
+			var break_type = document.createElement('br');
+			// get label node
+			var type = document.createElement('input');
+			type.setAttribute('name','typeNode');
+			type.setAttribute('value',type_node);
+			type.setAttribute("readonly","readonly");
+			form.appendChild(type);
+			form.appendChild(break_type);
+			// create button link with event onclick
 			var btn = document.createElement("button");
 			btn.setAttribute("id","addBtn");
 			btn.setAttribute("onclick","addUpdateField()");
@@ -395,7 +404,7 @@
                 var m = list.indexOf(":");
 				var x = document.createElement("INPUT");
 				x.setAttribute("value", "");
-				
+				// get key
 				tmpName = "listFields["+i+"].";
 				x.setAttribute("type", "text");
 				x.setAttribute("name", tmpName+"key");
@@ -404,7 +413,7 @@
 				x.setAttribute("readonly","readonly");
 				console.log(x);
                 rowText = rowText.substring(m+1, rowText.length);
-
+				// get value
 				var y = document.createElement("INPUT");
 				y.setAttribute("value", "");
 				tmpName = "listFields["+i+"].";
@@ -433,10 +442,25 @@
         $(".deleteClass").click(function(){
         	var my_id_value = $(this).data('id');
             var list = $(this).data('list');
-     
-            $("#name-delete-node").text(my_id_value + ' detail');
+			var type_node = $(this).data('type');
+            
+            $("#name-node").text(my_id_value + ' detail');
 
-            var form = document.getElementById("formDelete");    	    
+			var body = document.getElementById('modal-body');
+			body.innerHTML = "";
+			// create form update
+			var form = document.createElement("form");
+			form.setAttribute("id","formDelete");
+			form.setAttribute("action","deleteNode");
+			form.setAttribute("method","post");
+			
+			var break_type = document.createElement('br');
+			var type = document.createElement('input');
+			type.setAttribute('name','typeNode');
+			type.setAttribute('value',type_node);
+			type.setAttribute("readonly","readonly");
+			form.appendChild(type);
+			form.appendChild(break_type);	    
 			
             while (list.length > 0){
             	var n = list.indexOf("*+*+");
@@ -475,6 +499,7 @@
             del.setAttribute("type", "submit");
             del.setAttribute("value", "Delete");
             form.appendChild(del);
+            body.appendChild(form);
         })
         
         // create relationship
@@ -591,57 +616,6 @@
 	        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
 	      </div>
 	
-	    </div>
-	  </div>
-	</div>
-	
-		<!-- Modal update -->
-	<div class="modal fade" id="updateModal">
-	  <div class="modal-dialog modal-dialog-centered">
-	    <div class="modal-content">
-	      <!-- Modal Header -->
-	      <div class="modal-header">
-	        <h4 id="name-update-node" class="modal-title">Node Detail</h4>
-	        <button type="button" class="close" data-dismiss="modal">&times;</button>
-	      </div>
-	      <!-- Modal body -->
-	      <div id="update-body" class="modal-body">
-	        	
-	      </div>
-	      <!-- Modal footer -->
-	      <div class="modal-footer">
-	        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-	      </div>
-	    </div>
-	  </div>
-	</div>
-
-	<!-- Modal delete -->
-	<div class="modal fade" id="deleteModal">
-	  <div class="modal-dialog modal-dialog-centered">
-	    <div class="modal-content">
-	      <!-- Modal Header -->
-	      <div class="modal-header">
-	        <h4 id="name-delete-node" class="modal-title">Node Detail</h4>
-	        <button type="button" class="close" data-dismiss="modal">&times;</button>
-	      </div>
-	      <!-- Modal body -->
-	      <div id="delete-body" class="modal-body">
-	        <form id="formDelete" action="deleteNode" method="post">
-	        	<p>Do you want to delete?</p>
-				<p>Label</p>
-					<select name="typeNode">
-						<c:forEach var="list" items="${listLabels}">
-							<option value="${list.typeNode }" >${list.typeNode }</option>
-						</c:forEach>
-					</select><br><br>
-				
-			</form>
-	      </div>
-	      <!-- Modal footer -->
-	      <div class="modal-footer">
-	        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-	      </div>
 	    </div>
 	  </div>
 	</div>
