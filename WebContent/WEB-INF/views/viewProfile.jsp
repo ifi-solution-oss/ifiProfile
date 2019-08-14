@@ -78,32 +78,6 @@
 		     			 </table>
 		     			</form>
      			 </c:if>
-     			 
-     			 <!-- List technologies that person used in project -->
-     			 <c:if test="${not empty listExperience}">
-     			 	<h4>Technologies</h4>
-					 <table class="table">
-	     			 <thead>
-	     			 	<tr>
-	     			 		<th>Technologies</th>
-	     			 		<th>Project</th>
-	     			 		<th>Experience(month)</th>
-	     			 	</tr>
-	     			 </thead>
-	     			 <tbody>
-	     			 	 <c:forEach var="listExperience" items="${listExperience}">
-	    					 <c:forEach var="exp" items="${listExperience.listFields}">
-	    					 	<tr>
-	    				 		 <td>${exp.key}</td> <!-- key is technology -->
-	    				 		 <td>${listExperience.labelNode }</td>
-	    				 		 <td>${exp.value}</td> <!-- value is experience -->
-	    				 		</tr>
-	    					 </c:forEach>
-	     			 	</c:forEach>
-	     			 </tbody>
-	     			 </table>
-     			 </c:if>
-				 
 			</div>
 		</div>
 	</div>

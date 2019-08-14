@@ -90,10 +90,43 @@ public class HomeController {
 		NeoService neoService = new NeoService(Constants.URL_IFI, Constants.USER_IFI, Constants.PASS_IFI);
 		String nameNode = req.getParameter("nameNode");
 		List<Node> lists = neoService.searchNode(nameNode);
-		
+
 		neoService.close();
+		
 		ModelAndView modelRet = new ModelAndView("search");
 		modelRet.addObject("listSearch", lists);
+
+		return modelRet;
+	}
+	
+	// Advance search: View detail
+	@RequestMapping(value = "/viewDetail", method = RequestMethod.GET)
+	public ModelAndView viewDetail(HttpServletRequest req){
+		NeoService neoService = new NeoService(Constants.URL_IFI, Constants.USER_IFI, Constants.PASS_IFI);
+		String nameNode = req.getParameter("nameNode");
+		List<Node> lists = neoService.getNode(nameNode);
+		// Technology detail
+		List<Node> listDetailTechPerson = neoService.techDetail(nameNode);
+		List<Node> listDetailTechProject = neoService.techDetailProjetInfo(nameNode);
+		// Project detail
+		List<Node> listDetailProjectPerson = neoService.projectDetailPerson(nameNode);
+		List<Node> listDetailProjectTech = neoService.projectDetailTech(nameNode);
+		// Person detail
+		List<Node> listTech = neoService.getInfo(nameNode);
+		List<Node> listProject = neoService.getProject(nameNode);
+		neoService.close();
+		
+		ModelAndView modelRet = new ModelAndView("search");
+		modelRet.addObject("node", lists);
+		// tech detail
+		modelRet.addObject("listDetailTechPerson", listDetailTechPerson);
+		modelRet.addObject("listDetailTechProject", listDetailTechProject);
+		// project detail
+		modelRet.addObject("listDetailProjectPerson", listDetailProjectPerson);
+		modelRet.addObject("listDetailProjectTech", listDetailProjectTech);
+		// person detail
+		modelRet.addObject("listTech", listTech);
+		modelRet.addObject("listProject", listProject);
 		return modelRet;
 	}
 
@@ -199,7 +232,6 @@ public class HomeController {
 		//get Person detail
 		List<Node> listTech = neoService.getInfo(nameNode);
 		List<Node> listProject = neoService.getProject(nameNode);
-		List<Node> listExperience = neoService.expTech(nameNode);
 		// get Technology detail
 		
 		// get Project detail
@@ -209,7 +241,6 @@ public class HomeController {
 		modelRet.addObject("listTech", listTech);
 		modelRet.addObject("nodeInfo", nodeInfo);
 		modelRet.addObject("listProject", listProject);
-		modelRet.addObject("listExperience", listExperience);
 		
 		return modelRet;
 	}
@@ -237,13 +268,6 @@ public class HomeController {
 
 		modelRet.addObject("personExperience", personExperience);
 		return modelRet;
-	}
-	
-	@RequestMapping(value="/nodeDetail", method = RequestMethod.GET)
-	public ModelAndView nodeDetail(HttpServletRequest req){
-		ModelAndView mav = new ModelAndView("search");
-		
-		return mav;
 	}
 	
 }

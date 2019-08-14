@@ -308,7 +308,7 @@ public class NeoService {
 //    match (a:Person)-[]->(t:Technology{name:"Java"})
 //    match (t)-[]->(p:Project)
 //    match (a)-[]->(p)
-//    return p, count(p)
+//    return a, count(p)
     public List<Node> getNode(Node node){
     	List<Node> list = new ArrayList<Node>();
     	try(Session session = driver.session()){
@@ -583,7 +583,7 @@ public class NeoService {
     		String str =  "n.name =" + "\'" + personName + "\'";
     		tmpStr += str;
     		tmpStr += "\n MATCH (n)-[r]->(t)";
-    		tmpStr += "\n RETURN t.name AS technologies, r.exp AS experience";
+    		tmpStr += "\n RETURN t.name AS technologies, r.exp AS experience, type(r) as relationship";
     		String tmpQuery = tmpStr;
     	
     		StatementResult result = session.run(tmpQuery);
@@ -592,6 +592,7 @@ public class NeoService {
     			
     			Record record = result.next();
     			try {
+    				tmpNode.setRelation(record.get("relationship").asString());
     				List<Field> listTechs = new ArrayList<Field>();
 					Field tmField = new Field();
 					tmField.setKey(record.get("technologies").asString());
@@ -634,15 +635,16 @@ public class NeoService {
     		String tmpStr = "MATCH (n: Person),(p:Project) WHERE ";
     		String str =  "n.name =" + "\'" + nameNode + "\'";
     		tmpStr += str;
-    		tmpStr += "\n MATCH (n)-[]->(p)";
+    		tmpStr += "\n MATCH (n)-[r]->(p)";
     		tmpStr += "\n MATCH (t: Technology)-[]->(p)";
-    		tmpStr += "\n RETURN p.name AS project, collect(t.name) AS technologies";
+    		tmpStr += "\n RETURN p.name AS project, collect(t.name) AS technologies, type(r) as relationship";
     		String tmpQuery = tmpStr;
     		StatementResult rs = session.run(tmpQuery);
     		while(rs.hasNext()){
     			Node tmpNode = new Node();
     			Record record = rs.next();
     			try {
+    				tmpNode.setRelation(record.get("relationship").asString());
     				// get list project
 					List<Field> listFields = new ArrayList<Field>();
 					Field tmField = new Field();
@@ -685,7 +687,6 @@ public class NeoService {
 //    			}
 //			}
     		tmpStr += "p.name =" + "\'" + projectName + "\'";
-    		
     		tmpStr += " MATCH (n)-[r]->(p)";
     		tmpStr += " RETURN p as project, collect(n.name) as person";
     		String tmpQuery = tmpStr;
@@ -722,70 +723,6 @@ public class NeoService {
     		}
     	}
     	return nodeInfo;
-    }
-    
-    // Advance view profile: calculate the experience of person bases on project
-    public List<Node> expTech(String nameNode){
-    	List<Node> listExp = new ArrayList<Node>();
-    	
-    	try(Session session = driver.session()){
-    		String tmpQuery = "MATCH (n: Person),(t:Technology) WHERE ";
-    		String tmpStr =  "n.name =" + "\'" + nameNode + "\'";
-    		tmpQuery += tmpStr;
-    		tmpQuery += "\n MATCH (t)-[]->(p:Project)";
-    		tmpQuery += "\n MATCH (n)-[r]->(p)";
-    		tmpQuery += "\n RETURN t.name AS technologies,p.name AS project ,r.from AS from, r.to AS to";
-    		StatementResult rs = session.run(tmpQuery);
-    		System.out.println(tmpQuery);
-    		while(rs.hasNext()){
-    			Node tmNode = new Node();
-    			Record record = rs.next();
-    			try {
-    				tmNode.setLabelNode(record.get("project").asString());
-    				List<Field> listTech = new ArrayList<Field>();
-    				Field tmTech = new Field();
-    				tmTech.setKey(record.get("technologies").asString());
-    				listTech.add(tmTech);
-
-    				// get date from database
-					String workFrom = record.get("from").asString();
-					String workTo = record.get("to").toString();
-					workTo = workTo.replaceAll("\"", "");
-					if("null".equals(workTo)){
-						break;
-					}
-					String format = "yyyy-MM-dd";
-					
-					// format date and add date get from database to object date
-					SimpleDateFormat sdf = new SimpleDateFormat(format);
-					Date from = sdf.parse(workFrom);
-					Date to = sdf.parse(workTo);
-					
-					// calculate time between two date (from ... to ...)
-					long diff = Math.abs(to.getTime()-from.getTime());
-					// exchange time between two date to month
-					long month = Math.round(TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS)/30);
-					
-					String totalMonth = Long.toString(month);
-					List<Field> listExpTech = new ArrayList<Field>();
-					Field tmListExp = new Field();
-					tmListExp.setValue(totalMonth);
-					listExpTech.add(tmListExp);
-					
-					List<Field> combinedList = Stream.of(listTech, listExpTech).flatMap(x -> x.stream()).collect(Collectors.toList());
-				//	listTech.addAll(listExpTech);
-				
-					tmNode.setListFields(combinedList);
-					
-				} catch (Exception e) {
-					System.out.println("Error: "+e.getMessage());
-				}
-    			listExp.add(tmNode);
-    			
-    		}
-    	}
-    	
-    	return listExp;
     }
    
     // search person has more than 4 year experience
@@ -855,7 +792,6 @@ public class NeoService {
     		
     	try(Session session = driver.session()){
     		String tmpQuery = "MATCH (n) WHERE ";
-    		
     		String tmpStr =  "n.name contains" + "\'" + nameNode + "\'";
     		tmpStr +=  " OR n.domain contains" + "\'" + nameNode + "\'";
     		tmpStr +=  " OR n.title contains" + "\'" + nameNode + "\'";
@@ -910,7 +846,61 @@ public class NeoService {
     	
     	return list;
     }
-   
+   // get Node(search)
+    public List<Node> getNode(String nameNode){
+    	List<Node> listNode = new ArrayList<Node>();
+    	try(Session session = driver.session()){
+    		String tmpQuery = "MATCH (n) WHERE ";
+    		tmpQuery +=  "n.name =" + "\'" + nameNode + "\'";
+    		tmpQuery += " RETURN distinct labels(n) AS label, n AS obj";
+
+       		StatementResult result = session.run(
+       				tmpQuery);
+       		
+      		// Each Cypher execution returns a stream of records.
+    		while(result.hasNext()){
+    			Node tmpNode = new Node();
+    			
+    			Record record = result.next();
+    			// Values can be extracted from a record by index or name.
+    			try {
+    				// get label
+    				String type = record.get("label").toString();
+                	type = type.replace("[\"","");	
+                	type = type.replace("\"]","");
+    				tmpNode.setTypeNode(type);
+    				// add info taken from record to tmpMap
+					Map<String, Object> tmpMap = record.get("obj").asMap();
+					if(tmpMap.get("name") != null){	
+						tmpNode.setLabelNode(tmpMap.get("name").toString());
+					}
+					List<Field> listFields = new ArrayList<Field>();
+					//Converting to Map.Entry so that we can get key and value separately so Elements can traverse in any order  
+					for(Map.Entry entry:tmpMap.entrySet()){
+						// create object field and set value for field
+						Field tmpField = new Field();
+						tmpField.setKey(entry.getKey().toString());
+						String tmpValue = entry.getValue().toString();
+						tmpValue = tmpValue.replace("[","");
+						tmpValue = tmpValue.replace("]","");
+						if("null".equals(tmpValue)){
+							tmpValue = tmpValue.replace("null","");
+							tmpValue += "-----------";
+						}
+						tmpField.setValue(tmpValue);
+						listFields.add(tmpField);
+						
+					}
+					tmpNode.setListFields(listFields);
+				} catch (Exception e) {
+					System.out.println("Error: "+e.getMessage());
+				}
+    			
+    			listNode.add(tmpNode);
+    		}
+    	}
+    	return listNode;
+    }
     // get list nodes for search function (auto complete)
     public List<Node> autocompleSearch(){
     	List<Node> ret = new ArrayList<Node>();
@@ -947,38 +937,28 @@ public class NeoService {
         return ret;
     }
    
-    // Span detail of Technology: get Person
+    // Span detail of Technology: get Person, show relationship
     // Query: 
-//    match (n:Person),(t:Technology) where t.name = "Java"
+//    match (n:Person),(t:Technology) where t.name contains "Java"
 //    match (n)-[r]->(t)
 //    return n
-    public List<Node> techDetail(String projectName){
+    public List<Node> techDetail(String nameNode){
     	List<Node> list = new ArrayList<Node>();
     	try(Session session = driver.session()){
     		String tmpQery = "MATCH (n:Person),(t:Technology) WHERE ";
-    		tmpQery += "t.name =" + "\'" + projectName + "\'";
-    		tmpQery += " MATCH (n)-[r]->(t) RETURN n.name AS person, r.exp AS experience";
+    		tmpQery += "t.name =" + "\'" + nameNode + "\'";
+    		tmpQery += " MATCH (n)-[r]->(t) RETURN n.name AS person, type(r) as relationship";
     		StatementResult sr = session.run(tmpQery);
     		while(sr.hasNext()){
     			Node tmpPerson = new Node();
     			Record record = sr.next();
     			try {
+    				tmpPerson.setRelation(record.get("relationship").asString());
 					List<Field> listPerson = new ArrayList<Field>();
 					Field fieldPerson = new Field();
-					fieldPerson.setKey(record.get("person").toString());
+					fieldPerson.setKey(record.get("person").asString());
 					listPerson.add(fieldPerson);
 					
-					List<Field> listExperience = new ArrayList<Field>();
-					Field fieldExp = new Field();
-					String exp = record.get("experience").toString();
-					if("NULL".equals(exp)){
-						exp = exp.replace("NULL","");
-						exp += "0";
-					}
-					fieldExp.setValue(exp);
-					listExperience.add(fieldExp);
-					
-					listPerson.addAll(listExperience);
 					tmpPerson.setListFields(listPerson);
 					
 				} catch (Exception e) {
@@ -989,44 +969,91 @@ public class NeoService {
     	}
     	return list;
     }
-    // Span detail of Technology : get Project
-    
-    // Span detail of Project
-    
-    // get list node
-//    public List<Node> getListNode(){
-//    	List<Node> listNode = new ArrayList<Node>();
-//    	try(Session session = driver.session()){
-//    		StatementResult result = session.run("match (n) return  distinct labels(n) AS label, n AS obj");
-//    		while(result.hasNext()){
-//    			Node tmNode = new Node();
-//    			Record record = result.next();
-//    			try {
-//    				String labelNode = record.get("label").asString();
-//    				labelNode = labelNode.replace("[\"","");	
-//    				labelNode = labelNode.replace("\"]","");
-//    				tmNode.setTypeNode(labelNode);
-//					Map<String, Object> tmMap = record.get("obj").asMap();
-//                	if (tmMap.get("name") != null){
-//                		tmNode.setLabelNode(tmMap.get("name").toString());
-//                	}
-//                	List<Field> listFields = new ArrayList<Field>();
-//                	for(Map.Entry entry:tmMap.entrySet()){
-//                		Field tmpField = new Field();
-//                		tmpField.setKey(entry.getKey().toString());
-//                        tmpField.setValue(entry.getValue().toString());
-//                        listFields.add(tmpField);
-//                	}
-//                	tmNode.setListFields(listFields);
-//                } catch (Exception ex) {
-//                	System.out.println("Error:"+ex.getMessage());
-//                }
-//    			listNode.add(tmNode);
-//            }
-//        }
-//        return listNode;
-//    }
-//    
+    // Span detail of Technology : get Project, show relationship
+    public List<Node> techDetailProjetInfo(String nameNode){
+    	List<Node> listProject = new ArrayList<Node>();
+    	try(Session session = driver.session()){
+    		String tmpQery = "MATCH (n:Project),(t:Technology) WHERE ";
+    		tmpQery += "t.name =" + "\'" + nameNode + "\'";
+    		tmpQery += " MATCH (t)-[r]->(n) RETURN n.name AS project, type(r) as relationship";
+    		StatementResult sr = session.run(tmpQery);
+    		while(sr.hasNext()){
+    			Node tmpProject = new Node();
+    			Record record = sr.next();
+    			try {
+    				tmpProject.setRelation(record.get("relationship").asString());
+					List<Field> list = new ArrayList<Field>();
+					Field project = new Field();
+					project.setKey(record.get("project").asString());
+					list.add(project);
+					
+					tmpProject.setListFields(list);
+					
+				} catch (Exception e) {
+					System.out.println("Error: "+e.getMessage());
+				}
+    			listProject.add(tmpProject);
+    		}
+    	}
+    	return listProject;
+    }
+    // Project Detail
+    // Span detail of Project: get Person, show relationship
+    public List<Node> projectDetailPerson(String nameNode){
+    	List<Node> listPersonDetail = new ArrayList<Node>();
+    	try(Session session = driver.session()){
+    		String tmpQery = "MATCH (n:Project),(p:Person) WHERE ";
+    		tmpQery += "n.name =" + "\'" + nameNode + "\'";
+    		tmpQery += " MATCH (p)-[r]->(n) RETURN p.name AS person, type(r) as relationship";
+    		StatementResult sr = session.run(tmpQery);
+    		while(sr.hasNext()){
+    			Node tmpPerson = new Node();
+    			Record record = sr.next();
+    			try {
+    				tmpPerson.setRelation(record.get("relationship").asString());
+					List<Field> list = new ArrayList<Field>();
+					Field person = new Field();
+					person.setKey(record.get("person").asString());
+					list.add(person);
+					
+					tmpPerson.setListFields(list);
+					
+				} catch (Exception e) {
+					System.out.println("Error: "+e.getMessage());
+				}
+    			listPersonDetail.add(tmpPerson);
+    		}
+    	}
+    	return listPersonDetail;
+    }
+    // Span detail of Project: get Technology, show relationship
+    public List<Node> projectDetailTech(String nameNode){
+    	List<Node> listTechDetail = new ArrayList<Node>();
+    	try(Session session = driver.session()){
+    		String tmpQery = "MATCH (n:Project),(t:Technology) WHERE ";
+    		tmpQery += "n.name =" + "\'" + nameNode + "\'";
+    		tmpQery += " MATCH (t)-[r]->(n) RETURN t.name AS person, type(r) as relationship";
+    		StatementResult sr = session.run(tmpQery);
+    		while(sr.hasNext()){
+    			Node tmpTech = new Node();
+    			Record record = sr.next();
+    			try {
+    				tmpTech.setRelation(record.get("relationship").asString());
+					List<Field> listTech = new ArrayList<Field>();
+					Field project = new Field();
+					project.setKey(record.get("person").asString());
+					listTech.add(project);
+					
+					tmpTech.setListFields(listTech);
+					
+				} catch (Exception e) {
+					System.out.println("Error: "+e.getMessage());
+				}
+    			listTechDetail.add(tmpTech);
+    		}
+    	}
+    	return listTechDetail;
+    }
     public void close()
     {
         // Closing a driver immediately shuts down all open connections.
