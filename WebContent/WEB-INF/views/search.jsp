@@ -34,8 +34,9 @@
 					</ul>
 				</div>	
 			</c:if>
-			<!-- get node -->
+
 			<c:if test="${not empty node}">
+			<!-- get node -->
 				<div class="col-sm-4">
 					<ul>
 						<c:forEach var="node" items="${node}">
@@ -48,45 +49,62 @@
 					</ul>
 				</div>
 			</c:if>
-			<!-- Technology detail: List Person has_experience -->
+
 			<c:if test="${not empty listDetailTechPerson}">
+			<!-- Technology detail: List Person has_experience -->
 				<div class="col-sm-4">
 					<ul>
-						<c:forEach var="listPerson" items="${listDetailTechPerson}">
-							<c:forEach var="person" items="${listPerson.listFields}">
-								<a href="search?nameNode=${person.key}">${person.key}</a><br>
+						<c:forEach var="listTechPerson" items="${listDetailTechPerson}">
+						<h3>${listTechPerson.relation}</h3>
+							<c:forEach var="techPerson" items="${listTechPerson.listFields}">
+								<a href="search?nameNode=${techPerson.key}">${techPerson.key}</a><br>
 							</c:forEach>
 						</c:forEach>
 					</ul>
 				</div>
 			</c:if>
-			<!-- Technology detail: List Project used_in -->
 			<c:if test="${not empty listDetailTechProject}">
+			<!-- Technology detail: List Project used_in -->
 				<div class="col-sm-4">
+				<h3>USED_IN</h3>
 					<ul>
-						<c:forEach var="listProject" items="${listDetailTechProject}">
-							<c:forEach var="project" items="${listProject.listFields}">
-								<a href="search?nameNode=${project.key}">${project.key}</a><br>
+						<c:forEach var="listTechProject" items="${listDetailTechProject}">
+							<c:forEach var="techProject" items="${listTechProject.listFields}">
+								<a href="search?nameNode=${techProject.key}">${techProject.key}</a><br>
 							</c:forEach>
 						</c:forEach>
 					</ul>
 				</div>
 			</c:if>
-			<!-- Project detail: List Person work_in -->
+			
 			<c:if test="${not empty listDetailProjectPerson}">
-				<div class="col-sm-4">
+			<!-- Project detail: List Person work_in -->
+				<div class="col-sm-3">
+				<h3>LEAD</h3>
 					<ul>
 						<c:forEach var="listProjectPerson" items="${listDetailProjectPerson}">
 							<c:forEach var="projectPerson" items="${listProjectPerson.listFields}">
-								<a href="search?nameNode=${projectPerson.key}">${projectPerson.key}</a><br>
+								<a href="search?nameNode=${projectPerson.value}">${projectPerson.value} </a><br>
+							</c:forEach>
+						</c:forEach>
+					</ul>
+				</div>
+				<div class="col-sm-3">
+				<h3>WORK_IN</h3>
+					<ul>
+						<c:forEach var="listProjectPerson" items="${listDetailProjectPerson}">
+							<c:forEach var="projectPerson" items="${listProjectPerson.listFields}">
+								<a href="search?nameNode=${projectPerson.key}">${projectPerson.key} </a><br>
 							</c:forEach>
 						</c:forEach>
 					</ul>
 				</div>
 			</c:if>
-			<!-- Project detail: List Technology used_in  -->
+			
 			<c:if test="${not empty listDetailProjectTech}">
-				<div class="col-sm-4">
+			<!-- Project detail: List Technology used_in  -->
+				<div class="col-sm-2">
+				<h3>USED_IN</h3>
 					<ul>
 						<c:forEach var="listProjectTech" items="${listDetailProjectTech}">
 							<c:forEach var="projectTech" items="${listProjectTech.listFields}">
@@ -96,8 +114,9 @@
 					</ul>
 				</div>
 			</c:if>
-			<!-- Person detail: List Technology has_experience  -->
+			
 			<c:if test="${not empty listTech}">
+			<!-- Person detail: List Technology has_experience  -->
 				<div class="col-sm-4">
 					<ul>
 						<c:forEach var="listTech" items="${listTech}">
@@ -108,8 +127,9 @@
 					</ul>
 				</div>
 			</c:if>
-			<!-- Person detail: List Project work_in  -->
+			
 			<c:if test="${not empty listProject}">
+			<!-- Person detail: List Project work_in  -->
 				<div class="col-sm-4">
 					<ul>
 						<c:forEach var="listProject" items="${listProject}">

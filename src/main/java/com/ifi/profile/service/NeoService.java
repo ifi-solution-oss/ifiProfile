@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import org.neo4j.driver.AuthTokens;
 import org.neo4j.driver.Driver;
@@ -953,7 +952,8 @@ public class NeoService {
     			Node tmpPerson = new Node();
     			Record record = sr.next();
     			try {
-    				tmpPerson.setRelation(record.get("relationship").asString());
+    				String rela = record.get("relationship").asString();
+    				tmpPerson.setRelation(rela);
 					List<Field> listPerson = new ArrayList<Field>();
 					Field fieldPerson = new Field();
 					fieldPerson.setKey(record.get("person").asString());
@@ -965,6 +965,7 @@ public class NeoService {
 					System.out.println("Error: "+e.getMessage());
 				}
     			list.add(tmpPerson);
+        		list = list.stream().distinct().collect(Collectors.toList());
     		}
     	}
     	return list;
@@ -998,7 +999,8 @@ public class NeoService {
     	return listProject;
     }
     // Project Detail
-    // Span detail of Project: get Person, show relationship
+
+ // Span detail of Project: get Person, show relationship (test)
     public List<Node> projectDetailPerson(String nameNode){
     	List<Node> listPersonDetail = new ArrayList<Node>();
     	try(Session session = driver.session()){
@@ -1010,13 +1012,28 @@ public class NeoService {
     			Node tmpPerson = new Node();
     			Record record = sr.next();
     			try {
-    				tmpPerson.setRelation(record.get("relationship").asString());
-					List<Field> list = new ArrayList<Field>();
-					Field person = new Field();
-					person.setKey(record.get("person").asString());
-					list.add(person);
-					
-					tmpPerson.setListFields(list);
+    				String rela = record.get("relationship").asString();
+    				tmpPerson.setRelation(rela);
+
+    				List<Field> relaLead = new ArrayList<Field>();
+    				if("LEAD".equals(rela)){
+    					Field personLead = new Field();
+    					String lead = record.get("person").asString();
+    					personLead.setValue(lead);
+    					relaLead.add(personLead);
+    				}
+    				
+    				List<Field> relaWorkIn = new ArrayList<Field>();
+    				if("WORK_IN".equals(rela)){
+   					Field personWorkIn = new Field();
+   					personWorkIn.setKey(record.get("person").asString());
+   					relaWorkIn.add(personWorkIn);
+    				}
+    				
+    				List<Field> allNode = new ArrayList<Field>();
+    				allNode.addAll(relaWorkIn);
+    				allNode.addAll(relaLead);
+					tmpPerson.setListFields(allNode);
 					
 				} catch (Exception e) {
 					System.out.println("Error: "+e.getMessage());

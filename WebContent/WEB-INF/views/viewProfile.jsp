@@ -17,6 +17,8 @@
 
 </head>
 <body>
+	<jsp:include page="_header.jsp"></jsp:include>
+	
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-10">

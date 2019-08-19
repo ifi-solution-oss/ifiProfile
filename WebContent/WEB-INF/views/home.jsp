@@ -28,18 +28,13 @@
 		<!-- Home page -->
 	<div id="Home" class="tabcontent">
 		<div class="container">
-		<h1>IFI Profile</h1>
 			<div class="row">
 			<!--  -->
 				<div class="col-sm-12">
 					<!-- Search person by name -->
-					<form action="search" id="search" method="get">
-						<input id="myInput" type="text" name="nameNode">
-						<input type="submit" value="Search">
-					</form><br>
 					
 					<!-- View profile -->
-				
+					<br><br>
 					<form action="viewProfile" method="get" id="profile">
 						<input type="text" name="nameNode">
 						<input type="submit" value="View Profile">
@@ -579,21 +574,6 @@
 
 	</script>
 	
-	<!-- Autocomplete javascript -->
-
-	<script>
-	$(function(){
-		 var data = []
-		      <c:forEach items="${listNodeForSearch}" var="listValue">
-		     	 <c:forEach var="field" items="${listValue.listFields}">
-		     		data.push("<c:out value="${field.value}"/>");	
-		     	 </c:forEach>
-		      </c:forEach>
-		$("#myInput").autocomplete({
-			source: data
-		});
-	});
-	</script>
 
 	<!-- The Modal -->
 	<div class="modal fade" id="ifiModal">

@@ -21,6 +21,12 @@ public class HomeController {
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
+	
+	@RequestMapping(value= "/home")
+	public String redirect(){
+		return "redirect:home";
+	}
+	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView home() {
 		
@@ -114,6 +120,8 @@ public class HomeController {
 		// Person detail
 		List<Node> listTech = neoService.getInfo(nameNode);
 		List<Node> listProject = neoService.getProject(nameNode);
+		// list node for search function
+		List<Node> listNodeForSearch = neoService.autocompleSearch();
 		neoService.close();
 		
 		ModelAndView modelRet = new ModelAndView("search");
@@ -127,6 +135,8 @@ public class HomeController {
 		// person detail
 		modelRet.addObject("listTech", listTech);
 		modelRet.addObject("listProject", listProject);
+		// list node for search function
+        modelRet.addObject("listNodeForSearch", listNodeForSearch);
 		return modelRet;
 	}
 
@@ -235,13 +245,17 @@ public class HomeController {
 		// get Technology detail
 		
 		// get Project detail
+		
+		// list node for search function
+		List<Node> listNodeForSearch = neoService.autocompleSearch();
 		neoService.close();
 		
 		ModelAndView modelRet = new ModelAndView("viewProfile");
 		modelRet.addObject("listTech", listTech);
 		modelRet.addObject("nodeInfo", nodeInfo);
 		modelRet.addObject("listProject", listProject);
-		
+		// list node for search function
+        modelRet.addObject("listNodeForSearch", listNodeForSearch);
 		return modelRet;
 	}
 	
