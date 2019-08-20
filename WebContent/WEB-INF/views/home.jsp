@@ -41,9 +41,11 @@
 					</form>
 					 
 					<!-- Search person by experience -->
-					<!-- 
+					
 					<button id="btn-experience">Search Person By Experience</button><br><br>
-					 -->
+					
+					<button data-toggle="modal" data-target="#ifiModal" class="addNode">Add new node</button><br><br>
+					
 				</div>
 				<!--  
 				<div class="col-sm-6">
@@ -70,23 +72,11 @@
 				<!-- 
 				<div class="col-sm-6">
 				<button id="btn-relate">Create Relationship</button>
-				 -->
-				<!-- Add a new node -->
-				<!--
-				<form id="form" action="add" method="post">
-					<br><input type="submit" value="Create Node"><br>
-					<p>Type Node:</p>
-					<input type="text" name="typeNode"><br>
-					<p>Label Node:</p>
-					<input type="text" name="labelNode"><br>
-					<p>Properties:</p>
-				</form>
-				<button id="addBtn" onclick="addField()">Add Field</button><br>
 				</div>
 				 -->
 				<div class = "col-sm-4" id="person">
 					<c:if test="${not empty listPersons}">
-						<h4>List Persons:</h4>
+						<h4>List Persons</h4>
 						<table id="tbl-person" class="table table-hover table-bordered table-striped">
 						<thead>
 					      <tr>
@@ -349,6 +339,45 @@
             body.appendChild(link);
         }) 
           
+         // Add new node
+        $(".addNode").click(function () {
+        	var body = document.getElementById('modal-body');
+			body.innerHTML = "";
+        	// create form
+			var form = document.createElement("form");
+			form.setAttribute("id","form");
+			form.setAttribute("action","add");
+			form.setAttribute("method","post");
+			
+			var br = document.createElement('br');
+			// create submit button
+			var submit = document.createElement("input");
+			submit.setAttribute("type","submit");
+			submit.setAttribute("value","Create Node");
+			form.appendChild(submit);
+			form.appendChild(br);
+			// create input label node
+			var type = document.createElement('p');
+			type.innerHTML = "Type Node:";
+			form.appendChild(type);
+			var label = document.createElement('input');
+			label.setAttribute("type","text");
+			label.setAttribute("name","typeNode");
+			form.appendChild(label);
+			// create properties
+			var properties = document.createElement('p');
+			properties.innerHTML = "Properties:";
+			form.appendChild(properties);
+			// create button create properties
+			var btn = document.createElement("button");
+			btn.setAttribute("id","addBtn");
+			btn.setAttribute("onclick","addField()");
+			btn.innerHTML = "Add Field";
+			// add form to modal body
+            body.appendChild(form);
+            body.appendChild(btn);
+        })
+        
         // update node
        $(".updateClass").click(function () {
     	 

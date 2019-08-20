@@ -36,7 +36,7 @@ public class NeoService {
         // Sessions are lightweight and disposable connection wrappers.
         try (Session session = driver.session())
         {
-        	String tmpQuery = "MERGE ("+node.getLabelNode()+" :"+node.getTypeNode();
+        	String tmpQuery = "MERGE (n :"+node.getTypeNode();
         	if((node.getListFields()!=null)&&(!"".equals(node.getListFields()))){
         		tmpQuery += " {";
         		for (Field field : node.getListFields()) {
@@ -965,8 +965,8 @@ public class NeoService {
 					System.out.println("Error: "+e.getMessage());
 				}
     			list.add(tmpPerson);
-        		list = list.stream().distinct().collect(Collectors.toList());
     		}
+    		
     	}
     	return list;
     }
@@ -1015,25 +1015,11 @@ public class NeoService {
     				String rela = record.get("relationship").asString();
     				tmpPerson.setRelation(rela);
 
-    				List<Field> relaLead = new ArrayList<Field>();
-    				if("LEAD".equals(rela)){
-    					Field personLead = new Field();
-    					String lead = record.get("person").asString();
-    					personLead.setValue(lead);
-    					relaLead.add(personLead);
-    				}
-    				
-    				List<Field> relaWorkIn = new ArrayList<Field>();
-    				if("WORK_IN".equals(rela)){
-   					Field personWorkIn = new Field();
-   					personWorkIn.setKey(record.get("person").asString());
-   					relaWorkIn.add(personWorkIn);
-    				}
-    				
-    				List<Field> allNode = new ArrayList<Field>();
-    				allNode.addAll(relaWorkIn);
-    				allNode.addAll(relaLead);
-					tmpPerson.setListFields(allNode);
+    				List<Field> listPerson = new ArrayList<Field>();
+					Field person = new Field();
+					person.setKey(record.get("person").asString());
+					listPerson.add(person);
+					tmpPerson.setListFields(listPerson);
 					
 				} catch (Exception e) {
 					System.out.println("Error: "+e.getMessage());

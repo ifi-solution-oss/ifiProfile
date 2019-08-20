@@ -24,7 +24,7 @@
 				<div class="col-sm-4">
 					<ul>
 						<c:forEach var="listValue" items="${listSearch}">
-						<h3>${listValue.typeNode}</h3>
+						<h4>${listValue.typeNode}</h4>
 							<li>${listValue.labelNode}</li>
 							<c:forEach var="field" items="${listValue.listFields}">
 								${field.key} : ${field.value}<br>
@@ -40,7 +40,7 @@
 				<div class="col-sm-4">
 					<ul>
 						<c:forEach var="node" items="${node}">
-						<h3>${node.typeNode}</h3>
+						<h4>${node.typeNode}</h4>
 							<li>${node.labelNode}</li>
 							<c:forEach var="nodeDetail" items="${node.listFields}">
 								${nodeDetail.key} : ${nodeDetail.value}<br>
@@ -53,9 +53,9 @@
 			<c:if test="${not empty listDetailTechPerson}">
 			<!-- Technology detail: List Person has_experience -->
 				<div class="col-sm-4">
+				<h4>Persons have experience</h4>
 					<ul>
 						<c:forEach var="listTechPerson" items="${listDetailTechPerson}">
-						<h3>${listTechPerson.relation}</h3>
 							<c:forEach var="techPerson" items="${listTechPerson.listFields}">
 								<a href="search?nameNode=${techPerson.key}">${techPerson.key}</a><br>
 							</c:forEach>
@@ -66,7 +66,7 @@
 			<c:if test="${not empty listDetailTechProject}">
 			<!-- Technology detail: List Project used_in -->
 				<div class="col-sm-4">
-				<h3>USED_IN</h3>
+				<h4>Projects use</h4>
 					<ul>
 						<c:forEach var="listTechProject" items="${listDetailTechProject}">
 							<c:forEach var="techProject" items="${listTechProject.listFields}">
@@ -79,18 +79,8 @@
 			
 			<c:if test="${not empty listDetailProjectPerson}">
 			<!-- Project detail: List Person work_in -->
-				<div class="col-sm-3">
-				<h3>LEAD</h3>
-					<ul>
-						<c:forEach var="listProjectPerson" items="${listDetailProjectPerson}">
-							<c:forEach var="projectPerson" items="${listProjectPerson.listFields}">
-								<a href="search?nameNode=${projectPerson.value}">${projectPerson.value} </a><br>
-							</c:forEach>
-						</c:forEach>
-					</ul>
-				</div>
-				<div class="col-sm-3">
-				<h3>WORK_IN</h3>
+				<div class="col-sm-4">
+				<h4>Persons work in project</h4>
 					<ul>
 						<c:forEach var="listProjectPerson" items="${listDetailProjectPerson}">
 							<c:forEach var="projectPerson" items="${listProjectPerson.listFields}">
@@ -103,8 +93,8 @@
 			
 			<c:if test="${not empty listDetailProjectTech}">
 			<!-- Project detail: List Technology used_in  -->
-				<div class="col-sm-2">
-				<h3>USED_IN</h3>
+				<div class="col-sm-4">
+				<h4>Technologies use in project</h4>
 					<ul>
 						<c:forEach var="listProjectTech" items="${listDetailProjectTech}">
 							<c:forEach var="projectTech" items="${listProjectTech.listFields}">
@@ -118,6 +108,7 @@
 			<c:if test="${not empty listTech}">
 			<!-- Person detail: List Technology has_experience  -->
 				<div class="col-sm-4">
+				<h4>Technologies have experience</h4>
 					<ul>
 						<c:forEach var="listTech" items="${listTech}">
 							<c:forEach var="personTech" items="${listTech.listFields}">
@@ -131,6 +122,7 @@
 			<c:if test="${not empty listProject}">
 			<!-- Person detail: List Project work_in  -->
 				<div class="col-sm-4">
+				<h4>Projects worked in</h4>
 					<ul>
 						<c:forEach var="listProject" items="${listProject}">
 							<c:forEach var="personProject" items="${listProject.listFields}">

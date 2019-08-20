@@ -61,7 +61,7 @@ public class HomeController {
 		// connect to Neo4j database
 		NeoService neoService = new NeoService(Constants.URL_IFI, Constants.USER_IFI, Constants.PASS_IFI);
 		
-		if((!"".equals(node.getTypeNode()))&&(node.getTypeNode()!=null)&&(node.getLabelNode()!=null)&&(!"".equals(node.getLabelNode()))){
+		if((!"".equals(node.getTypeNode()))&&(node.getTypeNode()!=null)){
 			neoService.addNode(node);
 		} else {
 			System.out.println("error: node empty");
@@ -238,7 +238,7 @@ public class HomeController {
 		NeoService neoService = new NeoService(Constants.URL_IFI, Constants.USER_IFI, Constants.PASS_IFI);
 		// use servlet to pass data from front end
 		String nameNode = req.getParameter("nameNode");
-		List<Node> nodeInfo = neoService.searchNode(nameNode);
+		List<Node> nodeInfo = neoService.getNode(nameNode);
 		//get Person detail
 		List<Node> listTech = neoService.getInfo(nameNode);
 		List<Node> listProject = neoService.getProject(nameNode);
