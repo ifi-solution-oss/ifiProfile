@@ -46,6 +46,8 @@
 					
 					<button data-toggle="modal" data-target="#ifiModal" class="addNode">Add new node</button><br><br>
 					
+					<button data-toggle="modal" data-target="#ifiModal" class="createRelation">Create relationship</button><br><br>
+					
 				</div>
 				<!--  
 				<div class="col-sm-6">
@@ -67,13 +69,6 @@
 				</form>
 				</div>
 				-->
-				
-				<!-- Create relationship -->
-				<!-- 
-				<div class="col-sm-6">
-				<button id="btn-relate">Create Relationship</button>
-				</div>
-				 -->
 				<div class = "col-sm-4" id="person">
 					<c:if test="${not empty listPersons}">
 						<h4>List Persons</h4>
@@ -527,9 +522,38 @@
         })
         
         // create relationship
-        $(document).on('click','#btn-relate',function(event){
+        $(".createRelation").click(function(){
+        	
+ //       	<form id="formRelate" action="relation" method="get">
+	//		<input class="btn-save" type="submit" value="Create Relationship"><br><br>
+//			<select name="typeNode">
+//				<option value="">Source</option>
+//					<c:forEach var="list" items="${listLabels}">
+//						<option value="${list.typeNode }" >${list.typeNode }</option>
+//					</c:forEach>
+//			</select>
+//			<input type="text" name="relation" placeholder="Enter Relationship">
+//			<select name="typeNode">
+//				<option value="">Destination</option>
+//					<c:forEach var="list" items="${listLabels}">
+//						<option value="${list.typeNode }" >${list.typeNode }</option>
+//					</c:forEach>
+	//		</select>
+			
+	//		<p id="source">Source node: <br></p>
+	//		<p id="destination">Destination node: <br></p>
+	//		<p>Relationship properties</p>
+	//		</form>
+	//		<br><button id="addBtn" onclick="addRelationField()">Add properties</button>
+        	
+			var body = document.getElementById("modal-body");
+			body.innerHTML = "";
+			
         	var j=1;
-        	var form = document.getElementById("formRelate");
+        	var form = document.createElement("form");
+        	form.createElement("id","formRelate");
+        	form.createElement("action","relation");
+        	form.createElement("method","post");
         	
         	var x = document.createElement("INPUT");
     		tmpName = "listFields["+j+"].";
@@ -625,47 +649,6 @@
 	        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
 	      </div>
 	
-	    </div>
-	  </div>
-	</div>
-	
-	<!-- Modal create relationship -->
-	<div class="modal fade" id="relateModal">
-	  <div class="modal-dialog modal-md modal-dialog-centered">
-	    <div class="modal-content">
-	      <!-- Modal Header -->
-	      <div class="modal-header">
-	        <h4 id="name-node" class="modal-title">Add Relationship</h4>
-	        <button type="button" class="close" data-dismiss="modal">&times;</button>
-	      </div>
-	      <!-- Modal body -->
-	      <div id="relate-body" class="modal-body">
-	      	<form id="formRelate" action="relation" method="get">
-				<input class="btn-save" type="submit" value="Create Relationship"><br><br>
-				<select name="typeNode">
-					<option value="">Source</option>
-						<c:forEach var="list" items="${listLabels}">
-							<option value="${list.typeNode }" >${list.typeNode }</option>
-						</c:forEach>
-				</select>
-				<input type="text" name="relation" placeholder="Enter Relationship">
-				<select name="typeNode">
-					<option value="">Destination</option>
-						<c:forEach var="list" items="${listLabels}">
-							<option value="${list.typeNode }" >${list.typeNode }</option>
-						</c:forEach>
-				</select>
-				
-				<p id="source">Source node: <br></p>
-				<p id="destination">Destination node: <br></p>
-				<p>Relationship properties</p>
-			</form>
-				<br><button id="addBtn" onclick="addRelationField()">Add properties</button>
-	      </div>
-	      <!-- Modal footer -->
-	      <div class="modal-footer">
-	        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-	      </div>
 	    </div>
 	  </div>
 	</div>
