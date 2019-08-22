@@ -209,10 +209,22 @@ public class HomeController {
 		
 		neoService.addRelationship(node);
 		List<Node> listLabels = neoService.getLabels();
+		// get list nodes
+		List<Node> listPersons = neoService.getListPerson();
+		List<Node> listProjects = neoService.getListProjects();
+		List<Node> listTechs = neoService.getListTechs();
+		// list node for search function
+		List<Node> listNodeForSearch = neoService.autocompleSearch();
 		neoService.close();
 		
 		ModelAndView modelRet = new ModelAndView("home");
 		modelRet.addObject("listLabels", listLabels);
+		// list nodes
+        modelRet.addObject("listPersons", listPersons);
+        modelRet.addObject("listProjects", listProjects);
+        modelRet.addObject("listTechs", listTechs);
+        // list node for search function
+        modelRet.addObject("listNodeForSearch", listNodeForSearch);
 		return modelRet;
 	}
 	

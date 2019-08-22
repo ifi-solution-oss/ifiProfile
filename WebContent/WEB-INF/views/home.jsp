@@ -42,7 +42,7 @@
 					 
 					<!-- Search person by experience -->
 					
-					<button id="btn-experience">Search Person By Experience</button><br><br>
+					<button data-toggle="modal" data-target="#ifiModal" class="searchExp">Search Person By Experience</button><br><br>
 					
 					<button data-toggle="modal" data-target="#ifiModal" class="addNode">Add new node</button><br><br>
 					
@@ -187,35 +187,6 @@
 		elem.setAttribute("id","property-br"+i); 
 
 		var form = document.getElementById("form");
-		form.appendChild(x);
-		form.appendChild(y);
-		var newlabel = document.createElement("Label");
-	    newlabel.innerHTML = "Delete";
-	    newlabel.setAttribute("onclick","deleteField("+i+")");
-	    newlabel.setAttribute("id","property-label"+i);
-	    form.appendChild(newlabel);
-		form.appendChild(elem);
-		i++;
-	}
-	
-	function addUpdateField() {
-			
-		var x = document.createElement("INPUT");
-		tmpName = "listFields["+i+"].";
-		x.setAttribute("type", "text");
-		x.setAttribute("name", tmpName+"key");
-		x.setAttribute("id","property-key"+i);
-		console.log(x);
-		var y = document.createElement("INPUT");
-		tmpName = "listFields["+i+"].";
-		y.setAttribute("type", "text");
-		y.setAttribute("name", tmpName+"value");
-		y.setAttribute("id","property-value"+i);
-
-		var elem = document.createElement('br');
-		elem.setAttribute("id","property-br"+i); 
-
-		var form = document.getElementById("formUpdate");
 		form.appendChild(x);
 		form.appendChild(y);
 		var newlabel = document.createElement("Label");
@@ -386,7 +357,7 @@
 			body.innerHTML = "";
 			// create form update
 			var form = document.createElement("form");
-			form.setAttribute("id","formUpdate");
+			form.setAttribute("id","form");
 			form.setAttribute("action","updateNode");
 			form.setAttribute("method","post");
 			
@@ -409,7 +380,7 @@
 			// create button link with event onclick
 			var btn = document.createElement("button");
 			btn.setAttribute("id","addBtn");
-			btn.setAttribute("onclick","addUpdateField()");
+			btn.setAttribute("onclick","addField()");
 			btn.innerHTML = "Add Field";
 			
             while (list.length > 0){
@@ -523,38 +494,86 @@
         
         // create relationship
         $(".createRelation").click(function(){
-        	
- //       	<form id="formRelate" action="relation" method="get">
-	//		<input class="btn-save" type="submit" value="Create Relationship"><br><br>
-//			<select name="typeNode">
-//				<option value="">Source</option>
-//					<c:forEach var="list" items="${listLabels}">
-//						<option value="${list.typeNode }" >${list.typeNode }</option>
-//					</c:forEach>
-//			</select>
-//			<input type="text" name="relation" placeholder="Enter Relationship">
-//			<select name="typeNode">
-//				<option value="">Destination</option>
-//					<c:forEach var="list" items="${listLabels}">
-//						<option value="${list.typeNode }" >${list.typeNode }</option>
-//					</c:forEach>
-	//		</select>
-			
-	//		<p id="source">Source node: <br></p>
-	//		<p id="destination">Destination node: <br></p>
-	//		<p>Relationship properties</p>
-	//		</form>
-	//		<br><button id="addBtn" onclick="addRelationField()">Add properties</button>
-        	
 			var body = document.getElementById("modal-body");
 			body.innerHTML = "";
 			
         	var j=1;
+        	// create form
         	var form = document.createElement("form");
-        	form.createElement("id","formRelate");
-        	form.createElement("action","relation");
-        	form.createElement("method","post");
+        	form.setAttribute("id","formRelate");
+        	form.setAttribute("action","relation");
+        	form.setAttribute("method","post");
+        	// create submit button
+        	var submit = document.createElement("input");
+        	submit.setAttribute("type","submit");
+        	submit.setAttribute("value","Create Relationship");
+        	form.appendChild(submit);
         	
+        	var br = document.createElement("br");
+        	// create select tag 
+        	var selectSource = document.createElement("select");
+        	selectSource.setAttribute("name","typeNode");
+        	form.appendChild(selectSource);
+        	form.appendChild(br);
+        	var selectDes = document.createElement("select");
+        	selectDes.setAttribute("name","typeNode");
+        	form.appendChild(selectDes);
+			// get label from database
+        	var label = [];
+			<c:forEach var="list" items="${listLabels}">
+				label.push("<c:out value="${list.typeNode}"/>");
+			</c:forEach>
+			var test = "";
+			var a ;
+			for(a = 0; a < label.length ; a++){
+				test = label[a];
+				console.log(test);
+				var optionLabel = document.createElement("option");
+				optionLabel.setAttribute("value",test);
+				optionLabel.innerHTML = test;
+	        	selectSource.appendChild(optionLabel);
+	        	form.appendChild(selectSource);
+			}
+			// create input tag to enter relationship
+        	var inputRelation = document.createElement("input");
+        	inputRelation.setAttribute("type","text");
+        	inputRelation.setAttribute("name","relation");
+        	inputRelation.setAttribute("placeholder","Enter Relationship");
+        	form.appendChild(inputRelation);
+			for(a = 0; a < label.length ; a++){
+				test = label[a];
+				console.log(test);
+				var desLabel = document.createElement("option");
+				desLabel.setAttribute("value",test);
+				desLabel.innerHTML = test;
+				selectDes.appendChild(desLabel);
+	        	form.appendChild(selectSource);
+			}
+			
+        	
+        	// create tag p for source node
+        	var sourceNode = document.createElement("p");
+        	sourceNode.setAttribute("id","source");
+        	sourceNode.innerHTML = "Source node: <br>";
+        	form.appendChild(sourceNode);
+        	// create tag p for destination node
+        	var desNode = document.createElement("p");
+        	desNode.setAttribute("id","destination");
+        	desNode.innerHTML = "Destination node: <br>";
+        	form.appendChild(desNode);
+        	// create tag p for relationship properties
+        	var pro = document.createElement("p");
+        	pro.innerHTML = "Relationship properties <br>";
+        	form.appendChild(pro);
+        	// create button to add properties for relationship
+        	var btn = document.createElement("button");
+        	btn.setAttribute("id","addBtn");
+        	btn.setAttribute("onclick","addRelationField()");
+        	btn.innerHTML = "Add Properties";
+        	body.appendChild(form);
+        	body.appendChild(btn);
+        	
+        	// create input for source node and destination node
         	var x = document.createElement("INPUT");
     		tmpName = "listFields["+j+"].";
     		x.setAttribute("type", "text");
@@ -597,13 +616,33 @@
     		destination.appendChild(y);
     		j++;
     		i++;
-        	$('#relateModal').modal('show');
         })
         
         // search person by experience
-        $("#btn-experience").click(function (){
-        	var form = document.getElementById("searchByExp");
+       $(".searchExp").click(function (){
+        	var body = document.getElementById("modal-body");
+			body.innerHTML = "";
+			// create form
+        	var form = document.createElement("form");
+        	form.setAttribute("id","form");
+        	form.setAttribute("action","personExperience");
+        	form.setAttribute("method","get");
+
+        	var year = document.createElement("p");
+        	year.setAttribute("id","yearExp");
+        	year.innerHTML = "Year Experience <br>";
+        	form.appendChild(year);
         	
+        	var tech = document.createElement("p");
+        	tech.setAttribute("id","techName");
+        	tech.innerHTML = "Technology <br>";
+        	form.appendChild(tech);
+        	// create submit button
+          	var submit = document.createElement("input");
+        	submit.setAttribute("type","submit");
+        	submit.setAttribute("value","Search");
+        	form.appendChild(submit);
+        	body.appendChild(form);
         	var yearExp = document.getElementById("yearExp");
         	var techName = document.getElementById("techName");
         	
@@ -620,8 +659,6 @@
     		y.setAttribute("name", tmpName+"value");
     		y.setAttribute("id","property-value"+i);
 			techName.appendChild(y);
-    		
-        	$('#expModal').modal('show');
         })
 	})
 
@@ -649,31 +686,6 @@
 	        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
 	      </div>
 	
-	    </div>
-	  </div>
-	</div>
-	
-	<!-- Modal search person by experience -->
-	<div class="modal fade" id="expModal">
-	  <div class="modal-dialog modal-dialog-centered">
-	    <div class="modal-content">
-	      <!-- Modal Header -->
-	      <div class="modal-header">
-	        <h4 id="name-node" class="modal-title">Search Person By Experience</h4>
-	        <button type="button" class="close" data-dismiss="modal">&times;</button>
-	      </div>
-	      <!-- Modal body -->
-	      <div id="experience" class="modal-body">
-	         <form id="searchByExp" action="personExperience" method="get">
-	         	<p id="yearExp">Year Experience <br></p>
-	         	<p id="techName">Technology <br></p>
-	         	<input type="submit" value="Search">
-	         </form>
-	      </div>
-	      <!-- Modal footer -->
-	      <div class="modal-footer">
-	        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-	      </div>
 	    </div>
 	  </div>
 	</div>
