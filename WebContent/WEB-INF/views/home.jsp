@@ -227,36 +227,36 @@
 		i++;
 	}
 	
+	var j = 2;
 	function addRelationField() {
-		var i = 2;
 		var x = document.createElement("INPUT");
-		tmpName = "listFields["+i+"].";
+		tmpName = "listFields["+j+"].";
 		x.setAttribute("type", "text");
 		x.setAttribute("name", tmpName+"key");
-		x.setAttribute("id","property-key"+i);
+		x.setAttribute("id","property-key"+j);
 		//x.setAttribute("placeholder", "Choose name/id/chargeid");
 		
 		
 		var y = document.createElement("INPUT");
-		tmpName = "listFields["+i+"].";
+		tmpName = "listFields["+j+"].";
 		y.setAttribute("type", "text");
 		y.setAttribute("name", tmpName+"value");
-		y.setAttribute("id","property-value"+i);
+		y.setAttribute("id","property-value"+j);
 		//y.setAttribute("placeholder", "Enter name/id/chargeid of node")
 		
 		var elem = document.createElement('br');
-		elem.setAttribute("id","property-br"+i); 
+		elem.setAttribute("id","property-br"+j); 
  
 		var form = document.getElementById("formRelate");
 		form.appendChild(x);
 		form.appendChild(y);
 		var newlabel = document.createElement("Label");
 	    newlabel.innerHTML = "Delete";
-	    newlabel.setAttribute("onclick","deleteField("+i+")");
-	    newlabel.setAttribute("id","property-label"+i);
+	    newlabel.setAttribute("onclick","deleteField("+j+")");
+	    newlabel.setAttribute("id","property-label"+j);
 	    form.appendChild(newlabel);
 		form.appendChild(elem);
-		i++;
+		j++;
 	}
 	
 	function deleteField(i) {

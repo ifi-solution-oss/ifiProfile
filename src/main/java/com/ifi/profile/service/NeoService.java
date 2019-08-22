@@ -760,7 +760,7 @@ public class NeoService {
     				Node tmpNode = new Node();
     				Record record = rs.next();
     				try {
-						tmpNode.setLabelNode(record.get("nameNode").asString());
+						tmpNode.setLabelNode(record.get("personName").asString());
 
 						List<Field> listExperience = new ArrayList<Field>();
 						Field tmpExp = new Field();
