@@ -96,17 +96,22 @@ public class HomeController {
 		NeoService neoService = new NeoService(Constants.URL_IFI, Constants.USER_IFI, Constants.PASS_IFI);
 		String nameNode = req.getParameter("nameNode");
 		List<Node> lists = neoService.searchNode(nameNode);
-
+		// list node for search function
+		List<Node> listNodeForSearch = neoService.autocompleSearch();
+		// list label
+		List<Node> listLabels = neoService.getLabels();
 		neoService.close();
 		
 		ModelAndView modelRet = new ModelAndView("search");
 		modelRet.addObject("listSearch", lists);
-
+		modelRet.addObject("listNodeForSearch", listNodeForSearch);
+        // list label
+        modelRet.addObject("listLabels", listLabels);
 		return modelRet;
 	}
 	
 	// Advance search: View detail
-	@RequestMapping(value = "/viewDetail", method = RequestMethod.GET)
+	@RequestMapping(value = "/nodeDetail", method = RequestMethod.GET)
 	public ModelAndView viewDetail(HttpServletRequest req){
 		NeoService neoService = new NeoService(Constants.URL_IFI, Constants.USER_IFI, Constants.PASS_IFI);
 		String nameNode = req.getParameter("nameNode");

@@ -845,6 +845,15 @@ public class NeoService {
     	
     	return list;
     }
+    // search function: get project use technology
+    public List<Node> getNodeByRelation(String nameNode){
+    	List<Node> list = new ArrayList<Node>();
+    	try(Session session = driver.session()){
+    		
+    	}
+    	
+    	return list;
+    }
    // get Node(search)
     public List<Node> getNode(String nameNode){
     	List<Node> listNode = new ArrayList<Node>();

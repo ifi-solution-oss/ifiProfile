@@ -20,6 +20,28 @@
 	
 	<div class="container">
 		<div class="row">
+			<c:if test="${not empty listLabels}">
+				<div class="col-sm-12">
+					<table class="table">
+						<c:forEach var="listLabels" items="${listLabels}">
+							<tr>
+								<th>${listLabels.typeNode}</th>
+								<td>
+									<c:forEach var="listValue" items="${listSearch}">
+											<p>${listValue.labelNode}</p>
+											<c:forEach var="field" items="${listValue.listFields}">
+												${field.key} : ${field.value}<br>
+											</c:forEach>
+										<a href="nodeDetail?nameNode=${listValue.labelNode}">View more information</a>
+									</c:forEach>
+								</td>
+							</tr>
+						</c:forEach>
+						
+					</table>
+				</div>	
+			</c:if>
+			
 			<c:if test="${not empty listSearch}">
 				<div class="col-sm-4">
 					<ul>
@@ -29,7 +51,7 @@
 							<c:forEach var="field" items="${listValue.listFields}">
 								${field.key} : ${field.value}<br>
 							</c:forEach>
-						<a href="viewDetail?nameNode=${listValue.labelNode}">View more information</a>
+						<a href="nodeDetail?nameNode=${listValue.labelNode}">View more information</a>
 						</c:forEach>
 					</ul>
 				</div>	
