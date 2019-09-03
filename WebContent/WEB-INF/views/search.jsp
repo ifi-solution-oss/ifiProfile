@@ -13,6 +13,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 
 </head>
 <body>
@@ -20,40 +21,23 @@
 	
 	<div class="container">
 		<div class="row">
-			<c:if test="${not empty listLabels}">
+
+			<c:if test="${not empty listSearch}">
 				<div class="col-sm-12">
 					<table class="table">
-						<c:forEach var="listLabels" items="${listLabels}">
+						<c:forEach var="listValue" items="${listSearch}">
 							<tr>
-								<th>${listLabels.typeNode}</th>
+								<th>${listValue.typeNode}</th>
 								<td>
-									<c:forEach var="listValue" items="${listSearch}">
-											<p>${listValue.labelNode}</p>
-											<c:forEach var="field" items="${listValue.listFields}">
-												${field.key} : ${field.value}<br>
-											</c:forEach>
-										<a href="nodeDetail?nameNode=${listValue.labelNode}">View more information</a>
+									<p>${listValue.labelNode}</p>
+									<c:forEach var="field" items="${listValue.listFields}">
+										${field.key} : ${field.value}<br>
 									</c:forEach>
+								<a href="nodeDetail?nameNode=${listValue.labelNode}">View more information</a><br><br>
 								</td>
 							</tr>
 						</c:forEach>
-						
 					</table>
-				</div>	
-			</c:if>
-			
-			<c:if test="${not empty listSearch}">
-				<div class="col-sm-4">
-					<ul>
-						<c:forEach var="listValue" items="${listSearch}">
-						<h4>${listValue.typeNode}</h4>
-							<li>${listValue.labelNode}</li>
-							<c:forEach var="field" items="${listValue.listFields}">
-								${field.key} : ${field.value}<br>
-							</c:forEach>
-						<a href="nodeDetail?nameNode=${listValue.labelNode}">View more information</a>
-						</c:forEach>
-					</ul>
 				</div>	
 			</c:if>
 
@@ -153,6 +137,13 @@
 						</c:forEach>
 					</ul>
 				</div>
+			</c:if>
+			
+			<c:if test="${not empty listDetailTechPerson}">
+			<!-- Chart show person have relation with technology -->
+			<div class="col-sm-12" class="chart-container" style="position: relative">
+				<canvas id="personCharr" aria-label="Person Chart"></canvas>
+			</div>
 			</c:if>
 		</div>
 	</div>
