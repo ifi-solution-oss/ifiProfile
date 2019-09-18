@@ -21,7 +21,7 @@ public class feature6 {
 
 	 	@Given ("^user in local host$")
 	 		public void user_in_local_host(){
-	 		System.setProperty("webdriver.chrome.driver","D:\\chromedriver.exe");
+	 		System.setProperty("webdriver.chrome.driver","E:\\chromedriver.exe");
 			driver = new ChromeDriver();
 			driver.get("http://localhost:8080/ifi-profile-neo4j");	
 	 		}

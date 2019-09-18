@@ -4,19 +4,22 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="src" path="Features"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry kind="lib" path="D:/Eclipse Project Plugin and libs/gherkin-2.12.2.jar"/>
-	<classpathentry kind="lib" path="D:/Eclipse Project Plugin and libs/hamcrest-core-1.3.jar"/>
 	<classpathentry kind="lib" path="D:/Eclipse Project Plugin and libs/cobertura-2.1.1.jar"/>
-	<classpathentry kind="lib" path="D:/Eclipse Project Plugin and libs/cucumber-jvm-deps-1.0.3.jar"/>
-	<classpathentry kind="lib" path="D:/Eclipse Project Plugin and libs/junit-4.11.jar"/>
-	<classpathentry kind="lib" path="D:/Eclipse Project Plugin and libs/selenium-chrome-driver-3.141.59.jar"/>
-	<classpathentry kind="lib" path="D:/Eclipse Project Plugin and libs/selenium-server-3.5.3.jar"/>
-	<classpathentry kind="lib" path="D:/Eclipse Project Plugin and libs/selenium-remote-driver-3.141.59.jar"/>
-	<classpathentry kind="lib" path="D:/Eclipse Project Plugin and libs/cucumber-html-0.2.6.jar"/>
-	<classpathentry kind="lib" path="D:/Eclipse Project Plugin and libs/selenium-server-standalone-3.141.59.jar"/>
-	<classpathentry kind="lib" path="C:/Users/PCT532/Downloads/cucumber-junit-1.2.2.jar"/>
-	<classpathentry kind="lib" path="C:/Users/PCT532/Downloads/cucumber-java-1.2.2.jar"/>
-	<classpathentry kind="lib" path="C:/Users/PCT532/Downloads/cucumber-core-1.2.2.jar"/>
-	<classpathentry kind="lib" path="C:/Users/PCT532/Downloads/hamcrest-library-2.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/DELL/Downloads/cucumber-core-1.2.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/DELL/Downloads/cucumber-html-0.2.6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/DELL/Downloads/cucumber-java-1.2.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/DELL/Downloads/cucumber-junit-1.2.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/DELL/Downloads/guava-28.0-jre.jar"/>
+	<classpathentry kind="lib" path="C:/Users/DELL/Downloads/selenium-java-3.141.59.jar"/>
+	<classpathentry kind="lib" path="C:/Users/DELL/Downloads/selenium-server-standalone-3.141.59.jar"/>
+	<classpathentry kind="lib" path="D:/projectGherkin/Eclipse Project Plugin and libs/cucumber-jvm-deps-1.0.3.jar"/>
+	<classpathentry kind="lib" path="D:/projectGherkin/Eclipse Project Plugin and libs/gherkin-2.12.2.jar"/>
+	<classpathentry kind="lib" path="D:/projectGherkin/Eclipse Project Plugin and libs/junit-4.11.jar"/>
+	<classpathentry kind="lib" path="D:/projectGherkin/Eclipse Project Plugin and libs/selenium-chrome-driver-3.141.59.jar"/>
+	<classpathentry kind="lib" path="D:/projectGherkin/Eclipse Project Plugin and libs/hamcrest-core-1.3.jar"/>
+	<classpathentry kind="lib" path="D:/projectGherkin/Eclipse Project Plugin and libs/selenium-remote-driver-3.141.59.jar"/>
+	<classpathentry kind="lib" path="D:/projectGherkin/Eclipse Project Plugin and libs/selenium-server-standalone-2.53.0.jar"/>
+	<classpathentry kind="lib" path="D:/projectGherkin/Eclipse Project Plugin and libs/selenium-server-3.5.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/DELL/Downloads/hamcrest-library-2.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

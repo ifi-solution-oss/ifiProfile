@@ -48,4 +48,6 @@ Feature: Profile checking
     |Ngo Vu Hoa|
     |Phan Charles|
     |Tran Van Khanh|
+    |Tran Van Khanh|
+    |Huynh Van A|
     

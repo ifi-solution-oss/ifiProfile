@@ -31,9 +31,9 @@ public class LoginFeatureDefinition {
 		    return randomString;        
 		}*/
 	
-			@Given ("^a node at local api$")
+		@Given ("^a node at local api$")
 			public void a_node_at_local_api() throws Throwable {
-				System.setProperty("webdriver.chrome.driver","D:\\chromedriver.exe");
+				System.setProperty("webdriver.chrome.driver","E:\\chromedriver.exe");
 				driver = new ChromeDriver();
 				driver.get("http://localhost:8080/ifi-profile-neo4j");
 				driver.manage().window().maximize();
@@ -114,9 +114,9 @@ public class LoginFeatureDefinition {
 			    //System.out.println("Number of elements:" +elements.getSize());
 			}
 			
-			@After()
+			/*@After()
 		     public void closeBrowser() throws Throwable {
 		      driver.close();
-		    }
+		    }**/
 			
 	}

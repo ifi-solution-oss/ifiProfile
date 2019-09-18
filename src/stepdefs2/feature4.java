@@ -22,7 +22,7 @@ public class feature4 {
 			
 			@Given ("^in home page$")
 			public void in_home_page()  {
-			System.setProperty("webdriver.chrome.driver","D:\\chromedriver.exe");
+				System.setProperty("webdriver.chrome.driver","E:\\chromedriver.exe");
 			driver = new ChromeDriver();
 			driver.get("http://localhost:8080/ifi-profile-neo4j");	
 			driver.manage().window().maximize();
@@ -30,12 +30,12 @@ public class feature4 {
 	
 			@When ("^user input the profile target ([^\"]*)$")
 			public void user_input_the_profile_target_name(String name)  {
-			driver.findElement(By.xpath("/html/body/div[3]/div/div/div[1]/form[2]/div/input")).sendKeys(name);
+			driver.findElement(By.xpath("//span[@class='ui-helper-hidden-accessible']/following-sibling::input[1]")).sendKeys(name);
 			}
 		
 			@Then ("^press search at button$")
 			public void press_search_at_button ()  {
-				driver.findElement(By.xpath("/html/body/div[3]/div/div/div[1]/form[2]/input")).click();
+				driver.findElement(By.xpath("//*[@id='profile']/input[2]")).click();
 			}
 		
 			@Then ("^check box at the new webpage$")

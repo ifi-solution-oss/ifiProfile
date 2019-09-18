@@ -22,7 +22,7 @@ public class relationshipSteps {
 					
 					@Given ("^enter relationship$")
 					public void  enter_relationship() throws Throwable {
-						System.setProperty("webdriver.chrome.driver","D:\\chromedriver.exe");
+						System.setProperty("webdriver.chrome.driver","E:\\chromedriver.exe");
 						driver = new ChromeDriver();
 						driver.get("http://localhost:8080/ifi-profile-neo4j");
 						driver.manage().window().maximize();

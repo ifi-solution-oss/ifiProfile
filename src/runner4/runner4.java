@@ -6,7 +6,7 @@ import cucumber.api.junit.Cucumber;
 
 
 @RunWith(Cucumber.class)
-@CucumberOptions(features="Feature4",glue= {"stepdefs2"},
+@CucumberOptions(features="E://projectGherkin/Gherkins/ifiProfile/Feature4",glue= {"stepdefs2"},
 				monochrome = true,
 				strict = true,
 				format={"pretty","html:test-outout"},
